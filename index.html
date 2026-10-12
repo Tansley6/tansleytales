@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Tansley Tales</title>
+<meta name="description" content="Stories for children, with a dyslexia-friendly version of every story.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Lexend:wght@300;400;600&display=swap">
+<style>
+/* Layout: a night-sky masthead over a warm paper reading area; one column, story text held to a short line. */
+:root{
+  --night:#16213f;        /* masthead sky, from the banner */
+  --night-2:#223063;
+  --gold:#f3c969;         /* storybook glow */
+  --cream:#fbf6ea;        /* page background */
+  --paper:#fffdf7;        /* cards and reading sheet */
+  --ink:#27263a;          /* body text, softer than black */
+  --muted:#5f5d74;
+  --lavender:#d9cdef;
+  --peach:#f5cdb6;
+  --line:#e7dfcc;
+  --focus:#7a5cc4;
+  --dys-bg:#fdf5e1;       /* dyslexia mode reading sheet */
+  --shout:#8f5a00;        /* loud words (ROOOAAAR!, WHOOSH!), the gold of the print book made dark enough to read */
+  --pic-paper:#faf3e1;    /* the cream paper the pictures are painted on; the same in both themes */
+  --font-display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --font-body:"Lexend","Verdana",system-ui,sans-serif;
+  --step-0:1.05rem; --step-1:1.3rem; --step-2:1.7rem; --step-3:2.4rem;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --cream:#131a33; --paper:#1b2446; --ink:#f1ecdf; --muted:#b9b4cc; --line:#2f3a66;
+  --lavender:#3b3570; --peach:#5a3d3a; --dys-bg:#241f1a; --focus:#c8b6ff; --shout:#f3c969; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --cream:#131a33; --paper:#1b2446; --ink:#f1ecdf; --muted:#b9b4cc; --line:#2f3a66;
+  --lavender:#3b3570; --peach:#5a3d3a; --dys-bg:#241f1a; --focus:#c8b6ff; --shout:#f3c969; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--cream);color:var(--ink);font-family:var(--font-body);font-size:var(--step-0);line-height:1.7;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.2;text-wrap:balance;margin:0}
+
+/* masthead */
+.sky{background:radial-gradient(120% 90% at 50% 110%,#3a3a78 0%,var(--night-2) 45%,var(--night) 100%);color:#fbf1d6;position:relative;overflow:hidden}
+.sky canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.bar{position:relative;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;max-width:1080px;margin:0 auto;padding:18px 20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-size:1.5rem;font-weight:600;color:var(--gold)}
+.brand img{display:block;width:48px;height:48px;border-radius:50%;box-shadow:0 0 0 2px rgba(243,201,105,.55)}  /* the Tansley Tales picture, the same one as the YouTube channel */
+nav{display:flex;flex-wrap:wrap;gap:4px}
+nav a{text-decoration:none;padding:8px 14px;border-radius:999px;font-size:1rem;color:#efe8d6}
+nav a[aria-current="page"]{background:rgba(243,201,105,.18);color:var(--gold)}
+.hero{position:relative;max-width:1080px;margin:0 auto;padding:28px 20px 56px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px 40px}
+.hero-text{display:grid;gap:18px;min-width:0}
+.hero-pic{display:block;width:clamp(170px,22vw,250px);height:auto;aspect-ratio:1;max-width:100%;border-radius:50%;box-shadow:0 0 0 4px rgba(243,201,105,.4),0 0 70px rgba(243,201,105,.28)}
+@media (max-width:700px){ .hero{grid-template-columns:minmax(0,1fr)} .hero-pic{display:none} }  /* on phones the picture is already in the top bar */
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem);color:#fff4d4}
+.hero p{max-width:34ch;font-size:var(--step-1);color:#e6dfcf;margin:0;font-weight:300}
+.hero .cta{justify-self:start}
+
+.btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:600;border:0;cursor:pointer;text-decoration:none;border-radius:999px;padding:12px 22px;background:var(--gold);color:#241c05}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn[aria-pressed="true"]{background:var(--lavender);color:var(--ink);border-color:transparent}
+.btn[disabled]{opacity:.4;cursor:default}
+
+main{max-width:1080px;margin:0 auto;padding:40px 20px 72px;display:grid;gap:48px}
+.section-head{display:grid;gap:6px}
+.section-head h2{font-size:var(--step-2)}
+.section-head p{margin:0;color:var(--muted)}
+
+/* shelves */
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.book{display:grid;grid-template-rows:auto 1fr;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;min-width:0}
+.cover{aspect-ratio:4/3;max-width:100%;display:grid;place-items:center;font-family:var(--font-display);font-size:1.25rem;text-align:center;padding:16px;color:#2a2440}
+.cover.has-img{padding:0;background:var(--pic-paper)}
+.cover.has-img img{display:block;width:100%;height:100%;object-fit:cover}
+.book .info{padding:14px 16px 18px;display:grid;gap:6px;align-content:start}
+.book h3{font-size:1.2rem}
+.meta{display:flex;flex-wrap:wrap;gap:6px;font-size:.85rem;color:var(--muted)}
+.tag{background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.soon{font-size:.85rem;font-weight:600;color:var(--muted)}
+.book[href]:hover .cover{filter:brightness(1.05)}
+.book:not([href]){opacity:.82}
+
+.promise{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.promise div{display:grid;gap:4px}
+.promise h3{font-size:1.15rem}
+.promise p{margin:0;color:var(--muted)}
+
+/* reader */
+.reader{display:grid;gap:24px}
+.reader-head{display:grid;gap:10px}
+.reader-head h1{font-size:var(--step-3)}
+/* the credit under a story title: brand line, who made and reads it, and the plain AI line (credit policy, 9 Oct 2026) */
+.credit{margin:0;display:grid;gap:2px;max-width:48ch}
+.credit strong{font-weight:600;font-size:.95rem;letter-spacing:.03em;color:var(--muted)}
+.credit small{font-size:.95rem;color:var(--muted)}
+.dedication{margin:0;display:grid;gap:2px;max-width:48ch}
+.dedication span{color:var(--muted);font-size:.95rem}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px}
+.controls .label{font-size:.9rem;color:var(--muted);margin-right:4px}
+.narration{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.95rem;color:var(--muted)}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,5vw,48px)}
+.story{max-width:62ch;margin:0 auto;display:grid;gap:1.6em}
+.story p{margin:0}
+.story .rhyme{font-style:italic;color:var(--muted)}
+.story .moral{font-family:var(--font-display);font-size:var(--step-1);color:var(--ink)}
+.story .end{text-align:center;font-family:var(--font-display);color:var(--muted)}
+.story section{display:grid;gap:.5em}
+.story .chapter{font-size:var(--step-2);display:grid;gap:.1em;margin-bottom:.2em}
+.story .chapter span{font-family:var(--font-body);font-size:.95rem;font-weight:600;letter-spacing:.04em;color:var(--shout)}
+.story .brk{height:.55em}
+.story .shout{font-family:var(--font-display);font-weight:600;font-size:1.5em;line-height:1.2;color:var(--shout)}
+/* pages after the story: the lesson, thank-you words, recipes */
+.story.extra{gap:1.1em}
+.story.extra h2{font-size:var(--step-2)}
+.story.extra .lead-in{color:var(--muted)}
+.thanks{margin:0;display:grid;gap:.9em}
+.thanks div{display:grid;gap:.1em}
+.thanks dt{font-weight:600}
+.thanks dt span{font-weight:400;color:var(--muted)}
+.thanks dd{margin:0}
+.recipe{padding-top:1.1em;border-top:1px solid var(--line)}
+.recipe h3{font-size:var(--step-1)}
+.recipe ol{margin:0;padding-left:1.5em;display:grid;gap:.45em}
+.recipe strong{font-weight:600}
+
+/* picture-book mode: one picture and its words per screen, with Back and Next */
+.pb{display:grid;gap:clamp(16px,3vw,28px);padding:clamp(14px,3vw,32px)}
+.pb figure{margin:0 auto;aspect-ratio:1200/670;width:min(100%,calc(56vh * 1200 / 670));max-width:100%;background:var(--pic-paper);border:1px solid var(--line);border-radius:14px;overflow:hidden}  /* capped so the picture, words and buttons fit on one screen */
+.pb figure img{display:block;width:100%;height:100%;object-fit:cover}
+.pb .story{width:100%;max-width:46ch;gap:.7em;font-size:var(--step-1);line-height:1.75;min-height:7.5em;align-content:start}
+.pb .story .moral{font-size:1.45rem}
+.pb .story:has(.brk){gap:.35em}   /* chapter books: lines sit close, groups of lines sit apart */
+.dys .pb .story:has(.brk){gap:.5em}
+.dys .story .brk{height:.9em}
+.pb .story .end{font-size:var(--step-2);color:var(--ink);text-align:left}
+.pager{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
+.pager .btn{min-height:52px;padding:12px 26px;font-size:1.1rem}
+.pager .back{justify-self:start}
+.pager .next{justify-self:end}
+.pager .count{color:var(--muted);font-size:.95rem;font-variant-numeric:tabular-nums;text-align:center}
+.track{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.track div{height:100%;width:0;background:var(--gold);border-radius:999px;transition:width .25s ease}
+.after{margin:0;color:var(--muted)}
+@media (max-width:520px){
+  .pager{grid-template-columns:1fr 1fr}
+  .pager .count{grid-column:1/-1;grid-row:1}
+  .pager .btn{padding:12px 16px;justify-content:center;width:100%}
+}
+
+/* dyslexia-friendly mode */
+.dys .sheet{background:var(--dys-bg)}
+.dys .story{max-width:48ch;gap:2.2em;font-size:1.25rem;line-height:2;letter-spacing:.06em;word-spacing:.18em}
+.dys .story .rhyme{font-style:normal;font-weight:600}
+.dys .story p{text-align:left}
+.dys .pb .story{max-width:40ch;gap:1em;font-size:1.45rem;line-height:2.1}
+
+.prose{max-width:62ch;display:grid;gap:1em}
+.prose p{margin:0}
+.note{background:var(--peach);border-radius:12px;padding:14px 16px;color:var(--ink)}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+footer .inner{max-width:1080px;margin:0 auto;padding:24px 20px;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+</style>
+
+</head>
+<body>
+<header class="sky">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="bar">
+    <a class="brand" href="#home">
+      <img src="brand-logo.webp" alt="" width="48" height="48">
+      Tansley Tales
+    </a>
+    <nav aria-label="Main">
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#library" data-nav="library">Stories</a>
+      <a href="#about" data-nav="about">About</a>
+    </nav>
+  </div>
+  <div class="hero" id="hero">
+    <div class="hero-text">
+      <h1>Stories to read together</h1>
+      <p>Every story comes with a dyslexia-friendly version, one tap away.</p>
+      <a class="btn cta" href="#library">Browse the stories</a>
+    </div>
+    <img class="hero-pic" src="brand-hero.webp" alt="" width="520" height="520">
+  </div>
+</header>
+
+<main id="view"></main>
+
+<footer><div class="inner">
+  <span>© 2026 Tansley Tales by Tania Jacobs</span>
+  <span>Made with the help of AI. Edited, checked and read by a real teacher. <a href="#how">How our stories are made</a></span>
+  <span><a href="#privacy">Privacy</a></span>
+</div></footer>
+
+<script>
+/* Credit labels (stories/tansley-tales-ai-transparency-policy.md). Label B is the default: AI wrote the first words.
+   label:"A" is only for a story Tania wrote herself, where just the pictures are AI. No story has it now:
+   Tania said on 9 Oct 2026 that Benny is not written entirely by her either, so Benny is Label B like the rest. */
+const STORIES = [
+  {id:"milo", title:"Milo and the Starry Sand", ages:"3 to 7", theme:"Courage", minutes:7, shelf:"main", colour:"#d9cdef", ready:true,
+   pics:"milo-", cover:"milo-cover.webp", coverAlt:"Milo the mouse draws a moon and stars in the sand with a twig. Luna the ladybird sits on a leaf beside him."},
+  {id:"benny", title:"Benny the Bunny’s Bold Leap", ages:"4 to 7", theme:"Courage and friendship", minutes:4, shelf:"main", colour:"#cfe3c4", ready:true,
+   pics:"benny-", cover:"benny-cover.webp", coverAlt:"Benny the bunny leaps across lily pads on a pond, with Max the mouse behind him.",
+   dedication:["To my daughter, who shows true bravery every day!","Author and proud mom of a dyslexic child."]},
+  {id:"eri", title:"Eri and the Magic Book", ages:"6 to 8", theme:"Reading together", minutes:12, shelf:"main", colour:"#f3dca0", ready:true,
+   pics:"eri-", cover:"eri-cover.webp", coverAlt:"Eri and Marie stand by a little red door in a library bookshelf. Golden light spills out, and a grey cat in gold glasses peeps round the door. Marie points with an excited smile, and Eri smiles as she hugs a red book.",
+   picMap:[1, 1, 1, 2, 2, 3, 4, 5, 6, 6, 6, 7, 8, 8, 9, 9, 9, 10, 10, 11, 11, 12, 13, 14, 14, 15, 15, 15, 16, 17, 18, 19]},
+  {id:"nina-1", title:"Nina’s Tasty Trip: The Magic Spoon", ages:"5 to 8", theme:"Food and culture", minutes:12, shelf:"main", colour:"#f5cdb6", series:"Book 1", ready:true,
+   pics:"nina-", cover:"nina-cover.webp", coverAlt:"Nina flies through a bright blue sky, holding the magic spoon up high. Golden sparkles swirl around her."},
+  {id:"nina-2", title:"Nina's Tasty Trip: Volume 2", ages:"5 to 8", theme:"Food and culture", shelf:"main", colour:"#f5cdb6", series:"Book 2"},
+  {id:"nina-3", title:"Nina's Tasty Trip: Volume 3", ages:"5 to 8", theme:"Food and culture", shelf:"main", colour:"#f5cdb6", series:"Book 3"},
+  {id:"max", title:"Max and the Treasure Map", ages:"5 to 8", theme:"Adventure", shelf:"main", colour:"#f3dca0"},
+  {id:"lizard", title:"The Great Lizard Escape", ages:"5 to 8", theme:"Friendship", shelf:"main", colour:"#cfe3c4"},
+  {id:"knights", title:"The Number Knights", ages:"5 to 8", theme:"Maths", shelf:"main", colour:"#c8d8f0"},
+  {id:"emma", title:"Emma and the Little Seed", ages:"4 to 8", theme:"Faith", shelf:"faith", colour:"#cfe3c4"},
+  {id:"lion", title:"The Lion Who Was Afraid of the Dark", ages:"4 to 8", theme:"Faith", minutes:6, shelf:"faith", colour:"#f3dca0", ready:true,
+   pics:"lion-", cover:"lion-cover.webp", coverAlt:"Lumo the lion’s startled face in the dark, lit gold by a tiny firefly at the tip of his nose."}
+];
+
+/* Story text. "~" = rhyme line, "^" = a loud word, "!" = closing message, "#" = The End, "@" = chapter heading, "" = small space */
+const TEXT = { milo: [
+ ["In the middle of Willow Wood, where the willow trees whisper and the stream runs slow, there lived a tiny mouse called Milo.","Milo was small.","Milo was quiet.","And Milo had a secret."],
+ ["Every morning, when the wood was still yawning, Milo crept down to the sandy bank by the stream.","He picked up his favourite twig and began to draw.","~Scritch, scratch, swish and sway,","~Milo drew his worries away.","He drew moons and mountains. He drew fish with fancy fins. He drew a bear wearing a very small hat.","But whenever a leaf rustled or a twig snapped, Milo dashed behind a stone and hid."],
+ ["One day, a poster went up on the Big Oak Tree.","THE BIG TALENT SHOW! Saturday. Moonrise. Everyone welcome!","The whole wood was buzzing.","Squirrel practised juggling acorns. (Bonk! Sorry, Badger!)","Frog practised singing. (Mostly burping.)","The Rabbit twins practised a dance that went hop, hop, flop.","Everyone was excited. Everyone except Milo.","“I’m too small to be seen,” he whispered. “And too quiet to be heard.”"],
+ ["The next morning, Milo was drawing a starry sky when a voice said,","“OH. MY. GOODNESS!”","Milo nearly jumped out of his whiskers.","It was Luna the Ladybird, spotty and bright, and she did not stop talking.","“Did you draw this? You did! You drew this! It’s the most wonderful thing I’ve ever seen, and I’ve seen a LOT of things, because I fly, you know, and flying means seeing, and seeing means...”","“Hoo,” said a soft voice from above. “Breathe, Luna.”","It was Ollie the Owl."],
+ ["Ollie looked down at the drawings for a long, long time.","“Milo,” he said gently, “you have a gift.”","“You must show everyone at the Talent Show!” cried Luna. “You simply MUST!”","Milo’s ears drooped. His tail curled up tight.","“But what if they laugh?” he whispered.","“What if they don’t look?","What if I’m too small, too quiet, too... me?”"],
+ ["Just then, someone arrived. Very slowly.","It was Toby the Tortoise.","“Sorry I’m late,” said Toby. “I set off on Tuesday.”","(It was Thursday.)","Toby looked at Milo’s worried face and smiled a slow, kind smile.","“Bravery doesn’t come all at once, little one,” he said.","“Slow and steady.","One small step.","Then you’re ready.”","Milo thought about that all night long.","~Scritch, scratch, swish and sway,","~Milo drew his worries away."],
+ ["On Saturday, the wood looked magical.","The animals hung painted leaf banners between the branches. They strung up berry lanterns. They built a stage on the sandy clearing by the stream.","Milo watched from behind a mushroom.","“Maybe next year,” he told himself. “When I’m bigger. When I’m louder. When I’m braver.”"],
+ ["Then the sky grew grey.","The wind began to howl.","And down came the rain.","~Pitter, patter.","~Splish, SPLASH.","~Crackle, rumble, CRASH!","The animals ran for cover. The banners flapped and tore. The lanterns rolled away. The paint washed off in wiggly, wobbly streams."],
+ ["When the storm was over, everyone crept out.","The stage decorations were gone. Every single one.","“The show is ruined,” sniffed Rabbit.","“No banners,” sighed Badger.","“No lanterns,” groaned Squirrel.","“Ribbit,” said Frog, which meant, “I don’t mind, honestly.”","Milo looked at the clearing.","The rain had left the sand smooth, and flat, and shining.","Just like a brand new page."],
+ ["Milo’s heart went thump, thump, thump.","He could hide. Hiding was easy.","Or he could help. Helping was hard.","He remembered Toby’s words.","~Slow and steady. One small step.","Milo took one small step out from behind the mushroom.","Then another.","Then another.","“I... I have an idea,” he squeaked.","Nobody heard."],
+ ["“EVERYONE!” shouted Luna. “MILO HAS AN IDEA!”","Every head turned. Every eye looked at Milo.","His knees wobbled. His whiskers wobbled. Even his tail wobbled.","But he held up his twig and said, a little louder this time,","“I can draw the decorations. In the sand.”","Nobody laughed.","Ollie simply nodded. “Show us, Milo.”"],
+ ["So Milo drew.","~Scritch, scratch, swish and sway,","~Milo drew the gloom away.","He drew a giant silver moon. He drew stars that swirled like snowflakes. He drew willow trees with long, curling branches all around the stage.","The animals helped. Squirrel pressed shiny acorns in for sparkle. Rabbit tucked in flower petals. Toby laid pebbles very carefully in a line. (It took quite a while.)","And when the real moon rose, the wet sand glittered like a sky full of stars."],
+ ["“Ooooooh,” said everyone.","“Aaaaaah,” said everyone.","“Ribbit,” said Frog, which meant, “Wow.”","The show went on. Squirrel juggled (only one bonk). The Rabbit twins danced (only one flop). Frog sang (only three burps).","And at the very end, Ollie called out,","“And our final act... the artist who saved the show... MILO!”"],
+ ["Milo stood in the middle of his moonlit drawing.","He was still small.","He was still quiet.","But everyone was cheering. For him.","Milo didn’t need to be big, or loud. He just needed to believe in what he could do."],
+ ["That night, snuggled in his bed beneath the willow roots, Milo smiled a sleepy smile.","~Scritch, scratch, swish and sway,","~Milo dreamed his brave new day.","Because Milo knew something now, and so do you:","!Even the smallest voices can make a big difference.","#The End"]
+],
+/* Eri and the Magic Book. Text approved by Tania on 3 Oct 2026, book approved 8 Oct 2026. A chapter book: 6 chapters, 32 screen pages, 19 pictures.
+   "@" = chapter heading, "" = a small space between groups of lines. Which picture goes with which page is in picMap on the story card. */
+eri: [
+ ["@Chapter 1: Stickers and Stories", "Eri was eight years old, and she loved books.", "She read at breakfast.", "She read in the car.", "She even read in the bath. But only once.", "", "Her little sister, Marie, was five.", "Marie loved two things.", "Stickers and snacks."],
+ ["Marie could not read yet.", "But she could stick.", "She stuck a star on the fridge.", "She stuck a frog on Dad’s shoe.", "She stuck a bunny on Eri’s book."],
+ ["“Marie! Not on my book!” said Eri.", "“Sorry,” said Marie.", "She did not look very sorry.", "", "“Library day!” called Mum.", "“Yay!” said Eri.", "“Can I get a book about bunnies?” asked Marie.", "“You can’t read,” said Eri.", "Marie looked down at her shoes.", "", "“She can’t read yet,” said Dad. “Yet is a little word, but it does a big job.”"],
+ ["Marie put her stickers in one pocket.", "She put two biscuits in the other.", "“Just in case,” she said.", "", "The library was big and quiet.", "It smelled of paper and polish.", "", "“Quiet voices,” said Mum.", "“Walking feet,” said Dad.", "“And stay together, you two,” said Mum.", "", "Mum and Dad sat down in the big soft chairs.", "The children’s corner was right beside them."],
+ ["Eri ran her finger along the bottom shelf.", "Bump, bump, bump.", "Then she stopped.", "", "There was a small red book.", "It had no name on the front.", "It had no name on the back.", "And it was warm, like toast.", "", "Eri opened it.", "The pages were empty.", "“That is a boring book,” said Marie."],
+ ["Then a thin black line wiggled across the page.", "It drew a shelf.", "It drew a chair.", "It drew a tiny bunny.", "", "“It’s a map!” whispered Eri. “A map of our library!”", "Marie pointed at the tiny bunny.", "“That’s the bunny shelf,” she said. “I know where that is.”", "", "Under the map, words began to grow.", "Eri read them out, one by one.", "“Children only. Knock three times.”"],
+ ["@Chapter 2: The Little Red Door", "Marie led the way.", "She used her walking feet. It was not easy.", "", "The bunny shelf stood at the far end of the children’s corner.", "Eri pulled out one bunny book.", "Then another.", "", "^CLICK!", "", "The shelf swung open like a gate.", "Behind it was a little red door.", "It was just as tall as Marie, and no taller.", "It had a round gold handle."],
+ ["“A grown-up would have to crawl,” said Eri.", "“A grown-up would get stuck,” said Marie.", "", "Eri looked back.", "Mum was reading.", "Dad was reading.", "The big library clock said ten o’clock.", "", "Eri’s tummy felt fizzy.", "“Stay together,” she said.", "She held out her hand, and Marie took it.", "", "Knock. Knock. Knock."],
+ ["The little red door swung open.", "", "Inside was a round room, glowing with golden lanterns.", "Books went up and up, all the way to the ceiling.", "In the middle stood a chair shaped like a duck.", "", "On the chair sat a big grey cat.", "He wore tiny round glasses on the end of his nose.", "", "“Ah,” said the cat. “Readers. At last.”"],
+ ["Eri and Marie jumped.", "“You can talk!” said Eri.", "“Of course I can talk,” said the cat. “I live in a library. I have had plenty of time to learn the words.”", "", "He bowed his furry head.", "“I am Sir Whiskers, Keeper of the Children’s Room.”"],
+ ["“Why is it only for children?” asked Eri.", "“Grown-ups have the whole library,” said Sir Whiskers. “This room is yours.”", "He winked.", "“Besides, grown-ups never find the door. They look up high. Children look down low. All the best things are down low.”", "", "“Can we stay?” asked Marie.", "“You may,” said Sir Whiskers. “But first, you must answer three questions.”"],
+ ["@Chapter 3: Three Questions", "Sir Whiskers cleaned his glasses on his tail.", "", "“Question one,” he said. “I have a spine, but no bones. I can take you far away, but I never move. What am I?”", "Eri’s hand shot up.", "“A book!” she said.", "“Correct,” said Sir Whiskers."],
+ ["“Question two. I have no words at all, but I can tell you a whole story. What am I?”", "Eri thought.", "She thought some more.", "No words? Every story she knew was full of words.", "“I don’t know,” she said at last.", "Eri did not like not knowing."],
+ ["Marie tugged her sleeve.", "“A picture,” said Marie. “A picture tells a story.”", "“Correct!” said Sir Whiskers.", "", "Eri stared at her little sister.", "“How did you know that?” she asked.", "“I read pictures all the time,” said Marie."],
+ ["“Question three,” said Sir Whiskers. “This one is very important. What is round, and sweet, and lovely with a cup of tea?”", "“A biscuit!” shouted both girls.", "“That is not a riddle,” said Eri.", "“No,” said Sir Whiskers. “I am just hungry.”", "", "Marie reached into her pocket.", "She held out a biscuit. It was a bit squashed.", "Sir Whiskers ate it in two bites and purred like a little engine.", "", "“Now,” he said, licking his whiskers. “You may open the Magic Book.”"],
+ ["@Chapter 4: The Giggle Page", "“Where is it?” asked Eri.", "She looked up at the tall shelves.", "“You are holding it,” said Sir Whiskers.", "", "Eri looked down.", "The little red book was glowing."],
+ ["“The Magic Book chooses its own readers,” said Sir Whiskers. “Today, it chose you two.”", "", "Eri opened the book.", "Now there were words inside, curly and gold.", "She read them out loud.", "", "~“Giggle, wiggle, snort and squeak,", "~Tickle every nose and cheek!”"],
+ ["^POOF!", "Glitter puffed into the air.", "", "^BOING!", "A big yellow rubber duck bounced past.", "", "A drawer slid open.", "Out marched a stripy sock.", "Then another.", "The socks began to dance."],
+ ["Marie laughed until she got the hiccups.", "Eri laughed so hard she had to sit down on the floor.", "", "“Ah,” said Sir Whiskers happily. “The giggle page. My favourite.”", "", "^BOING!", "Another duck bounced by.", "", "^BOING! BOING!", "Then two more."],
+ ["Now there were ten socks, dancing in a long, wiggly line.", "The glitter was up to their ankles.", "", "“That is enough now,” said Eri.", "But the magic did not stop.", "", "Eri shut the book.", "It sprang open."],
+ ["She shut it again and sat on it.", "^FLUMP!", "It sprang open and tipped her onto the floor.", "", "“Sir Whiskers!” called Eri. “How do we make it stop?”", "", "But Sir Whiskers was laughing too hard to help.", "He rolled right off the duck chair.", "“Last page!” he squeaked. “Hee hee! Look at the last page!”"],
+ ["Eri turned to the last page.", "Her tummy went cold.", "“There are no words,” she said. “It’s only a picture. I can’t read it!”", "", "A duck bounced off her head.", "^BOING!", "", "“I can,” said Marie."],
+ ["@Chapter 5: The Gold Star", "Marie looked at the picture.", "She looked hard, the way she always looked at pictures.", "", "There was a red book.", "The book was shut.", "And on its cover sat one gold star.", "", "“It wants a star,” said Marie. “A star to keep it shut.”", "", "She reached into her pocket.", "She peeled off her very best gold star.", "", "Eri shut the book and held it tight with both hands.", "Marie pressed the star onto the cover."],
+ ["The book gave a small, happy sigh.", "", "The ducks sat down.", "The socks folded themselves into pairs.", "The glitter floated down like snow.", "", "Everything was still.", "", "“You did it,” said Eri. “You read the last page.”", "“But I can’t read,” said Marie.", "“Not yet,” said Eri. “Not words. But you read pictures better than anyone I know.”", "", "Marie stood up very tall."],
+ ["Sir Whiskers climbed back onto the duck chair.", "He put his glasses straight.", "“One of you reads words,” he said. “One of you reads pictures. A good book needs both. That is why it chose the two of you.”", "", "Sir Whiskers pulled a book from the lowest shelf.", "There were bunnies on every page.", "“For our picture reader,” he said. “Borrow it. Bring it back next week.”", "Marie hugged it to her chest."],
+ ["The girls squeezed onto the duck chair together.", "Eri read the words.", "Marie read the pictures.", "Sir Whiskers ate the second biscuit and listened with his eyes shut."],
+ ["Then the lanterns began to dim.", "“Time to close the room,” said Sir Whiskers.", "", "“Can we come back?” asked Eri.", "“Whenever you like,” said Sir Whiskers. “Knock three times. And always come together.”"],
+ ["“Can we bring Mum and Dad?” asked Marie.", "Sir Whiskers shook his head.", "“Tell them all about it,” he said. “But they will not find the door. This room is just for children. It always has been.”", "", "“And the Magic Book?” asked Eri.", "“Put it back on the bottom shelf,” said Sir Whiskers. “It will find you when it has a new page ready.”"],
+ ["@Chapter 6: Glitter", "The little red door closed with a click.", "The bunny shelf swung back into place.", "", "The big library clock still said ten o’clock.", "Not one minute had gone by.", "", "Eri slid the little red book back onto the bottom shelf.", "Its gold star twinkled.", "", "Mum looked up from her book.", "“Did you find something good?” she asked."],
+ ["“A secret room!” said Marie. “And a talking cat! And ducks! And dancing socks!”", "“It’s behind the bunny shelf,” said Eri.", "", "Dad got down on his hands and knees.", "He peered behind the bunny shelf.", "He saw a wall.", "“No door here,” he said, smiling. “But what a wonderful story, you two.”", "", "“Marie,” said Mum, “why is there glitter in your hair?”", "Eri and Marie looked at each other.", "They giggled."],
+ ["That night, Marie climbed onto Eri’s bed with the bunny book.", "She stuck a bunny sticker on Eri’s pillow.", "This time, Eri did not mind at all.", "", "“You read the words,” said Marie. “I’ll read the pictures.”", "And that is just what they did."],
+ ["“Next week,” whispered Eri, “we bring more biscuits.”", "“And more stickers,” said Marie.", "", "Far away, on the bottom shelf of the library, a little red book gave one tiny giggle.", "", "#The End"]
+],
+/* Benny the Bunny's Bold Leap. Text approved by Tania on 6 Oct 2026. One page per picture. */
+benny: [
+ ["Benny the bunny hid behind a big, green, leafy bush.","He was very shy.","He wanted to be as brave as the birds flying in the big blue sky.","He sighed a big, sad sigh."],
+ ["Lila the ladybird landed on a leaf near Benny, smiling.","“What’s wrong, Benny?” she asked kindly.","Benny whispered, “I’m afraid of everything.”"],
+ ["Lila smiled. “Being brave doesn’t mean you’re never scared,” she said.","“It’s about trying, even if you feel afraid!”"],
+ ["Lila pointed to a gurgling stream.","“I’m afraid to cross the stream, but today I will try. Let’s cross!”","Benny hesitated."],
+ ["He took a deep breath and hopped.","He made it! He couldn’t believe it.","It felt great! He’d been brave!"],
+ ["As they continued their journey, they met their friend, Max the Mouse.","They came across a colourful flower garden with tall sunflowers and bright daisies."],
+ ["Benny felt nervous, but he remembered that being brave didn’t mean you weren’t nervous, and he had his friends by his side.","Lila and Max encouraged him to take small steps through the garden.","They worked together as a team!"],
+ ["They saw a dark cave ahead. It looked scary.","“I’m afraid,” whispered Benny.","Lila stayed close beside him, and they walked together slowly."],
+ ["Soon, they saw the sunlight, and Benny knew the scary part was over!"],
+ ["As they continued their journey, they came across a small pond with lily pads scattered across its surface.","On the far side, they saw a group of friendly frogs having a party.","“Oh, it looks like so much fun over there!” Max exclaimed.","“But how can we join them?”"],
+ ["Benny felt nervous about crossing the water.","“I don’t know if I can do it,” he whispered.","Lila smiled encouragingly.","“Remember, we can do this together,” she said kindly.","“Let’s think of a way to get across!”"],
+ ["They looked around and spotted some large, flat leaves nearby.","Working as a team, they gathered the leaves and placed them on the water, creating a path of makeshift rafts.","“Now we can hop from leaf to leaf!” Max said excitedly."],
+ ["Benny took a deep breath.","With Lila and Max cheering him on, he made the first hop onto a leaf.","Then another, and another.","His friends followed closely behind."],
+ ["When they reached the other side, the frogs welcomed them with cheers.","Benny couldn’t believe he’d done it!","He felt proud and happy as they joined the lily pad party.","Everyone cheered! Benny had lost his shyness."],
+ ["He realised that being brave didn’t mean never being afraid.","It meant doing your best, especially with friends by your side.","He knew he could do anything!","That night, Benny went to sleep, dreaming of his next adventure.","!He knew he could do anything with Lila and Max by his side.","#The End"]
+],
+/* The Lion Who Was Afraid of the Dark. Version 2, approved by Tania on 29 Sept 2026. One page per picture. */
+lion: [
+ ["Long ago, when animals could talk, there lived a great lion named Lumo.", "Lumo was the biggest and strongest animal on the grasslands.", "His paws were enormous.", "His teeth were sharp.", "And his roar made the trees tremble.", "^ROOOAAAR!"],
+ ["“Lumo is afraid of nothing!” the animals would say.", "Lumo always smiled when he heard this.", "But the animals were wrong.", "Lumo was afraid of the dark."],
+ ["Every evening, before the sun disappeared, Lumo hurried back to his cave.", "He never joined the other animals beneath the stars.", "“I need my rest,” he would say.", "But Lumo did not sleep.", "He stayed awake, listening to every sound outside his cave."],
+ ["One afternoon, Lumo walked farther than usual while searching for water.", "He crossed a dry riverbed.", "He climbed over a rocky hill.", "At last, he found a clear pool."],
+ ["Lumo drank until he was no longer thirsty.", "When he lifted his head, the sun had disappeared.", "The grasslands were dark.", "Lumo tried to remember the way home, but every rock looked the same."],
+ ["A branch snapped behind him.", "^CRACK!", "“Who is there?” Lumo roared.", "A tiny firefly appeared beside his nose.", "“It is only me,” she said."],
+ ["“I knew that,” Lumo replied quickly. “I was not frightened.”", "The firefly flew around Lumo’s shaking paws.", "“You may be able to fool the other animals,” she said kindly, “but you cannot fool me.”"],
+ ["Lumo lowered his head.", "“I am afraid of the dark,” he admitted. “Please do not tell anyone.”", "“There is no shame in feeling afraid,” said Firefly. “Come. I will help you find your way home.”"],
+ ["“You?” asked Lumo. “But you are so small!”", "“And you are very big,” Firefly replied. “Yet tonight, you need my light.”", "Firefly flew ahead, and Lumo followed her tiny glow."],
+ ["Soon, they reached two paths.", "The wide path looked smooth and easy.", "The narrow path wound between tall, dark rocks.", "“We should take the wide path,” said Lumo."],
+ ["“No,” said Firefly. “That path leads to the crocodiles’ river. The narrow path leads home.”", "Lumo did not like the narrow path.", "But he trusted Firefly."],
+ ["She stayed close to him as they walked between the rocks.", "Whenever Lumo took a wrong turn, she gently guided him back.", "Whenever he heard a frightening sound, her little light reminded him that he was not alone."],
+ ["At last, they reached the top of a hill.", "Below them lay Lumo’s cave.", "The other animals were waiting for him.", "“Where have you been?” asked Elephant.", "Lumo wanted to pretend that he had been on a great adventure.", "Then he looked at Firefly."],
+ ["“I became lost,” he admitted. “I was frightened of the dark, and Firefly stayed with me and showed me the way home.”", "The animals stared in surprise.", "Then Elephant stepped forward.", "“I am afraid of bees,” he confessed.", "“I am afraid of deep water,” said Cheetah.", "“And I am afraid of storms,” said Buffalo.", "No one laughed."],
+ ["From that night on, Lumo stopped pretending to be fearless.", "He still had enormous paws, sharp teeth and a mighty roar.", "But now he understood that even the strongest animal sometimes needs help.", "He also learned that a tiny light can guide even the greatest lion home.", "#The End"]
+],
+/* Nina's Tasty Trip: The Magic Spoon. Print layout draft 3, approved by Tania on 7 Oct 2026.
+   22 pages. Each country is two pages: the arrival and the tasting, then "Then ..." to WHOOSH. */
+"nina-1": [
+ ["Once upon a time, in a snug little town between rolling hills, there lived a bright-eyed girl named Nina.", "Nina adored food. Sweet, salty, crunchy, squishy, and everything in between!", "She loved helping Grandma in the kitchen. She stirred the pots. She kneaded the dough. And she tasted everything.", "One sunny afternoon, as they baked biscuits together, Nina asked, “Grandma, what do children eat in other parts of the world?”"],
+ ["Grandma’s eyes twinkled. She opened a drawer and took out a shiny silver spoon.", "“This is no ordinary spoon, my dear,” she said.", "“It’s a magic spoon. Hold it tight and say the magic words.”", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "The spoon began to shine."],
+ ["^WHOOSH!", "Nina was swept up into the sky, spinning like a leaf in the wind."],
+ ["Nina landed in a sunny village by the sea. She was in Italy!", "The air smelled of warm tomatoes, garlic and fresh basil.", "A cheerful boy named Luca waved from a bakery door. He held out a slice of pizza, straight from the oven.", "Nina took a big bite. “It’s warm and cheesy and stretchy!” she giggled.", "“Pizza was first made here in Italy, in a city called Naples,” said Luca proudly."],
+ ["Then Luca showed Nina how to spin pizza dough high in the air.", "Up it went. Round and round.", "FLOP! It landed on Nina’s head.", "They laughed until their tummies hurt.", "“Grazie, Luca!” said Nina. That means thank you in Italian.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a quiet garden full of pink cherry blossoms. She was in Japan!", "Petals floated down like snow, and a little stream went trickle, trickle.", "A girl named Aiko smiled and gave a little bow. She held out a small plate of sushi.", "“Sushi is made with sticky rice, fish and seaweed,” said Aiko. “We dip it in soy sauce.”", "Nina took a bite. “It’s cool and soft and salty, like the sea!”"],
+ ["Then Aiko handed Nina two chopsticks.", "Nina tried to pick up a piece of sushi.", "Wobble, wobble. PLOP! Back on the plate.", "She tried again. Wobble, wobble... got it! Aiko clapped.", "“Arigato, Aiko!” said Nina. That means thank you in Japanese.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a busy market full of olives, spices and warm bread. She was in Palestine!", "Stallholders called out, and the smell of herbs drifted through the air.", "A girl named Layla waved from her family’s bakery. She gave Nina a round, warm flatbread called mana’eesh.", "“It’s sprinkled with za’atar, a mix of thyme, sesame seeds and sumac,” said Layla. “We eat it for breakfast.”", "Nina took a big bite. “It’s soft and crispy and herby!”"],
+ ["Then Layla showed Nina how to mix za’atar with golden olive oil.", "Stir, stir, stir. They spread it on fresh dough, ready for the oven.", "They sipped cool mint lemonade while it baked.", "“Shukran, Layla!” said Nina. That means thank you in Arabic.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a sunny square full of music and laughter. She was in Spain!", "A guitar played, and children chased pigeons around a fountain.", "A boy named Mateo waved her over to a long table. His whole family was sitting down for lunch.", "“Try our tortilla española,” said Mateo. “It’s a thick omelette made with potatoes and eggs.”", "Nina took a bite. “It’s soft and golden and so filling!”"],
+ ["Then Mateo’s grandpa showed them a trick.", "He put a plate on top of the pan and... FLIP! The tortilla turned right over.", "“Olé!” cheered everyone.", "“In Spain, the whole family eats lunch together,” said Mateo.", "“Gracias, Mateo!” said Nina. That means thank you in Spanish.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a bright town full of colour. She was in Mexico!", "Paper flags in pink, blue and yellow fluttered above the street.", "A boy named Diego handed her a taco. It was a soft corn tortilla, filled with beans, cheese and salsa.", "Nina took a bite. “It’s soft and cheesy, and a little bit spicy!”", "“Tacos can have lots of different fillings,” said Diego. “Everyone has a favourite.”"],
+ ["Then Diego showed Nina how to make guacamole.", "They squished and mashed ripe green avocados.", "Squish, squash, SPLAT! A blob landed on Diego’s nose.", "They laughed and laughed.", "“Gracias, Diego!” said Nina. “We speak Spanish here too,” Diego grinned.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed on a busy street full of bicycle bells and bright colours. She was in India!", "The air smelled of cumin, ginger and warm spices.", "A girl named Priya took Nina’s hand and led her home. Her mum had cooked a big pot of dal, a warm, golden lentil stew.", "“We scoop it up with chapati,” said Priya. “That’s our flatbread.”", "Nina tore off some chapati and scooped up the dal. “It’s warm and cosy, like a hug!”"],
+ ["Then Priya showed Nina how to roll chapatis into circles.", "Priya’s was perfectly round.", "Nina’s looked like a map of the world!", "“That’s the best one,” laughed Priya.", "“Dhanyavaad, Priya!” said Nina. That means thank you in Hindi.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a courtyard full of music and dancing. She was in Nigeria!", "Drums went boom-ba-boom, and everyone wore bright, patterned clothes. It was a party!", "A boy named Tunde handed her a bowl of jollof rice.", "“Jollof is cooked with tomatoes, peppers and spices,” said Tunde. “We always have it at parties!”", "Nina took a big bite. “It’s smoky and tasty, and a little bit spicy!”"],
+ ["Then Tunde’s auntie let them stir the big party pot.", "Round and round went the long wooden spoon.", "Nina’s magic spoon gave a tiny, jealous wobble.", "Then everyone danced while the rice bubbled.", "“E se, Tunde!” said Nina. That means thank you in Yoruba.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a snowy forest, beside a little wooden cabin. She was in Canada!", "Snow crunched under her feet, and smoke curled from the chimney.", "A girl named Emilie waved from the door. “Bonjour! Come in, it’s pancake time!”", "Inside, there were stacks of pancakes and golden maple syrup.", "“Maple syrup comes from maple trees,” said Emilie. “We boil the sap until it’s thick and sweet.”", "Nina took a bite. “It’s fluffy and sticky and sweet!”"],
+ ["Then Emilie’s dad poured hot syrup onto clean snow outside.", "The girls waited, then rolled it up on sticks like lollies.", "“It’s a sweet made by winter!” laughed Nina.", "“Merci, Emilie!” said Nina. That means thank you in French."],
+ ["Nina’s tummy was full. Her heart was full too.", "She held her spoon tight and whispered,", "~Glow, little spoon, glow, glow, glow!", "~Now it’s time for home, you know.", "^WHOOSH!", "Nina landed back in Grandma’s kitchen, just as the biscuits came out of the oven.", "“Well?” asked Grandma. “What did you learn, my sweet girl?”"],
+ ["Nina threw her arms around her.", "“Grazie. Arigato. Shukran. Gracias. Dhanyavaad. E se. Merci,” she said.", "Grandma laughed. “What was all that?”", "“It’s thank you, Grandma,” said Nina. “In every place I visited. Food is different everywhere, but it’s always made with love.”", "Grandma smiled. “That’s the magic of food, Nina. It brings people together, no matter where they’re from.”"],
+ ["The magic spoon gave a tiny twinkle.", "“Grandma,” said Nina, “can we cook something from every place I visited?”", "And that is exactly what they did.", "#The End"]
+]
+};
+
+/* What each picture shows, for children and parents who use a screen reader. */
+const ALT = {
+/* Milo and the Starry Sand. The 15 pictures Tania approved on 29 and 30 Sept 2026. */
+milo: [
+ "Milo the tiny mouse peeps out from a hole under the roots of a willow tree by the stream. He holds a small twig.",
+ "Drawings in the sand of a moon, mountains, a fish and a bear in a small hat. Milo’s tail pokes out from behind a big stone.",
+ "Squirrel juggles acorns on a tree stump. The Rabbit twins hop past, Frog sits on a stone and Badger lies in the grass. A poster hangs on the Big Oak Tree. Milo sits alone at the edge with his twig.",
+ "Milo draws a moon and stars in the sand. Luna the ladybird flies beside him. Ollie the owl watches from a willow branch.",
+ "Ollie the owl stands on the sand and looks down at Milo’s drawings. Luna sits on a pebble. Milo holds his twig.",
+ "Toby the tortoise smiles down at Milo on the sandy bank. Luna sits on a leaf and Ollie watches from a branch.",
+ "Leaf banners and glowing lanterns hang in the willow branches. Badger, the Rabbit twins and Squirrel get the stage ready. Milo watches from under a red mushroom.",
+ "Rain pours down. The Rabbit twins and Badger run for cover, Squirrel climbs a tree and a banner flaps in the wind. Frog sits happily in a puddle.",
+ "After the storm, the sandy clearing is smooth and empty. The Rabbit twins, Badger, Squirrel and Frog sit around the edge. Milo stands at the front with his twig.",
+ "Milo steps out from under the red mushroom, holding his twig. Luna sits on a leaf beside him. Two ducks swim on the stream.",
+ "Milo holds his twig up high. Ollie, Toby, Badger, Squirrel, the Rabbit twins and Frog all look at him. Luna flies above.",
+ "Under the moon, tiny Milo draws swirls, stars and a big moon in the sand. Squirrel presses in an acorn, Rabbit tucks in a flower petal and Toby lays a pebble.",
+ "The Talent Show at night, lit by lanterns. The Rabbit twins dance and Squirrel juggles acorns. Frog, Badger, Toby, Ollie and Milo watch.",
+ "Milo stands in the middle of his finished moonlit drawing. Toby, Badger, Squirrel, the Rabbit twins, Frog and Ollie are gathered around him. Luna sits on a leaf.",
+ "Night time. Milo sleeps curled up in his cosy nest under the willow roots. The moon shines on the stream."
+],
+/* Eri and the Magic Book. 19 pictures (18 story pictures and the end picture), final on 8 Oct 2026. Listed by picture number, not by page. */
+eri: [
+ "Breakfast in a sunny kitchen. Marie presses a bunny sticker onto the cover of Eri’s storybook. Eri looks surprised and a little cross. A gold star sticker is on the fridge.",
+ "The children’s corner of the library. Eri kneels on the rug and opens a small red book, and Marie kneels beside her. Mum and Dad sit in big soft armchairs, each reading a book.",
+ "Eri and Marie look at the open red book. A thin black line has drawn a bookshelf, an armchair and a tiny bunny on its pages. Marie points at the bunny.",
+ "A low bookshelf has swung open like a gate. In the wall behind it is a little arched red door with a round gold handle. Marie and Eri look at it with wide, happy eyes. Eri holds the red book.",
+ "Seen from behind, Eri and Marie stand hand in hand in front of the little red door. It is opening, and warm golden light pours out.",
+ "A round room with bookshelves up to the ceiling and golden lanterns. A big grey cat in tiny gold glasses sits on a yellow armchair shaped like a duck. Eri and Marie stand in the little red doorway, holding hands.",
+ "Sir Whiskers the cat sits on the duck chair with one paw lifted. Eri’s hand is straight up in the air, and she holds the red book in her other hand. Marie stands beside her.",
+ "Marie tugs Eri’s sleeve and smiles up at her. Eri looks down at her little sister in surprise.",
+ "Marie holds out a biscuit. Sir Whiskers leans forward from the duck chair with his eyes closed, reaching out a paw for it. Eri laughs.",
+ "Eri reads from the open red book, and a cloud of pink and gold glitter puffs out. A big yellow rubber duck bounces past and three stripy socks dance on the rug. Marie laughs. Sir Whiskers watches from the duck chair.",
+ "Funny chaos in the secret room. Yellow rubber ducks bounce through the air and long red and white stripy socks wiggle across the rug. Eri sits on the floor in the glitter, the red book springs open, Marie giggles and Sir Whiskers rolls on his back, laughing.",
+ "Eri holds the open red book and looks worried. A little yellow duck sits on her head. Marie smiles calmly and points at the page.",
+ "A close view. Eri holds the red book shut with both hands. Marie presses a shiny gold star onto its cover, with the tip of her tongue peeping out.",
+ "The room is calm again. Rubber ducks sit in a row and socks lie in pairs. Marie stands tall and proud with Eri’s arm around her shoulders. Eri holds the red book with its gold star. Sir Whiskers sits on a yellow chair.",
+ "Eri and Marie sit squeezed together in a big yellow chair, sharing a picture book full of bunnies. Sir Whiskers sleeps on the armrest in his gold glasses. Lanterns glow softly.",
+ "Back in the library. Eri kneels and slides the red book, with its gold star, onto the bottom shelf. Marie hugs a picture book with a rabbit on the cover.",
+ "Dad is down on his hands and knees, peering behind a bookshelf and smiling. Mum bends to look at the glitter in Marie’s hair. Marie and Eri giggle.",
+ "Night time in a cosy bedroom. Eri in star pyjamas and Marie in yellow pyjamas sit in bed, sharing the bunny book. A bunny sticker is stuck on Eri’s pillow.",
+ "Night in the quiet library. On the bottom shelf, the little red book glows, and gold sparkles float up from the star on its cover."
+],
+benny: [
+ "Benny the bunny peeps over a leafy green bush. Three swallows fly in the blue sky above him.",
+ "Benny sits under the leaves. Lila the ladybird has landed on a big leaf beside his face.",
+ "Benny sits in the grass. Lila the ladybird stands on a white daisy in front of him.",
+ "Benny sits on the grassy bank of a stream with stepping stones. Lila flies over the water.",
+ "Benny hops across the sparkling stream with his ears flying back. Lila flies beside him.",
+ "Benny meets Max the mouse on a path through sunflowers and daisies. Max waves hello. Lila sits on a daisy.",
+ "Benny takes a careful step under tall sunflowers. Max walks ahead and looks back at him. Lila sits on a leaf.",
+ "Benny crouches low outside a dark cave with his ears back. Max sits beside him and Lila sits on a fern.",
+ "Benny and Max hurry out of the cave into warm golden sunlight. Lila flies in the sunbeams.",
+ "Benny and Max sit on the bank of a wide pond with lily pads. On the far side, green frogs are having a party.",
+ "Benny sits at the edge of the pond with his ears back. Max puts a paw on him. The frogs wait on the far side.",
+ "Benny and Max push a big, round, flat leaf into the pond together. Lila watches from a blade of grass.",
+ "Benny leaps from one big floating leaf to the next. Max follows on the leaf behind. The frogs cheer on the far shore.",
+ "Benny sits proudly on the far shore with cheering frogs all around him. Max dances beside him.",
+ "Night time. Benny and Max sleep curled up in a cosy burrow. The moon and stars shine outside."
+],
+/* The Lion Who Was Afraid of the Dark. The 15 final pictures of 7 Oct 2026. */
+lion: [
+ "Lumo the lion stands on a big rock in the golden grasslands. He roars so loudly that leaves fly off an acacia tree.",
+ "Elephant, Buffalo and Cheetah look admiringly at Lumo the lion on the sunny grasslands.",
+ "Night time. Lumo lies wide awake at the mouth of his cave. Far below, his friends are tiny and happy under the stars.",
+ "Lumo walks across a cracked, dry riverbed in hot golden sunlight, looking for water.",
+ "Lumo stands beside a moonlit pool at night. The dark rocks around him all look the same.",
+ "Lumo’s startled face in the dark, lit gold by a tiny firefly hovering at the tip of his nose.",
+ "Firefly circles Lumo’s huge front paws on the grass at night, leaving a trail of golden light.",
+ "Lumo lies down with his head low on his paws under the stars. Firefly glows kindly in front of his face.",
+ "Lumo walks carefully across the dark grassland under a starry sky, following Firefly’s tiny golden light.",
+ "Lumo stands at a fork in the path under a full moon. A wide sandy path is on the left. Firefly glows at the start of a narrow path between dark rocks.",
+ "Lumo steps onto the narrow path between tall dark rocks, following Firefly. Far away, a moonlit river has tiny crocodile eyes in it.",
+ "Lumo walks between tall rocks at night, looking braver. Firefly flies beside his face and lights it gold.",
+ "Dawn on the grasslands. Lumo stands on a grassy hilltop with Firefly glowing beside his face. Down in the valley, Elephant, Buffalo and Cheetah wait near his cave.",
+ "Elephant, Lumo, Buffalo and Cheetah stand close together by the cave with kind faces. Firefly glows in the middle.",
+ "Lumo rests happily under the stars with Elephant, Buffalo and Cheetah close beside him. Firefly glows in the night sky above."
+],
+/* Nina's Tasty Trip: The Magic Spoon. 22 pictures in page order: 14 story pictures, and the 8 dish pictures on the second page of each country. Added 7 Oct 2026. */
+"nina-1": [
+ "Nina and Grandma bake together in a sunny yellow kitchen. Nina rolls out dough, and a tray of biscuits sits on the wooden table.",
+ "Grandma holds out a shiny silver spoon that sparkles. Nina clasps her hands in wonder.",
+ "Nina flies through a bright blue sky with her arms out wide, holding the magic spoon up high. Golden sparkles swirl around her.",
+ "A sunny terrace by the sea in Italy. Nina has a floppy circle of pizza dough on her head, and Luca laughs beside her. A pizza sits on the table near a wood oven.",
+ "A pizza with tomato, melted mozzarella and basil leaves on a white plate with a blue rim. One slice is cut.",
+ "A garden full of pink cherry blossom in Japan. Nina kneels at a low table and picks up a piece of sushi with chopsticks. Aiko claps.",
+ "Sushi rolls with salmon and cucumber, two pieces of salmon sushi and a small bowl of soy sauce on a plate.",
+ "A busy market in Palestine. Nina and Layla stir a bowl of za’atar and olive oil. Round flatbreads topped with za’atar lie on the table, with glasses of mint lemonade.",
+ "A round flatbread covered in green za’atar and sesame seeds on a plate. One piece is torn off.",
+ "A sunny square in Spain. Mateo’s grandpa flips a golden tortilla high out of the pan. Nina, Mateo and the family cheer around a long lunch table.",
+ "A thick, golden tortilla española on a plate. One wedge is cut to show the potato inside.",
+ "A colourful street in Mexico with paper flags overhead. Nina and Diego mash avocados in a bowl to make guacamole. A plate of tacos is on the table.",
+ "Three soft tacos filled with beans, lettuce, salsa and cheese on a plate, with a wedge of lime.",
+ "A kitchen in India. Nina holds up a wobbly chapati and Priya holds up a round one. Priya’s mum smiles as she stirs a pot of dal.",
+ "A bowl of golden dal beside two folded chapatis on a plate.",
+ "A party in a courtyard in Nigeria. Nina and Tunde stir a big pot of jollof rice with a long wooden spoon. Tunde’s auntie smiles, drummers play and people dance.",
+ "A steaming bowl of orange jollof rice with pieces of red pepper.",
+ "A snowy forest in Canada. Nina and Emilie, in warm coats and woolly hats, roll maple syrup onto sticks in the snow. Emilie’s dad holds a small pan of syrup.",
+ "A stack of pancakes on a plate, with a square of butter on top and maple syrup dripping down the sides.",
+ "Night time. Nina flies home through a starry sky above the hills, holding the magic spoon. Golden sparkles swirl around her.",
+ "Back in Grandma’s sunny kitchen, Nina hugs Grandma tight. A tray of warm biscuits sits on the table.",
+ "Nina and Grandma stir a bowl together. The table is covered with food from Nina’s trip: pizza, sushi, mana’eesh, tortilla, tacos, jollof rice, chapatis and pancakes."
+]
+};
+
+/* Pages that come after a story: the lesson in a Faith Story, and Nina's thank-you words and recipes. */
+const EXTRAS = {
+lion: [{"type": "lesson", "title": "The lesson", "lines": ["You do not need to hide the real you from God.", "He already knows your strengths, your fears and everything in your heart.", "He stays with you wherever you go and lovingly leads you towards the life He wants for you."]}],
+"nina-1": [{"type": "thanks", "title": "Say thank you like Nina", "rows": [["Grazie", "Italian", "GRAHT-see-eh"], ["Arigato", "Japanese", "ah-ree-GAH-toh"], ["Shukran", "Arabic", "shoo-KRAN"], ["Gracias", "Spanish (Spain)", "GRAH-see-ass"], ["Gracias", "Spanish (Mexico)", "GRAH-see-ass"], ["Dhanyavaad", "Hindi", "DHUN-yuh-vaad"], ["E se", "Yoruba", "eh-SHAY"], ["Merci", "French", "mair-SEE"]]}, {"type": "recipes", "title": "Nina’s Tasty Trip Recipes", "intro": "Simple recipes with a grown-up to help. Always ask a grown-up to use the oven, the hob and anything sharp.", "outro": "Have fun cooking your way around the world, just like Nina!", "items": [{"title": "1. Mini Pizzas (Italy)", "need": "English muffins or pita bread, tomato sauce, grated mozzarella, toppings you like.", "steps": ["A grown-up heats the oven to 180°C (350°F).", "Spread sauce on the bread.", "Add cheese and toppings.", "A grown-up bakes them for 5 to 10 minutes, until the cheese bubbles.", "Cool a little, then enjoy."]}, {"title": "2. Easy Sushi Rolls (Japan)", "need": "cooked sushi rice, nori (seaweed sheets), sliced cucumber or avocado, a bamboo mat or cling film.", "steps": ["Lay the nori on the mat.", "Spread a thin layer of rice on top, leaving a gap at the far edge.", "Add cucumber or avocado in a line.", "Roll it up tightly.", "A grown-up slices it into pieces. Dip in soy sauce."]}, {"title": "3. Za’atar Mana’eesh (Palestine)", "need": "flatbread or pita bread, olive oil, za’atar (from the shop, or mix thyme, sesame seeds and sumac).", "steps": ["A grown-up heats the oven to 180°C (350°F).", "Mix the za’atar with olive oil.", "Spread it on the bread.", "A grown-up bakes it for 5 to 7 minutes, until warm and crispy."]}, {"title": "4. Tortilla Española (Spain)", "need": "1 potato and 1 onion (both thinly sliced by a grown-up), 3 eggs, olive oil, a pinch of salt.", "steps": ["A grown-up softens the potato and onion in a pan with oil.", "Whisk the eggs with salt, then stir in the potato and onion.", "A grown-up cooks it gently for 5 to 7 minutes, then flips it with a plate, just like Mateo’s grandpa.", "Cut it like a cake."]}, {"title": "5. Easy Tacos (Mexico)", "need": "soft corn or flour tortillas, cooked beans or mince, grated cheese, salsa, lettuce if you like.", "steps": ["A grown-up warms the tortillas.", "Fill them with beans or mince.", "Add cheese, salsa and lettuce.", "Fold and eat."]}, {"title": "6. Easy Chapatis (India)", "need": "2 cups of wholewheat flour, about 3/4 cup of warm water, a pinch of salt.", "steps": ["Mix the flour, salt and water into a soft dough.", "Knead for 5 minutes.", "Make small balls and roll them into circles (map shapes are allowed!).", "A grown-up cooks each one in a dry, hot pan for about a minute on each side, until it puffs."]}, {"title": "7. Jollof Rice (Nigeria)", "need": "1 cup of rice, 1 cup of tomato sauce, 1 chopped onion, 1 chopped red pepper, 1 teaspoon paprika, a little oil, 2 cups of water.", "steps": ["A grown-up softens the onion and pepper in oil.", "Add the tomato sauce, paprika and rice, and stir.", "Add the water.", "Simmer for 15 to 20 minutes, until the rice is soft."]}, {"title": "8. Maple Syrup Pancakes (Canada)", "need": "pancake batter (flour, milk, egg and baking powder, or a ready mix), butter, maple syrup.", "steps": ["A grown-up cooks the pancakes in a hot pan until golden on both sides.", "Stack them up and add a little butter.", "Pour on the maple syrup."]}]}]
+};
+
+const view = document.getElementById('view');
+const hero = document.getElementById('hero');
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad = n => String(n).padStart(2,'0');
+
+function card(s){
+  const tags = `<span class="tag">Ages ${s.ages}</span><span class="tag">${s.theme}</span>${s.minutes?`<span class="tag">${s.minutes} min read</span>`:''}`;
+  const cover = s.cover
+    ? `<div class="cover has-img"><img src="${s.cover}" alt="${esc(s.coverAlt||'')}" width="800" height="600" loading="lazy"></div>`
+    : `<div class="cover" style="background:${s.colour}">${esc(s.title)}</div>`;
+  const inner = `${cover}
+    <div class="info"><h3>${esc(s.title)}</h3><div class="meta">${tags}</div>${s.ready?'':'<span class="soon">Coming soon</span>'}</div>`;
+  return s.ready ? `<a class="book" href="#story-${s.id}">${inner}</a>` : `<div class="book">${inner}</div>`;
+}
+function shelf(name){ return `<div class="shelf">${STORIES.filter(s=>s.shelf===name).map(card).join('')}</div>`; }
+
+const PAGES = {
+  home: () => `
+    <section class="section-head"><h2>New on the shelf</h2><p>Short stories, a first chapter book, and the Nina's Tasty Trip series in order.</p></section>
+    ${shelf('main')}
+    <section class="section-head"><h2>Faith Stories</h2><p>Gentle stories with a Bible verse or Christian message.</p></section>
+    ${shelf('faith')}
+    <section class="promise" aria-label="How the stories work">
+      <div><h3>Dyslexia-friendly, always</h3><p>One button switches any story to a clearer font, wider spacing and a calm cream page.</p></div>
+      <div><h3>Read aloud</h3><p>Listen to Tania read the stories on the <a href="https://www.youtube.com/@TansleyTales" target="_blank" rel="noopener">Tansley Tales YouTube channel</a>.</p></div>
+      <div><h3>No sign-ups</h3><p>Children can read without an account. We collect no personal details.</p></div>
+    </section>`,
+  library: () => `
+    <section class="section-head"><h2>All stories</h2><p>Pick a story. Every one has a dyslexia-friendly version.</p></section>
+    ${shelf('main')}
+    <section class="section-head"><h2>Faith Stories</h2></section>
+    ${shelf('faith')}`,
+  about: () => `
+    <section class="section-head"><h2>About Tansley Tales</h2></section>
+    <div class="prose">
+      <p>Hello, I'm Tania Jacobs. I'm a teacher, a children's author and a mum.</p>
+      <p>My daughter is dyslexic and has ADHD. Watching her work so hard to read and stay focused opened my eyes to how many children find books a struggle, and how few stories are made with them in mind.</p>
+      <p>So I made Tansley Tales. It's a cosy place for stories that every child can enjoy. Every story has a dyslexia-friendly version, one tap away, with a clearer font, wider spacing and a calm cream page.</p>
+      <p>You can also listen to me read the stories on the <a href="https://www.youtube.com/@TansleyTales" target="_blank" rel="noopener">Tansley Tales YouTube channel</a>.</p>
+      <p>Grab a cosy spot, and happy reading.</p>
+      <p>Tania</p>
+      <p><a href="#how">How our stories are made</a></p>
+    </div>`,
+  how: () => `
+    <section class="section-head"><h2>How our stories are made</h2></section>
+    <div class="prose">
+      <p>Hello, I'm Tania. I'm a teacher and a mum, and Tansley Tales is my home for stories that every child can enjoy.</p>
+      <p>I want to be open with you about how these stories are made.</p>
+      <p>The ideas are mine. Each story starts with something I care about, often something I have seen in my classroom or at home.</p>
+      <p>I use AI to help write the words. Then I read every line. I change what is not right, and I keep going until the story says what I want it to say.</p>
+      <p>The pictures are made with AI. I choose each one and check it.</p>
+      <p>A real person checks everything. That person is me. Facts about animals and nature are checked too, so children learn something true.</p>
+      <p>The voice on YouTube is my own voice. I read every story myself.</p>
+      <p>Why do I work this way? Because it lets one busy teacher make many more dyslexia-friendly stories than she could on her own. Every child deserves a story they can read.</p>
+      <p>If you have a question about any story, please write to me. I will always answer honestly.</p>
+      <p>Tania</p>
+    </div>`,
+  privacy: () => `
+    <section class="section-head"><h2>Privacy</h2><p>Last updated: 12 October 2026</p></section>
+    <div class="prose">
+      <p>Tansley Tales is a reading website for children. We keep things simple and safe.</p>
+      <p>We do not ask children for names, email addresses, photos or any other personal details. There are no accounts and no sign-ups.</p>
+      <p>The site remembers one thing on your device: whether you last chose the dyslexia-friendly version. This setting stays in your own browser and is never sent to us.</p>
+      <p>We do not show adverts, and we do not sell or share information.</p>
+      <p>Links to our YouTube channel take you to YouTube, which has its own privacy rules.</p>
+      <p>We follow South Africa's Protection of Personal Information Act (POPIA). If you have a question, please email <a href="mailto:hello@tansleytales.com">hello@tansleytales.com</a>.</p>
+    </div>`
+};
+
+function readPref(){ try{ return localStorage.getItem('tt-dys')==='1'; }catch(e){ return false; } }
+function savePref(v){ try{ localStorage.setItem('tt-dys', v?'1':'0'); }catch(e){} }
+
+function lines(sp){
+  return sp.map(l=>{
+    if(l==='') return `<div class="brk" aria-hidden="true"></div>`;
+    if(l[0]==='@'){ const [a,b] = l.slice(1).split(': '); return `<h2 class="chapter"><span>${esc(a)}</span>${esc(b)}</h2>`; }
+    if(l[0]==='~') return `<p class="rhyme">${esc(l.slice(1))}</p>`;
+    if(l[0]==='^') return `<p class="shout">${esc(l.slice(1))}</p>`;
+    if(l[0]==='!') return `<p class="moral">${esc(l.slice(1))}</p>`;
+    if(l[0]==='#') return `<p class="end">${esc(l.slice(1))}</p>`;
+    return `<p>${esc(l)}</p>`;}).join('');
+}
+
+function extras(id){
+  return (EXTRAS[id]||[]).map(x => {
+    let body = '';
+    if(x.type==='lesson') body = x.lines.map(l=>`<p>${esc(l)}</p>`).join('');
+    if(x.type==='thanks') body = `<dl class="thanks">${x.rows.map(r=>`<div><dt>${esc(r[0])} <span>(${esc(r[1])})</span></dt><dd>say ${esc(r[2])}</dd></div>`).join('')}</dl>`;
+    if(x.type==='recipes') body = `<p class="lead-in">${esc(x.intro)}</p>` + x.items.map(r=>`<section class="recipe">
+        <h3>${esc(r.title)}</h3>
+        <p><strong>You need:</strong> ${esc(r.need)}</p>
+        <p><strong>How:</strong></p>
+        <ol>${r.steps.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>
+      </section>`).join('') + `<p class="moral">${esc(x.outro)}</p>`;
+    return `<div class="sheet"><div class="story extra"><h2>${esc(x.title)}</h2>${body}</div></div>`;
+  }).join('');
+}
+
+function readerHead(s){
+  const ded = s.dedication ? `<p class="dedication">${esc(s.dedication[0])}<span>${esc(s.dedication[1])}</span></p>` : '';
+  return `<div class="reader-head">
+      <a href="#library">← All stories</a>
+      <h1>${esc(s.title)}</h1>
+      <p class="credit"><strong>A Tansley Tales Story</strong><span>${s.label==='A' ? 'Written and read by Tania Jacobs' : 'Created and read by Tania Jacobs'}</span><small>${s.label==='A' ? 'Pictures made with AI' : 'Words and pictures made with AI, then edited and checked by Tania'}</small></p>
+      <div class="meta"><span class="tag">Ages ${s.ages}</span><span class="tag">${s.theme}</span><span class="tag">${s.minutes} min read</span></div>
+      ${ded}
+    </div>
+    <div class="controls" role="group" aria-label="Reading options">
+      <span class="label">Reading style</span>
+      <button class="btn ghost" id="dys-toggle" type="button" aria-pressed="false">Dyslexia-friendly</button>
+    </div>`;
+}
+
+function storyPage(id){
+  const s = STORIES.find(x=>x.id===id);
+  if(!s || !TEXT[id]) return PAGES.library();
+  if(s.pics){
+    /* picture-book mode: the picture and words are filled in by showPage() */
+    return `<article class="reader">
+      ${readerHead(s)}
+      <div class="sheet pb" id="pb">
+        <figure><img id="pb-img" src="" alt="" width="1200" height="670"></figure>
+        <div class="story" id="pb-text" aria-live="polite"></div>
+        <div class="pager">
+          <button class="btn ghost back" id="pb-back" type="button">← Back</button>
+          <span class="count" id="pb-count"></span>
+          <button class="btn next" id="pb-next" type="button">Next →</button>
+        </div>
+        <div class="track" aria-hidden="true"><div id="pb-fill"></div></div>
+      </div>
+      ${extras(id)}
+      <p class="after"><a href="#library">Choose another story</a></p>
+    </article>`;
+  }
+  const body = TEXT[id].map(sp => `<section>${lines(sp)}</section>`).join('');
+  return `<article class="reader">
+    ${readerHead(s)}
+    <div class="sheet"><div class="story">${body}</div></div>
+    ${extras(id)}
+    <p class="after"><a href="#library">Choose another story</a></p>
+  </article>`;
+}
+
+/* picture-book state */
+let pbStory = null, pbPage = 0;
+function picFor(s, page){ return s.picMap ? s.picMap[page] : page+1; }   /* picture number for a page */
+function showPage(n, scroll){
+  const s = pbStory, pages = TEXT[s.id], total = pages.length;
+  pbPage = Math.max(0, Math.min(total-1, n));
+  const img = document.getElementById('pb-img'), pic = picFor(s, pbPage), src = `${s.pics}${pad(pic)}.webp`;
+  if(img.getAttribute('src') !== src) img.src = src;
+  img.alt = (ALT[s.id]||[])[pic-1] || '';
+  document.getElementById('pb-text').innerHTML = lines(pages[pbPage]);
+  document.getElementById('pb-count').textContent = `Page ${pbPage+1} of ${total}`;
+  document.getElementById('pb-fill').style.width = `${(pbPage+1)/total*100}%`;
+  document.getElementById('pb-back').disabled = pbPage===0;
+  document.getElementById('pb-next').textContent = pbPage===total-1 ? 'Read it again' : 'Next →';
+  if(pbPage < total-1){ const pre = new Image(); pre.src = `${s.pics}${pad(picFor(s, pbPage+1))}.webp`; }   /* fetch the next picture early */
+  if(scroll){
+    const box = document.getElementById('pb'), top = box.getBoundingClientRect().top;
+    if(top < 0 || top > window.innerHeight*0.5) box.scrollIntoView({block:'start'});
+  }
+}
+function turn(step){
+  if(!pbStory || !document.getElementById('pb')) return;
+  const total = TEXT[pbStory.id].length;
+  if(step>0 && pbPage===total-1) showPage(0, true); else showPage(pbPage+step, true);
+}
+document.addEventListener('keydown', e => {
+  if(e.altKey||e.ctrlKey||e.metaKey) return;
+  if(e.key==='ArrowRight') turn(1);
+  if(e.key==='ArrowLeft' && pbPage>0) turn(-1);
+});
+
+function applyDys(on){
+  document.body.classList.toggle('dys', on);
+  const b = document.getElementById('dys-toggle');
+  if(b){ b.setAttribute('aria-pressed', on?'true':'false'); b.textContent = on ? 'Dyslexia-friendly: on' : 'Dyslexia-friendly'; }
+}
+
+function route(){
+  const h = (location.hash || '#home').slice(1);
+  let html, nav = h;
+  pbStory = null;
+  if(h.startsWith('story-')){ html = storyPage(h.slice(6)); nav = 'library'; }
+  else html = (PAGES[h] || PAGES.home)();
+  view.innerHTML = html;
+  hero.hidden = !(h==='home' || !PAGES[h] && !h.startsWith('story-'));
+  document.querySelectorAll('[data-nav]').forEach(a => { if(a.dataset.nav===nav) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+  const b = document.getElementById('dys-toggle');
+  if(b) b.addEventListener('click', () => { const on = !document.body.classList.contains('dys'); applyDys(on); savePref(on); });
+  applyDys(readPref() && !!b);
+  if(document.getElementById('pb')){
+    pbStory = STORIES.find(x=>x.id===h.slice(6));
+    document.getElementById('pb-back').addEventListener('click', () => turn(-1));
+    document.getElementById('pb-next').addEventListener('click', () => turn(1));
+    showPage(0, false);
+  }
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange', route);
+route();
+
+/* quiet star field in the masthead */
+(function(){
+  const c = document.getElementById('stars'), x = c.getContext('2d');
+  function draw(){
+    const r = c.getBoundingClientRect(), d = window.devicePixelRatio||1;
+    c.width = r.width*d; c.height = r.height*d; x.scale(d,d);
+    let seed = 7; const rnd = () => (seed = (seed*9301+49297)%233280)/233280;
+    for(let i=0;i<Math.round(r.width/9);i++){
+      const px = rnd()*r.width, py = rnd()*r.height, sz = rnd()*1.6+.3;
+      x.fillStyle = `rgba(255,240,200,${.35+rnd()*.6})`;
+      x.beginPath(); x.arc(px,py,sz,0,Math.PI*2); x.fill();
+    }
+  }
+  draw(); window.addEventListener('resize', draw);
+})();
+</script>
+
+</body></html>
