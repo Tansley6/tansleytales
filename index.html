@@ -133,6 +133,11 @@ main{max-width:1080px;margin:0 auto;padding:40px 20px 72px;display:grid;gap:48px
 .pb{display:grid;gap:clamp(16px,3vw,28px);padding:clamp(14px,3vw,32px)}
 .pb figure{margin:0 auto;aspect-ratio:1200/670;width:min(100%,calc(56vh * 1200 / 670));max-width:100%;background:var(--pic-paper);border:1px solid var(--line);border-radius:14px;overflow:hidden}  /* capped so the picture, words and buttons fit on one screen */
 .pb figure img{display:block;width:100%;height:100%;object-fit:cover}
+/* blended pictures (blend:true): no box. The picture fades into cream, so the reading sheet is the same cream (light theme) */
+.pb.blend figure{border:0;border-radius:0;background:transparent}
+:root:not([data-theme="dark"]) .pb.blend{background:var(--pic-paper)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .pb.blend{background:var(--paper)} :root:not([data-theme="light"]) .pb.blend figure{border-radius:28px;background:var(--pic-paper)} }
+:root[data-theme="dark"] .pb.blend figure{border-radius:28px;background:var(--pic-paper)}
 .pb .story{width:100%;max-width:46ch;gap:.7em;font-size:var(--step-1);line-height:1.75;min-height:7.5em;align-content:start}
 .pb .story .moral{font-size:1.45rem}
 .pb .story:has(.brk){gap:.35em}   /* chapter books: lines sit close, groups of lines sit apart */
@@ -208,9 +213,11 @@ footer .inner{max-width:1080px;margin:0 auto;padding:24px 20px;display:flex;flex
 const STORIES = [
   {id:"milo", title:"Milo and the Starry Sand", ages:"3 to 7", theme:"Courage", minutes:7, shelf:"main", colour:"#d9cdef", ready:true,
    pics:"milo-", cover:"milo-cover.webp", coverAlt:"Milo the mouse draws a moon and stars in the sand with a twig. Luna the ladybird sits on a leaf beside him."},
-  {id:"benny", title:"Benny the Bunny’s Bold Leap", ages:"4 to 7", theme:"Courage and friendship", minutes:4, shelf:"main", colour:"#cfe3c4", ready:true,
+  {id:"benny", title:"Benny the Bunny’s Bold Leap", ages:"4 to 7", theme:"Courage and friendship", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 1", ready:true,
    pics:"benny-", cover:"benny-cover.webp", coverAlt:"Benny the bunny leaps across lily pads on a pond, with Max the mouse behind him.",
    dedication:["To my daughter, who shows true bravery every day!","Author and proud mom of a dyslexic child."]},
+  {id:"benny-2", title:"Benny and the Secret Meadow", ages:"4 to 7", theme:"Kindness and courage", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 2", ready:true, blend:true,
+   pics:"benny2-", cover:"benny2-cover.webp", coverAlt:"Barnaby the badger peeps round an open wooden gate. Benny the bunny and Max the mouse look into a meadow full of flowers and blackberries. Lila the ladybird sits on a leaf on the gatepost."},
   {id:"eri", title:"Eri and the Magic Book", ages:"6 to 8", theme:"Reading together", minutes:12, shelf:"main", colour:"#f3dca0", ready:true,
    pics:"eri-", cover:"eri-cover.webp", coverAlt:"Eri and Marie stand by a little red door in a library bookshelf. Golden light spills out, and a grey cat in gold glasses peeps round the door. Marie points with an excited smile, and Eri smiles as she hugs a red book.",
    picMap:[1, 1, 1, 2, 2, 3, 4, 5, 6, 6, 6, 7, 8, 8, 9, 9, 9, 10, 10, 11, 11, 12, 13, 14, 14, 15, 15, 15, 16, 17, 18, 19]},
@@ -297,6 +304,24 @@ benny: [
  ["Benny took a deep breath.","With Lila and Max cheering him on, he made the first hop onto a leaf.","Then another, and another.","His friends followed closely behind."],
  ["When they reached the other side, the frogs welcomed them with cheers.","Benny couldn’t believe he’d done it!","He felt proud and happy as they joined the lily pad party.","Everyone cheered! Benny had lost his shyness."],
  ["He realised that being brave didn’t mean never being afraid.","It meant doing your best, especially with friends by your side.","He knew he could do anything!","That night, Benny went to sleep, dreaming of his next adventure.","!He knew he could do anything with Lila and Max by his side.","#The End"]
+],
+/* Benny and the Secret Meadow (Benny Book 2). Text version 3, book draft 2 approved by Tania on 30 Oct 2026. One page per picture. */
+"benny-2": [
+ ["The next morning, Benny the bunny hopped out into the warm, golden sunshine.","He packed five juicy strawberries for lunch.","He was ready for a new adventure!"],
+ ["Lila the ladybird landed on a daisy beside him.","Max the Mouse came scurrying up with a crumpled map.","“Look!” said Max. “It shows the way to the Secret Meadow!”"],
+ ["“The Secret Meadow is full of flowers and sweet, ripe berries,” said Lila.","“But a big, grumpy badger lives right by the gate,” squeaked Max.","Benny’s tummy did a little flip."],
+ ["Then Benny remembered the stream, the dark cave and the lily pads.","“Being brave means trying, even when you feel afraid,” he said.","“We’ll face it together!” said Lila."],
+ ["The path led to a fast, rushing stream.","The only way across was a wobbly old log.","It was much bigger than the stream Benny had crossed before."],
+ ["Benny took a deep breath.","Hop. Wobble. Hop. Wobble. Hop!","He made it! Max scampered across behind him, and Lila fluttered over the top."],
+ ["Next, a wall of thick, prickly bushes blocked their way.","Lila flew up high to look.","“There’s a gap!” she called. “Follow me!”"],
+ ["Max sniffed the ground with his clever nose.","“Mind the sticky mud,” he said. “Step on the stones.”","Together, they squeezed through the gap. Not one of them got stuck."],
+ ["On the other side was a wooden gate, covered in flowers.","Beside it was a big hole under an old oak tree.","Suddenly, out popped a HUGE, stripy badger."],
+ ["“Who’s making all that noise?” grumbled the badger. “I was fast asleep!”","Max hid behind Benny. Benny’s knees went wibble-wobble.","But the badger didn’t look scary now. He looked tired."],
+ ["Benny stepped forward.","“I’m sorry we woke you up,” he said. “Would you like a strawberry?”","He held out the biggest, juiciest strawberry from his lunch."],
+ ["The badger blinked. Then a smile spread across his stripy face.","“Nobody has ever said sorry to me before,” he said. “They usually run away.”","“I’m Barnaby. Would you like to see the meadow?”"],
+ ["Barnaby opened the gate.","The Secret Meadow was even more beautiful than the map!","There were flowers of every colour, and berries everywhere they looked."],
+ ["They had a picnic in the long grass.","Benny shared his last four strawberries, and Barnaby shared the sweetest blackberries in the meadow.","Bees buzzed, butterflies danced, and everyone giggled until the sun went down."],
+ ["“Goodnight, Barnaby!” said Benny with a yawn.","“Good morning!” laughed Barnaby. Badgers wake up when the stars come out.","That night, Benny snuggled into bed.","Being brave had taken him all the way to the gate.","!But being kind had opened it.","#The End"]
 ],
 /* The Lion Who Was Afraid of the Dark. Version 2, approved by Tania on 29 Sept 2026. One page per picture. */
 lion: [
@@ -402,6 +427,24 @@ benny: [
  "Benny leaps from one big floating leaf to the next. Max follows on the leaf behind. The frogs cheer on the far shore.",
  "Benny sits proudly on the far shore with cheering frogs all around him. Max dances beside him.",
  "Night time. Benny and Max sleep curled up in a cosy burrow. The moon and stars shine outside."
+],
+/* Benny and the Secret Meadow. The 15 final pictures of 30 Oct 2026, blended into the cream page. */
+"benny-2": [
+ "Benny the bunny hops through a sunny green meadow at sunrise. Five strawberries sit on a leaf in the grass.",
+ "Benny sits among wildflowers. Lila the ladybird sits on a daisy, and Max the mouse holds up a crumpled map.",
+ "Max talks with a worried face. Benny listens, looking worried too. Lila sits on a flower between them.",
+ "Benny stands tall in the wildflowers with Max beside him. Above them float little pictures of a stream, a dark cave and lily pads. Lila sits on a red flower.",
+ "Benny and Max stand on the bank of a fast, rushing stream. A wobbly old log lies across the water.",
+ "Benny hops along the log over the rushing water. Max scampers behind him and Lila flies above.",
+ "A wall of thick, prickly bushes. Benny and Max stand by a small gap at the bottom. Lila flies up high.",
+ "Benny and Max walk through a leafy tunnel in the bushes, stepping on stones in the mud. Lila sits on a leaf.",
+ "A wooden gate covered in flowers beside an old oak tree. A badger pops out of a hole under the roots. Benny and Max watch.",
+ "The badger sits outside his hole with his mouth wide open, grumbling. Benny sits nearby. Lila sits on a leaf.",
+ "Benny holds out a big strawberry to the badger by his hole. More strawberries sit on a leaf.",
+ "The badger smiles and holds a strawberry. Benny smiles back, with Max beside him and strawberries on a leaf.",
+ "Barnaby the badger peeps round the open gate. Benny and Max look into a meadow full of flowers and blackberries. Lila sits on a leaf on the gatepost.",
+ "A picnic in the long grass. Benny, Max and Barnaby share strawberries and blackberries on a big leaf. Bees and butterflies fly around them.",
+ "Evening, with a pink and blue sky. Barnaby stands by the gate. Benny gives a sleepy smile, with Max beside him."
 ],
 /* The Lion Who Was Afraid of the Dark. The 15 final pictures of 7 Oct 2026. */
 lion: [
@@ -574,7 +617,7 @@ function storyPage(id){
     /* picture-book mode: the picture and words are filled in by showPage() */
     return `<article class="reader">
       ${readerHead(s)}
-      <div class="sheet pb" id="pb">
+      <div class="sheet pb${s.blend?' blend':''}" id="pb">
         <figure><img id="pb-img" src="" alt="" width="1200" height="670"></figure>
         <div class="story" id="pb-text" aria-live="polite"></div>
         <div class="pager">
