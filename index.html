@@ -211,25 +211,25 @@ footer .inner{max-width:1080px;margin:0 auto;padding:24px 20px;display:flex;flex
    label:"A" is only for a story Tania wrote herself, where just the pictures are AI. No story has it now:
    Tania said on 9 Oct 2026 that Benny is not written entirely by her either, so Benny is Label B like the rest. */
 const STORIES = [
-  {id:"milo", title:"Milo and the Starry Sand", ages:"3 to 7", theme:"Courage", minutes:7, shelf:"main", colour:"#d9cdef", ready:true,
+  {id:"milo", title:"Milo and the Starry Sand", occasion:"Bedtime story", theme:"Courage", minutes:7, shelf:"main", colour:"#d9cdef", ready:true,
    pics:"milo-", cover:"milo-cover.webp", coverAlt:"Milo the mouse draws a moon and stars in the sand with a twig. Luna the ladybird sits on a leaf beside him."},
-  {id:"benny", title:"Benny the Bunny’s Bold Leap", ages:"4 to 7", theme:"Courage and friendship", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 1", ready:true,
+  {id:"benny", title:"Benny the Bunny’s Bold Leap", occasion:"Story time", theme:"Courage and friendship", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 1", ready:true,
    pics:"benny-", cover:"benny-cover.webp", coverAlt:"Benny the bunny leaps across lily pads on a pond, with Max the mouse behind him.",
    dedication:["To my daughter, who shows true bravery every day!","Author and proud mom of a dyslexic child."]},
-  {id:"benny-2", title:"Benny and the Secret Meadow", ages:"4 to 7", theme:"Kindness and courage", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 2", ready:true, blend:true,
+  {id:"benny-2", title:"Benny and the Secret Meadow", occasion:"Story time", theme:"Kindness and courage", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 2", ready:true, blend:true,
    pics:"benny2-", cover:"benny2-cover.webp", coverAlt:"Barnaby the badger peeps round an open wooden gate. Benny the bunny and Max the mouse look into a meadow full of flowers and blackberries. Lila the ladybird sits on a leaf on the gatepost."},
-  {id:"eri", title:"Eri and the Magic Book", ages:"6 to 8", theme:"Reading together", minutes:12, shelf:"main", colour:"#f3dca0", ready:true,
+  {id:"eri", title:"Eri and the Magic Book", occasion:"Adventure story in chapters", theme:"Reading together", minutes:12, shelf:"main", colour:"#f3dca0", ready:true,
    pics:"eri-", cover:"eri-cover.webp", coverAlt:"Eri and Marie stand by a little red door in a library bookshelf. Golden light spills out, and a grey cat in gold glasses peeps round the door. Marie points with an excited smile, and Eri smiles as she hugs a red book.",
    picMap:[1, 1, 1, 2, 2, 3, 4, 5, 6, 6, 6, 7, 8, 8, 9, 9, 9, 10, 10, 11, 11, 12, 13, 14, 14, 15, 15, 15, 16, 17, 18, 19]},
-  {id:"nina-1", title:"Nina’s Tasty Trip: The Magic Spoon", ages:"5 to 8", theme:"Food and culture", minutes:12, shelf:"main", colour:"#f5cdb6", series:"Book 1", ready:true,
+  {id:"nina-1", title:"Nina’s Tasty Trip: The Magic Spoon", occasion:"Story time", theme:"Food and culture", minutes:12, shelf:"main", colour:"#f5cdb6", series:"Book 1", ready:true,
    pics:"nina-", cover:"nina-cover.webp", coverAlt:"Nina flies through a bright blue sky, holding the magic spoon up high. Golden sparkles swirl around her."},
-  {id:"nina-2", title:"Nina's Tasty Trip: Volume 2", ages:"5 to 8", theme:"Food and culture", shelf:"main", colour:"#f5cdb6", series:"Book 2"},
-  {id:"nina-3", title:"Nina's Tasty Trip: Volume 3", ages:"5 to 8", theme:"Food and culture", shelf:"main", colour:"#f5cdb6", series:"Book 3"},
-  {id:"max", title:"Max and the Treasure Map", ages:"5 to 8", theme:"Adventure", shelf:"main", colour:"#f3dca0"},
-  {id:"lizard", title:"The Great Lizard Escape", ages:"5 to 8", theme:"Friendship", shelf:"main", colour:"#cfe3c4"},
-  {id:"knights", title:"The Number Knights", ages:"5 to 8", theme:"Maths", shelf:"main", colour:"#c8d8f0"},
-  {id:"emma", title:"Emma and the Little Seed", ages:"4 to 8", theme:"Faith", shelf:"faith", colour:"#cfe3c4"},
-  {id:"lion", title:"The Lion Who Was Afraid of the Dark", ages:"4 to 8", theme:"Faith", minutes:6, shelf:"faith", colour:"#f3dca0", ready:true,
+  {id:"nina-2", title:"Nina's Tasty Trip: Volume 2", occasion:"Story time", theme:"Food and culture", shelf:"main", colour:"#f5cdb6", series:"Book 2"},
+  {id:"nina-3", title:"Nina's Tasty Trip: Volume 3", occasion:"Story time", theme:"Food and culture", shelf:"main", colour:"#f5cdb6", series:"Book 3"},
+  {id:"max", title:"Max and the Treasure Map", occasion:"Story time", theme:"Adventure", shelf:"main", colour:"#f3dca0"},
+  {id:"lizard", title:"The Great Lizard Escape", occasion:"Adventure story in chapters", theme:"Friendship", shelf:"main", colour:"#cfe3c4"},
+  {id:"knights", title:"The Number Knights", occasion:"Read it your way", theme:"Maths", shelf:"main", colour:"#c8d8f0"},
+  {id:"emma", title:"Emma and the Little Seed", occasion:"Bedtime story", theme:"Faith", shelf:"faith", colour:"#cfe3c4"},
+  {id:"lion", title:"The Lion Who Was Afraid of the Dark", occasion:"Bedtime story", theme:"Faith", minutes:6, shelf:"faith", colour:"#f3dca0", ready:true,
    pics:"lion-", cover:"lion-cover.webp", coverAlt:"Lumo the lion’s startled face in the dark, lit gold by a tiny firefly at the tip of his nose."}
 ];
 
@@ -503,7 +503,7 @@ const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','
 const pad = n => String(n).padStart(2,'0');
 
 function card(s){
-  const tags = `<span class="tag">Ages ${s.ages}</span><span class="tag">${s.theme}</span>${s.minutes?`<span class="tag">${s.minutes} min read</span>`:''}`;
+  const tags = `<span class="tag">${s.occasion}</span><span class="tag">${s.theme}</span>${s.minutes?`<span class="tag">${s.minutes} min read</span>`:''}`;
   const cover = s.cover
     ? `<div class="cover has-img"><img src="${s.cover}" alt="${esc(s.coverAlt||'')}" width="800" height="600" loading="lazy"></div>`
     : `<div class="cover" style="background:${s.colour}">${esc(s.title)}</div>`;
@@ -601,7 +601,7 @@ function readerHead(s){
       <a href="#library">← All stories</a>
       <h1>${esc(s.title)}</h1>
       <p class="credit"><strong>A Tansley Tales Story</strong><span>${s.label==='A' ? 'Written and read by Tania Jacobs' : 'Created and read by Tania Jacobs'}</span><small>${s.label==='A' ? 'Pictures made with AI' : 'Words and pictures made with AI, then edited and checked by Tania'}</small></p>
-      <div class="meta"><span class="tag">Ages ${s.ages}</span><span class="tag">${s.theme}</span><span class="tag">${s.minutes} min read</span></div>
+      <div class="meta"><span class="tag">${s.occasion}</span><span class="tag">${s.theme}</span><span class="tag">${s.minutes} min read</span></div>
       ${ded}
     </div>
     <div class="controls" role="group" aria-label="Reading options">
