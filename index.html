@@ -227,19 +227,19 @@ document.addEventListener('error', function (e) {
    label:"A" is only for a story Tania wrote herself, where just the pictures are AI. No story has it now:
    Tania said on 9 Oct 2026 that Benny is not written entirely by her either, so Benny is Label B like the rest. */
 const STORIES = [
-  {id:"milo", title:"Milo and the Starry Sand", occasion:"Bedtime story", theme:"Courage", minutes:7, shelf:"main", colour:"#d9cdef", ready:true,
+  {id:"milo", yt:"ZVBQO_4YcOU", title:"Milo and the Starry Sand", occasion:"Bedtime story", theme:"Courage", minutes:7, shelf:"main", colour:"#d9cdef", ready:true,
    pics:"milo-", cover:"milo-cover.webp", coverAlt:"Milo the mouse draws a moon and stars in the sand with a twig. Luna the ladybird sits on a leaf beside him."},
-  {id:"benny", title:"Benny the Bunny’s Bold Leap", occasion:"Story time", theme:"Courage and friendship", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 1", ready:true,
+  {id:"benny", yt:"54HkG-AgQt0", title:"Benny the Bunny’s Bold Leap", occasion:"Story time", theme:"Courage and friendship", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 1", ready:true,
    pics:"benny-", cover:"benny-cover.webp", coverAlt:"Benny the bunny leaps across lily pads on a pond, with Max the mouse behind him.",
    dedication:["To my daughter, who shows true bravery every day!","Author and proud mom of a dyslexic child."]},
-  {id:"benny-2", title:"Benny and the Secret Meadow", occasion:"Story time", theme:"Kindness and courage", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 2", ready:true,
+  {id:"benny-2", yt:"tyo3ppxp4Fg", title:"Benny and the Secret Meadow", occasion:"Story time", theme:"Kindness and courage", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 2", ready:true,
    pics:"benny2-", cover:"benny2-cover.webp", coverAlt:"Barnaby the badger peeps round an open wooden gate. Benny the bunny and Max the mouse look into a meadow full of flowers and blackberries. Lila the ladybird sits on a leaf on the gatepost."},
-  {id:"eri", title:"Eri and the Magic Book", occasion:"Adventure story in chapters", theme:"Reading together", minutes:12, shelf:"main", colour:"#f3dca0", ready:true,
+  {id:"eri", yt:"Z2wttZNuK-w", title:"Eri and the Magic Book", occasion:"Adventure story in chapters", theme:"Reading together", minutes:12, shelf:"main", colour:"#f3dca0", ready:true,
    pics:"eri-", cover:"eri-cover.webp", coverAlt:"Eri and Marie stand by a little red door in a library bookshelf. Golden light spills out, and a grey cat in gold glasses peeps round the door. Marie points with an excited smile, and Eri smiles as she hugs a red book.",
    picMap:[1, 1, 1, 2, 2, 3, 4, 5, 6, 6, 6, 7, 8, 8, 9, 9, 9, 10, 10, 11, 11, 12, 13, 14, 14, 15, 15, 15, 16, 17, 18, 19]},
   /* Bramble and the Forest Friends. Both books approved by Tania on 13 Oct 2026 (Book 1 draft 5, Book 2 draft 5). Words and pictures taken from those PDFs.
      Square book pictures are shown whole, centred on the cream page with soft painted edges. Picture numbers per screen are in picMap. */
-  {id:"bramble-1", title:"Bramble and the First Frost", occasion:"Adventure story in chapters", theme:"Nature and getting ready", minutes:28, shelf:"main", colour:"#f3dca0", series:"Book 1", ready:true, blend:true,
+  {id:"bramble-1", yt:"ul4--83qWUM", title:"Bramble and the First Frost", occasion:"Adventure story in chapters", theme:"Nature and getting ready", minutes:28, shelf:"main", colour:"#f3dca0", series:"Book 1", ready:true, blend:true,
    pics:"bramble1-", cover:"bramble1-cover.webp", coverAlt:"Bramble the red squirrel sits on a frosty branch in a misty autumn wood, his breath making a little cloud in the cold air.",
    picMap:[1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 8, 8, 8, 9, 9, 9, 10, 11, 12, 12, 13, 13, 13, 13, 14, 14, 14, 15, 16, 16, 16, 17, 17, 17, 17, 18, 18]},
   {id:"bramble-2", title:"Bramble Braves the Snow", occasion:"Adventure story in chapters", theme:"Nature and getting ready", minutes:30, shelf:"main", colour:"#d6e4f0", series:"Book 2", ready:true, blend:true,
@@ -247,13 +247,13 @@ const STORIES = [
    picMap:[1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 6, 6, 6, 7, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 12, 13, 13, 13, 13, 14, 14, 15, 16, 17, 17, 17, 18, 18, 18]},
   /* Max and Mia's Autumn Week. Book draft 4 approved by Tania 2 Nov 2026. Words checked word for word against that PDF.
      Pictures placed whole on the cream picture paper exactly as Tania made them: no cropping, no fading, no colour change (rule of 2 Nov 2026). */
-  {id:"max-mia", title:"Max and Mia’s Autumn Week", occasion:"Story time", theme:"Family and autumn", minutes:7, shelf:"main", colour:"#f5cdb6", ready:true,
+  {id:"max-mia", yt:"YtFFYD7qFBU", title:"Max and Mia’s Autumn Week", occasion:"Story time", theme:"Family and autumn", minutes:7, shelf:"main", colour:"#f5cdb6", ready:true,
    pics:"maxmia-", cover:"maxmia-cover.webp", coverAlt:"Max and Mia laugh and throw armfuls of red and gold leaves into the air in an autumn wood. Fluffy the little white dog leaps between them, and Mum and Dad smile behind them."},
   /* The Sounds of Autumn. Book draft 1 (square pictures) chosen by Tania 3 Nov 2026. Words as in that PDF (page 12 "rake").
      Website uses the 14 wide pictures, placed whole on the cream picture paper exactly as Tania made them (rule of 2 Nov 2026). */
-  {id:"soa", title:"The Sounds of Autumn", occasion:"Story time", theme:"Listening and autumn", minutes:3, shelf:"main", colour:"#f3dca0", ready:true,
+  {id:"soa", yt:"7BLAUttcCLY", title:"The Sounds of Autumn", occasion:"Story time", theme:"Listening and autumn", minutes:3, shelf:"main", colour:"#f3dca0", ready:true,
    pics:"soa-", cover:"soa-cover.webp", coverAlt:"Sadie runs through a golden autumn wood with her arms out wide, laughing, as leaves fall all around her. A red squirrel sits on a tree stump."},
-  {id:"nina-1", title:"Nina’s Tasty Trip: The Magic Spoon", occasion:"Story time", theme:"Food and culture", minutes:12, shelf:"main", colour:"#f5cdb6", series:"Book 1", ready:true,
+  {id:"nina-1", yt:"jWDoyF1Z6Mk", title:"Nina’s Tasty Trip: The Magic Spoon", occasion:"Story time", theme:"Food and culture", minutes:12, shelf:"main", colour:"#f5cdb6", series:"Book 1", ready:true,
    pics:"nina-", cover:"nina-cover.webp", coverAlt:"Nina flies through a bright blue sky, holding the magic spoon up high. Golden sparkles swirl around her."},
   {id:"nina-2", title:"Nina's Tasty Trip: Volume 2", occasion:"Story time", theme:"Food and culture", shelf:"main", colour:"#f5cdb6", series:"Book 2"},
   {id:"nina-3", title:"Nina's Tasty Trip: Volume 3", occasion:"Story time", theme:"Food and culture", shelf:"main", colour:"#f5cdb6", series:"Book 3"},
@@ -261,13 +261,13 @@ const STORIES = [
   {id:"lizard", title:"The Great Lizard Escape", occasion:"Adventure story in chapters", theme:"Friendship", shelf:"main", colour:"#cfe3c4"},
   /* The Number Knights: one book in two versions ("Read it your way"). Both approved by Tania 1 Nov 2026. The card opens the shorter read;
      the longer read is reached from the switch on the story page. Pictures 1 to 14 belong to the shorter read, 15 to 20 are the longer read's own. */
-  {id:"knights", title:"The Number Knights and the Missing Crystal", occasion:"Read it your way", readOccasion:"Story time", theme:"Maths", minutes:5, cardTime:"5 or 10 min read", shelf:"main", colour:"#c8d8f0", ready:true, blend:true,
+  {id:"knights", yt:"um0p8DaTNkI", title:"The Number Knights and the Missing Crystal", occasion:"Read it your way", readOccasion:"Story time", theme:"Maths", minutes:5, cardTime:"5 or 10 min read", shelf:"main", colour:"#c8d8f0", ready:true, blend:true,
    pics:"knights-", cover:"knights-cover.webp", coverAlt:"Four knights ride towards the reader on their horses, with Equals in front on a very small grey pony holding her golden scales. A golden castle shines on the hill behind them.",
    picMap:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,14], versions:[["knights","Shorter read"],["knights-long","Longer read"]]},
-  {id:"knights-long", title:"The Number Knights and the Missing Crystal", occasion:"Adventure story in chapters", theme:"Maths", minutes:10, shelf:"none", colour:"#c8d8f0", ready:true, blend:true,
+  {id:"knights-long", yt:"m9t98Ap7Uok", title:"The Number Knights and the Missing Crystal", occasion:"Adventure story in chapters", theme:"Maths", minutes:10, shelf:"none", colour:"#c8d8f0", ready:true, blend:true,
    pics:"knights-", picMap:[1,2,3,3,15,15,5,16,16,17,17,18,8,9,19,20,12,13,14], versions:[["knights","Shorter read"],["knights-long","Longer read"]]},
   {id:"emma", title:"Emma and the Little Seed", occasion:"Bedtime story", theme:"Faith", shelf:"faith", colour:"#cfe3c4"},
-  {id:"lion", title:"The Lion Who Was Afraid of the Dark", occasion:"Bedtime story", theme:"Faith", minutes:6, shelf:"faith", colour:"#f3dca0", ready:true,
+  {id:"lion", yt:"FIIqDj71nlo", title:"The Lion Who Was Afraid of the Dark", occasion:"Bedtime story", theme:"Faith", minutes:6, shelf:"faith", colour:"#f3dca0", ready:true,
    pics:"lion-", cover:"lion-cover.webp", coverAlt:"Lumo the lion’s startled face in the dark, lit gold by a tiny firefly at the tip of his nose."}
 ];
 
@@ -791,6 +791,10 @@ function readerHead(s){
     ${s.versions ? `<div class="controls read-way" role="group" aria-label="Read it your way">
       <span class="label">Read it your way</span>
       ${s.versions.map(v=>`<a class="btn ghost" href="#story-${v[0]}"${v[0]===s.id?' aria-current="true"':''}>${esc(v[1])}</a>`).join('')}
+    </div>` : ''}
+    ${s.yt ? `<div class="controls" role="group" aria-label="Listen to this story">
+      <span class="label">Listen</span>
+      <a class="btn ghost" href="https://www.youtube.com/watch?v=${s.yt}" target="_blank" rel="noopener">Watch Tania read it on YouTube</a>
     </div>` : ''}
     <div class="controls" role="group" aria-label="Reading options">
       <span class="label">Reading style</span>
