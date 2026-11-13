@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Tansley Tales: Free Read-Aloud Stories for Kids, Dyslexia-Friendly</title>
+<meta name="description" content="Free children’s stories to read together or watch read aloud. Bedtime stories, picture books and chapter books, each with a dyslexia-friendly version.">
+<link rel="canonical" href="https://tansleytales.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tansley Tales">
+<meta property="og:title" content="Tansley Tales: Free Read-Aloud Stories for Kids">
+<meta property="og:description" content="Free children’s stories to read together or watch read aloud, each with a dyslexia-friendly version.">
+<meta property="og:url" content="https://tansleytales.com/">
+<meta property="og:image" content="https://tansleytales.com/brand-hero.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Lexend:wght@300;400;600&display=swap">
+<style>
+/* Layout: a night-sky masthead over a warm paper reading area; one column, story text held to a short line. */
+:root{
+  --night:#16213f;        /* masthead sky, from the banner */
+  --night-2:#223063;
+  --gold:#f3c969;         /* storybook glow */
+  --cream:#fbf6ea;        /* page background */
+  --paper:#fffdf7;        /* cards and reading sheet */
+  --ink:#27263a;          /* body text, softer than black */
+  --muted:#5f5d74;
+  --lavender:#d9cdef;
+  --peach:#f5cdb6;
+  --line:#e7dfcc;
+  --focus:#7a5cc4;
+  --dys-bg:#fdf5e1;       /* dyslexia mode reading sheet */
+  --shout:#8f5a00;        /* loud words (ROOOAAAR!, WHOOSH!), the gold of the print book made dark enough to read */
+  --pic-paper:#faf3e1;    /* the cream paper the pictures are painted on; the same in both themes */
+  --font-display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --font-body:"Lexend","Verdana",system-ui,sans-serif;
+  --step-0:1.05rem; --step-1:1.3rem; --step-2:1.7rem; --step-3:2.4rem;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --cream:#131a33; --paper:#1b2446; --ink:#f1ecdf; --muted:#b9b4cc; --line:#2f3a66;
+  --lavender:#3b3570; --peach:#5a3d3a; --dys-bg:#241f1a; --focus:#c8b6ff; --shout:#f3c969; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --cream:#131a33; --paper:#1b2446; --ink:#f1ecdf; --muted:#b9b4cc; --line:#2f3a66;
+  --lavender:#3b3570; --peach:#5a3d3a; --dys-bg:#241f1a; --focus:#c8b6ff; --shout:#f3c969; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--cream);color:var(--ink);font-family:var(--font-body);font-size:var(--step-0);line-height:1.7;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.2;text-wrap:balance;margin:0}
+
+/* masthead */
+.sky{background:radial-gradient(120% 90% at 50% 110%,#3a3a78 0%,var(--night-2) 45%,var(--night) 100%);color:#fbf1d6;position:relative;overflow:hidden}
+.sky canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.bar{position:relative;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;max-width:1080px;margin:0 auto;padding:18px 20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-size:1.5rem;font-weight:600;color:var(--gold)}
+.brand img{display:block;width:48px;height:48px;border-radius:50%;box-shadow:0 0 0 2px rgba(243,201,105,.55)}  /* the Tansley Tales picture, the same one as the YouTube channel */
+nav{display:flex;flex-wrap:wrap;gap:4px}
+nav a{text-decoration:none;padding:8px 14px;border-radius:999px;font-size:1rem;color:#efe8d6}
+nav a[aria-current="page"]{background:rgba(243,201,105,.18);color:var(--gold)}
+.hero{position:relative;max-width:1080px;margin:0 auto;padding:28px 20px 56px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px 40px}
+.hero-text{display:grid;gap:18px;min-width:0}
+.hero-pic{display:block;width:clamp(170px,22vw,250px);height:auto;aspect-ratio:1;max-width:100%;border-radius:50%;box-shadow:0 0 0 4px rgba(243,201,105,.4),0 0 70px rgba(243,201,105,.28)}
+@media (max-width:700px){ .hero{grid-template-columns:minmax(0,1fr)} .hero-pic{display:none} }  /* on phones the picture is already in the top bar */
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem);color:#fff4d4}
+.hero p{max-width:34ch;font-size:var(--step-1);color:#e6dfcf;margin:0;font-weight:300}
+.hero .cta{justify-self:start}
+
+.btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:600;border:0;cursor:pointer;text-decoration:none;border-radius:999px;padding:12px 22px;background:var(--gold);color:#241c05}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn[aria-pressed="true"]{background:var(--lavender);color:var(--ink);border-color:transparent}
+.btn[disabled]{opacity:.4;cursor:default}
+
+main{max-width:1080px;margin:0 auto;padding:40px 20px 72px;display:grid;gap:48px}
+.section-head{display:grid;gap:6px}
+.section-head h2{font-size:var(--step-2)}
+.section-head p{margin:0;color:var(--muted)}
+
+/* shelves */
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.book{display:grid;grid-template-rows:auto 1fr;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;min-width:0}
+.cover{aspect-ratio:4/3;max-width:100%;display:grid;place-items:center;font-family:var(--font-display);font-size:1.25rem;text-align:center;padding:16px;color:#2a2440}
+.cover.has-img{padding:0;background:var(--pic-paper)}
+.cover.has-img img{display:block;width:100%;height:100%;object-fit:cover}
+.book .info{padding:14px 16px 18px;display:grid;gap:6px;align-content:start}
+.book h3{font-size:1.2rem}
+.meta{display:flex;flex-wrap:wrap;gap:6px;font-size:.85rem;color:var(--muted)}
+.tag{background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.soon{font-size:.85rem;font-weight:600;color:var(--muted)}
+.book[href]:hover .cover{filter:brightness(1.05)}
+.book:not([href]){opacity:.82}
+
+.promise{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.promise div{display:grid;gap:4px}
+.promise h3{font-size:1.15rem}
+.promise p{margin:0;color:var(--muted)}
+
+/* reader */
+.reader{display:grid;gap:24px}
+.reader-head{display:grid;gap:10px}
+.reader-head h1{font-size:var(--step-3)}
+/* the credit under a story title: brand line, who made and reads it, and the plain AI line (credit policy, 9 Oct 2026) */
+.credit{margin:0;display:grid;gap:2px;max-width:48ch}
+.credit strong{font-weight:600;font-size:.95rem;letter-spacing:.03em;color:var(--muted)}
+.credit small{font-size:.95rem;color:var(--muted)}
+.dedication{margin:0;display:grid;gap:2px;max-width:48ch}
+.dedication span{color:var(--muted);font-size:.95rem}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px}
+.controls .label{font-size:.9rem;color:var(--muted);margin-right:4px}
+.narration{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.95rem;color:var(--muted)}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,5vw,48px)}
+.story{max-width:62ch;margin:0 auto;display:grid;gap:1.6em}
+.story p{margin:0}
+.story .rhyme{font-style:italic;color:var(--muted)}
+.story .moral{font-family:var(--font-display);font-size:var(--step-1);color:var(--ink)}
+.story .end{text-align:center;font-family:var(--font-display);color:var(--muted)}
+.story section{display:grid;gap:.5em}
+.story .chapter{font-size:var(--step-2);display:grid;gap:.1em;margin-bottom:.2em}
+.story .chapter span{font-family:var(--font-body);font-size:.95rem;font-weight:600;letter-spacing:.04em;color:var(--shout)}
+.story .brk{height:.55em}
+.story .prompt{justify-self:start;font-weight:600;background:#f6e3a8;color:#2a2440;border-radius:14px;padding:.3em .9em}   /* "Can you count them?" and "Your turn" boxes, like the gold box in the book */
+.read-way .btn[aria-current="true"]{background:var(--lavender);color:var(--ink);border-color:transparent}
+.story .shout{font-family:var(--font-display);font-weight:600;font-size:1.5em;line-height:1.2;color:var(--shout)}
+/* pages after the story: the lesson, thank-you words, recipes */
+.story.extra{gap:1.1em}
+.story.extra h2{font-size:var(--step-2)}
+.story.extra .lead-in{color:var(--muted)}
+.thanks{margin:0;display:grid;gap:.9em}
+.thanks div{display:grid;gap:.1em}
+.thanks dt{font-weight:600}
+.thanks dt span{font-weight:400;color:var(--muted)}
+.thanks dd{margin:0}
+.recipe{padding-top:1.1em;border-top:1px solid var(--line)}
+.recipe h3{font-size:var(--step-1)}
+.recipe ol{margin:0;padding-left:1.5em;display:grid;gap:.45em}
+.recipe strong{font-weight:600}
+
+/* picture-book mode: one picture and its words per screen, with Back and Next */
+.pb{display:grid;gap:clamp(16px,3vw,28px);padding:clamp(14px,3vw,32px)}
+.pb figure{margin:0 auto;aspect-ratio:1200/670;width:min(100%,calc(56vh * 1200 / 670));max-width:100%;background:var(--pic-paper);border:1px solid var(--line);border-radius:14px;overflow:hidden}  /* capped so the picture, words and buttons fit on one screen */
+.pb figure img{display:block;width:100%;height:100%;object-fit:cover}
+/* blended pictures (blend:true): no box. The picture fades into cream, so the reading sheet is the same cream (light theme) */
+.pb.blend figure{border:0;border-radius:0;background:transparent}
+:root:not([data-theme="dark"]) .pb.blend{background:var(--pic-paper)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .pb.blend{background:var(--paper)} :root:not([data-theme="light"]) .pb.blend figure{border-radius:28px;background:var(--pic-paper)} }
+:root[data-theme="dark"] .pb.blend figure{border-radius:28px;background:var(--pic-paper)}
+.pb .story{width:100%;max-width:46ch;gap:.7em;font-size:var(--step-1);line-height:1.75;min-height:7.5em;align-content:start}
+.pb .story .moral{font-size:1.45rem}
+.pb .story:has(.brk){gap:.35em}   /* chapter books: lines sit close, groups of lines sit apart */
+.dys .pb .story:has(.brk){gap:.5em}
+.dys .story .brk{height:.9em}
+.pb .story .end{font-size:var(--step-2);color:var(--ink);text-align:left}
+.pager{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
+.pager .btn{min-height:52px;padding:12px 26px;font-size:1.1rem}
+.pager .back{justify-self:start}
+.pager .next{justify-self:end}
+.pager .count{color:var(--muted);font-size:.95rem;font-variant-numeric:tabular-nums;text-align:center}
+.track{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.track div{height:100%;width:0;background:var(--gold);border-radius:999px;transition:width .25s ease}
+.after{margin:0;color:var(--muted)}
+@media (max-width:520px){
+  .pager{grid-template-columns:1fr 1fr}
+  .pager .count{grid-column:1/-1;grid-row:1}
+  .pager .btn{padding:12px 16px;justify-content:center;width:100%}
+}
+
+/* dyslexia-friendly mode */
+.dys .sheet{background:var(--dys-bg)}
+.dys .story{max-width:48ch;gap:2.2em;font-size:1.25rem;line-height:2;letter-spacing:.06em;word-spacing:.18em}
+.dys .story .rhyme{font-style:normal;font-weight:600}
+.dys .story p{text-align:left}
+.dys .pb .story{max-width:40ch;gap:1em;font-size:1.45rem;line-height:2.1}
+
+.prose{max-width:62ch;display:grid;gap:1em}
+.prose p{margin:0}
+.note{background:var(--peach);border-radius:12px;padding:14px 16px;color:var(--ink)}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+footer .inner{max-width:1080px;margin:0 auto;padding:24px 20px;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+</style>
+
+</head>
+<body>
+<header class="sky">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="bar">
+    <a class="brand" href="#home">
+      <img src="brand-logo.webp" alt="" width="48" height="48">
+      Tansley Tales
+    </a>
+    <nav aria-label="Main">
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#library" data-nav="library">Stories</a>
+      <a href="#about" data-nav="about">About</a>
+    </nav>
+  </div>
+  <div class="hero" id="hero">
+    <div class="hero-text">
+      <h1>Stories to read together</h1>
+      <p>Every story comes with a dyslexia-friendly version, one tap away.</p>
+      <a class="btn cta" href="#library">Browse the stories</a>
+    </div>
+    <img class="hero-pic" src="brand-hero.webp" alt="" width="520" height="520">
+  </div>
+</header>
+
+<main id="view"></main>
+
+<footer><nav class="inner story-links" aria-label="Watch and read every story"><span><strong>Watch and read:</strong> <a href="milo-and-the-starry-sand">Milo and the Starry Sand</a> · <a href="benny-the-bunnys-bold-leap">Benny the Bunny’s Bold Leap</a> · <a href="benny-and-the-secret-meadow">Benny and the Secret Meadow</a> · <a href="eri-and-the-magic-book">Eri and the Magic Book</a> · <a href="bramble-and-the-first-frost">Bramble and the First Frost</a> · <a href="bramble-braves-the-snow">Bramble Braves the Snow</a> · <a href="max-and-mias-autumn-week">Max and Mia’s Autumn Week</a> · <a href="the-sounds-of-autumn">The Sounds of Autumn</a> · <a href="team-brave-and-the-jungle-quest">Team Brave and the Jungle Quest</a> · <a href="ninas-tasty-trip-the-magic-spoon">Nina’s Tasty Trip: The Magic Spoon</a> · <a href="the-number-knights-short-read">The Number Knights and the Missing Crystal (short read)</a> · <a href="the-number-knights-longer-read">The Number Knights and the Missing Crystal (longer read)</a> · <a href="the-lion-who-was-afraid-of-the-dark">The Lion Who Was Afraid of the Dark</a></span></nav><div class="inner">
+  <span>© 2026 Tansley Tales by Tania Jacobs</span>
+  <span>Made with the help of AI. Edited, checked and read by a real teacher. <a href="#how">How our stories are made</a></span>
+  <span><a href="#privacy">Privacy</a></span>
+</div></footer>
+
+<script>
+/* If a picture fails to load (for example while the site is being updated), try it again up to twice
+   with a fresh address, so readers never see the picture description instead of the picture. 3 Nov 2026. */
+document.addEventListener('error', function (e) {
+  var el = e.target;
+  if (!el || el.tagName !== 'IMG') return;
+  var src = el.getAttribute('src');
+  if (!src) return;
+  var base = src.split('?')[0];
+  var n = el.dataset.rsrc === base ? +(el.dataset.retry || 0) : 0;
+  if (n >= 2) return;
+  el.dataset.rsrc = base; el.dataset.retry = n + 1;
+  setTimeout(function () { el.src = base + '?r=' + Date.now(); }, 800 * (n + 1));
+}, true);
+
+/* Credit labels (stories/tansley-tales-ai-transparency-policy.md). Label B is the default: AI wrote the first words.
+   label:"A" is only for a story Tania wrote herself, where just the pictures are AI. No story has it now:
+   Tania said on 9 Oct 2026 that Benny is not written entirely by her either, so Benny is Label B like the rest. */
+const STORIES = [
+  {id:"milo", yt:"ZVBQO_4YcOU", title:"Milo and the Starry Sand", occasion:"Bedtime story", theme:"Courage", minutes:7, shelf:"main", colour:"#d9cdef", ready:true,
+   pics:"milo-", cover:"milo-cover.webp", coverAlt:"Milo the mouse draws a moon and stars in the sand with a twig. Luna the ladybird sits on a leaf beside him."},
+  {id:"benny", yt:"54HkG-AgQt0", title:"Benny the Bunny’s Bold Leap", occasion:"Story time", theme:"Courage and friendship", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 1", ready:true,
+   pics:"benny-", cover:"benny-cover.webp", coverAlt:"Benny the bunny leaps across lily pads on a pond, with Max the mouse behind him.",
+   dedication:["To my daughter, who shows true bravery every day!","Author and proud mom of a dyslexic child."]},
+  {id:"benny-2", yt:"tyo3ppxp4Fg", title:"Benny and the Secret Meadow", occasion:"Story time", theme:"Kindness and courage", minutes:4, shelf:"main", colour:"#cfe3c4", series:"Book 2", ready:true,
+   pics:"benny2-", cover:"benny2-cover.webp", coverAlt:"Barnaby the badger peeps round an open wooden gate. Benny the bunny and Max the mouse look into a meadow full of flowers and blackberries. Lila the ladybird sits on a leaf on the gatepost."},
+  {id:"eri", yt:"Z2wttZNuK-w", title:"Eri and the Magic Book", occasion:"Adventure story in chapters", theme:"Reading together", minutes:12, shelf:"main", colour:"#f3dca0", ready:true,
+   pics:"eri-", cover:"eri-cover.webp", coverAlt:"Eri and Marie stand by a little red door in a library bookshelf. Golden light spills out, and a grey cat in gold glasses peeps round the door. Marie points with an excited smile, and Eri smiles as she hugs a red book.",
+   picMap:[1, 1, 1, 2, 2, 3, 4, 5, 6, 6, 6, 7, 8, 8, 9, 9, 9, 10, 10, 11, 11, 12, 13, 14, 14, 15, 15, 15, 16, 17, 18, 19]},
+  /* Bramble and the Forest Friends. Both books approved by Tania on 13 Oct 2026 (Book 1 draft 5, Book 2 draft 5). Words and pictures taken from those PDFs.
+     Square book pictures are shown whole, centred on the cream page with soft painted edges. Picture numbers per screen are in picMap. */
+  {id:"bramble-1", yt:"ul4--83qWUM", title:"Bramble and the First Frost", occasion:"Adventure story in chapters", theme:"Nature and getting ready", minutes:28, shelf:"main", colour:"#f3dca0", series:"Book 1", ready:true, blend:true,
+   pics:"bramble1-", cover:"bramble1-cover.webp", coverAlt:"Bramble the red squirrel sits on a frosty branch in a misty autumn wood, his breath making a little cloud in the cold air.",
+   picMap:[1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 8, 8, 8, 9, 9, 9, 10, 11, 12, 12, 13, 13, 13, 13, 14, 14, 14, 15, 16, 16, 16, 17, 17, 17, 17, 18, 18]},
+  {id:"bramble-2", yt:"45xFeGs4xEU", title:"Bramble Braves the Snow", occasion:"Adventure story in chapters", theme:"Nature and getting ready", minutes:30, shelf:"main", colour:"#d6e4f0", series:"Book 2", ready:true, blend:true,
+   pics:"bramble2-", cover:"bramble2-cover.webp", coverAlt:"Bramble the red squirrel sits on a snowy branch in a winter forest, looking up as snowflakes fall.",
+   picMap:[1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 6, 6, 6, 7, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 12, 13, 13, 13, 13, 14, 14, 15, 16, 17, 17, 17, 18, 18, 18]},
+  /* Max and Mia's Autumn Week. Book draft 4 approved by Tania 2 Nov 2026. Words checked word for word against that PDF.
+     Pictures placed whole on the cream picture paper exactly as Tania made them: no cropping, no fading, no colour change (rule of 2 Nov 2026). */
+  {id:"max-mia", yt:"YtFFYD7qFBU", title:"Max and Mia’s Autumn Week", occasion:"Story time", theme:"Family and autumn", minutes:7, shelf:"main", colour:"#f5cdb6", ready:true,
+   pics:"maxmia-", cover:"maxmia-cover.webp", coverAlt:"Max and Mia laugh and throw armfuls of red and gold leaves into the air in an autumn wood. Fluffy the little white dog leaps between them, and Mum and Dad smile behind them."},
+  /* The Sounds of Autumn. Book draft 1 (square pictures) chosen by Tania 3 Nov 2026. Words as in that PDF (page 12 "rake").
+     Website uses the 14 wide pictures, placed whole on the cream picture paper exactly as Tania made them (rule of 2 Nov 2026). */
+  {id:"soa", yt:"7BLAUttcCLY", title:"The Sounds of Autumn", occasion:"Story time", theme:"Listening and autumn", minutes:3, shelf:"main", colour:"#f3dca0", ready:true,
+   pics:"soa-", cover:"soa-cover.webp", coverAlt:"Sadie runs through a golden autumn wood with her arms out wide, laughing, as leaves fall all around her. A red squirrel sits on a tree stump."},
+  /* Team Brave and the Jungle Quest. Book approved by Tania 8 Nov 2026. Words checked word for word against the approved PDF.
+     Pictures placed whole on the cream picture paper exactly as they are in the approved book (rule of 2 Nov 2026). */
+  {id:"brave", yt:"orQcXSsZySA", title:"Team Brave and the Jungle Quest", occasion:"Adventure story in chapters", theme:"Teamwork and bravery", minutes:12, shelf:"main", colour:"#cfe3c4", ready:true,
+   pics:"brave-", cover:"brave-cover.webp", coverAlt:"Emily, Riley and Reid stand smiling on the mossy steps of an old jungle temple. Emily holds a map, with Poppy the dog peeping out of her orange backpack. Riley holds a torch, Reid holds a walkie-talkie, a jaguar cub sits at their feet, and a bright parrot flies above.",
+   picMap:[1, 2, 3, 4, 5, 6, 7, 7, 7, 8, 9, 9, 10, 11, 12, 12, 12, 13, 14, 15, 16, 16]},
+  {id:"nina-1", yt:"jWDoyF1Z6Mk", title:"Nina’s Tasty Trip: The Magic Spoon", occasion:"Story time", theme:"Food and culture", minutes:12, shelf:"main", colour:"#f5cdb6", series:"Book 1", ready:true,
+   pics:"nina-", cover:"nina-cover.webp", coverAlt:"Nina flies through a bright blue sky, holding the magic spoon up high. Golden sparkles swirl around her."},
+  {id:"nina-2", title:"Nina's Tasty Trip: Volume 2", occasion:"Story time", theme:"Food and culture", shelf:"main", colour:"#f5cdb6", series:"Book 2"},
+  {id:"nina-3", title:"Nina's Tasty Trip: Volume 3", occasion:"Story time", theme:"Food and culture", shelf:"main", colour:"#f5cdb6", series:"Book 3"},
+  {id:"max", title:"Max and the Treasure Map", occasion:"Story time", theme:"Adventure", shelf:"main", colour:"#f3dca0"},
+  {id:"lizard", title:"The Great Lizard Escape", occasion:"Adventure story in chapters", theme:"Friendship", shelf:"main", colour:"#cfe3c4"},
+  /* The Number Knights: one book in two versions ("Read it your way"). Both approved by Tania 1 Nov 2026. The card opens the shorter read;
+     the longer read is reached from the switch on the story page. Pictures 1 to 14 belong to the shorter read, 15 to 20 are the longer read's own. */
+  {id:"knights", yt:"um0p8DaTNkI", title:"The Number Knights and the Missing Crystal", occasion:"Read it your way", readOccasion:"Story time", theme:"Maths", minutes:5, cardTime:"5 or 10 min read", shelf:"main", colour:"#c8d8f0", ready:true, blend:true,
+   pics:"knights-", cover:"knights-cover.webp", coverAlt:"Four knights ride towards the reader on their horses, with Equals in front on a very small grey pony holding her golden scales. A golden castle shines on the hill behind them.",
+   picMap:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,14], versions:[["knights","Shorter read"],["knights-long","Longer read"]]},
+  {id:"knights-long", yt:"m9t98Ap7Uok", title:"The Number Knights and the Missing Crystal", occasion:"Adventure story in chapters", theme:"Maths", minutes:10, shelf:"none", colour:"#c8d8f0", ready:true, blend:true,
+   pics:"knights-", picMap:[1,2,3,3,15,15,5,16,16,17,17,18,8,9,19,20,12,13,14], versions:[["knights","Shorter read"],["knights-long","Longer read"]]},
+  {id:"emma", title:"Emma and the Little Seed", occasion:"Bedtime story", theme:"Faith", shelf:"faith", colour:"#cfe3c4"},
+  {id:"lion", yt:"FIIqDj71nlo", title:"The Lion Who Was Afraid of the Dark", occasion:"Bedtime story", theme:"Faith", minutes:6, shelf:"faith", colour:"#f3dca0", ready:true,
+   pics:"lion-", cover:"lion-cover.webp", coverAlt:"Lumo the lion’s startled face in the dark, lit gold by a tiny firefly at the tip of his nose."}
+];
+
+/* Story text. "~" = rhyme line, "^" = a loud word, "!" = closing message, "#" = The End, "@" = chapter heading, "" = small space */
+const TEXT = { milo: [
+ ["In the middle of Willow Wood, where the willow trees whisper and the stream runs slow, there lived a tiny mouse called Milo.","Milo was small.","Milo was quiet.","And Milo had a secret."],
+ ["Every morning, when the wood was still yawning, Milo crept down to the sandy bank by the stream.","He picked up his favourite twig and began to draw.","~Scritch, scratch, swish and sway,","~Milo drew his worries away.","He drew moons and mountains. He drew fish with fancy fins. He drew a bear wearing a very small hat.","But whenever a leaf rustled or a twig snapped, Milo dashed behind a stone and hid."],
+ ["One day, a poster went up on the Big Oak Tree.","THE BIG TALENT SHOW! Saturday. Moonrise. Everyone welcome!","The whole wood was buzzing.","Squirrel practised juggling acorns. (Bonk! Sorry, Badger!)","Frog practised singing. (Mostly burping.)","The Rabbit twins practised a dance that went hop, hop, flop.","Everyone was excited. Everyone except Milo.","“I’m too small to be seen,” he whispered. “And too quiet to be heard.”"],
+ ["The next morning, Milo was drawing a starry sky when a voice said,","“OH. MY. GOODNESS!”","Milo nearly jumped out of his whiskers.","It was Luna the Ladybird, spotty and bright, and she did not stop talking.","“Did you draw this? You did! You drew this! It’s the most wonderful thing I’ve ever seen, and I’ve seen a LOT of things, because I fly, you know, and flying means seeing, and seeing means...”","“Hoo,” said a soft voice from above. “Breathe, Luna.”","It was Ollie the Owl."],
+ ["Ollie looked down at the drawings for a long, long time.","“Milo,” he said gently, “you have a gift.”","“You must show everyone at the Talent Show!” cried Luna. “You simply MUST!”","Milo’s ears drooped. His tail curled up tight.","“But what if they laugh?” he whispered.","“What if they don’t look?","What if I’m too small, too quiet, too... me?”"],
+ ["Just then, someone arrived. Very slowly.","It was Toby the Tortoise.","“Sorry I’m late,” said Toby. “I set off on Tuesday.”","(It was Thursday.)","Toby looked at Milo’s worried face and smiled a slow, kind smile.","“Bravery doesn’t come all at once, little one,” he said.","“Slow and steady.","One small step.","Then you’re ready.”","Milo thought about that all night long.","~Scritch, scratch, swish and sway,","~Milo drew his worries away."],
+ ["On Saturday, the wood looked magical.","The animals hung painted leaf banners between the branches. They strung up berry lanterns. They built a stage on the sandy clearing by the stream.","Milo watched from behind a mushroom.","“Maybe next year,” he told himself. “When I’m bigger. When I’m louder. When I’m braver.”"],
+ ["Then the sky grew grey.","The wind began to howl.","And down came the rain.","~Pitter, patter.","~Splish, SPLASH.","~Crackle, rumble, CRASH!","The animals ran for cover. The banners flapped and tore. The lanterns rolled away. The paint washed off in wiggly, wobbly streams."],
+ ["When the storm was over, everyone crept out.","The stage decorations were gone. Every single one.","“The show is ruined,” sniffed Rabbit.","“No banners,” sighed Badger.","“No lanterns,” groaned Squirrel.","“Ribbit,” said Frog, which meant, “I don’t mind, honestly.”","Milo looked at the clearing.","The rain had left the sand smooth, and flat, and shining.","Just like a brand new page."],
+ ["Milo’s heart went thump, thump, thump.","He could hide. Hiding was easy.","Or he could help. Helping was hard.","He remembered Toby’s words.","~Slow and steady. One small step.","Milo took one small step out from behind the mushroom.","Then another.","Then another.","“I... I have an idea,” he squeaked.","Nobody heard."],
+ ["“EVERYONE!” shouted Luna. “MILO HAS AN IDEA!”","Every head turned. Every eye looked at Milo.","His knees wobbled. His whiskers wobbled. Even his tail wobbled.","But he held up his twig and said, a little louder this time,","“I can draw the decorations. In the sand.”","Nobody laughed.","Ollie simply nodded. “Show us, Milo.”"],
+ ["So Milo drew.","~Scritch, scratch, swish and sway,","~Milo drew the gloom away.","He drew a giant silver moon. He drew stars that swirled like snowflakes. He drew willow trees with long, curling branches all around the stage.","The animals helped. Squirrel pressed shiny acorns in for sparkle. Rabbit tucked in flower petals. Toby laid pebbles very carefully in a line. (It took quite a while.)","And when the real moon rose, the wet sand glittered like a sky full of stars."],
+ ["“Ooooooh,” said everyone.","“Aaaaaah,” said everyone.","“Ribbit,” said Frog, which meant, “Wow.”","The show went on. Squirrel juggled (only one bonk). The Rabbit twins danced (only one flop). Frog sang (only three burps).","And at the very end, Ollie called out,","“And our final act... the artist who saved the show... MILO!”"],
+ ["Milo stood in the middle of his moonlit drawing.","He was still small.","He was still quiet.","But everyone was cheering. For him.","Milo didn’t need to be big, or loud. He just needed to believe in what he could do."],
+ ["That night, snuggled in his bed beneath the willow roots, Milo smiled a sleepy smile.","~Scritch, scratch, swish and sway,","~Milo dreamed his brave new day.","Because Milo knew something now, and so do you:","!Even the smallest voices can make a big difference.","#The End"]
+],
+/* Bramble and the First Frost. Approved 13 Oct 2026. 5 chapters, 44 screen pages, 18 pictures. */
+"bramble-1": [
+ ["@Chapter 1: The First Frost", "Bramble the red squirrel darted along the branches of the great oak tree, his fluffy tail flicking behind him like a banner in the cool morning air. He leapt from one branch to another with a soft thump, sending a few golden leaves spiralling down to the forest floor.", "It was the first time Bramble had noticed his breath making little clouds in the air. He stopped, sniffed, and shivered.", "“Cold,” he muttered, pulling his tail around his body like a scarf. “When did the air get so chilly?”"],
+ ["Below him, the forest stretched wide and busy. The trees were losing their leaves, painting the ground in reds, oranges and yellows. A soft crunch rose up whenever a deer passed through the undergrowth. Somewhere in the distance, a woodpecker tapped at a hollow trunk.", "Autumn had been kind so far. There had been plenty of nuts to snack on, berries to nibble, and long afternoons of racing through the branches with the other squirrels. But this morning felt different. The wind bit at his ears, sharper than before, and the ground sparkled faintly with a silver frost.", "Bramble tilted his head, thoughtful. “It feels like the forest is changing. But why?”"],
+ ["“Because it is, young Bramble,” came a deep voice from above.", "Startled, Bramble looked up to see Oakley the Owl perched high on a bare branch. Oakley was a tawny owl with feathers the colour of twilight and eyes as round as the moon. He always seemed to appear exactly when Bramble needed answers, whether Bramble liked it or not.", "“Oakley!” Bramble squeaked. “You scared me!”", "“I didn’t mean to,” Oakley said, blinking slowly. “But it is time you started paying attention. Winter waits for no one.”"],
+ ["“Winter?” Bramble repeated. He’d heard the word before, of course. But in truth, he had never thought much about it. He liked running and playing far too much.", "Oakley nodded gravely. “The days are shorter, the nights colder. The frost is only the beginning. You must prepare.”", "“Prepare? For what?”", "“For the long, cold months ahead,” Oakley hooted. “Every creature in these woods must have a plan before the snow arrives. Some sleep through the cold. Some travel to warmer places. And some, like you, must gather enough food to last until spring.”"],
+ ["Bramble’s ears twitched nervously. “Enough food? How much is enough?”", "“That depends on how hungry you’ll be,” Oakley said with a chuckle. “A squirrel like you needs plenty of nuts and seeds, hidden in clever places where the snow cannot find them.”", "Bramble’s eyes widened. He had been nibbling hazelnuts here and there, but he hadn’t thought about saving them. The idea of planning ahead made his whiskers twitch uncomfortably.", "“What if I don’t find enough?” he asked in a small voice."],
+ ["“Then winter will be long indeed,” Oakley replied. He stretched his wings wide, casting a great shadow across the frosty ground. “But you are clever, Bramble. You’ll find your way.”", "Bramble swallowed hard. He wanted to feel brave, but instead, a small knot of worry began to form in his tummy. The forest looked different now. It looked less like a playground and more like a puzzle he needed to solve.", "Oakley gave him a final wise stare. “Watch the others, little one. Each animal knows how to prepare. Learn from them, and you’ll be ready.”"],
+ ["And with a powerful sweep of his wings, Oakley lifted into the pale morning sky, leaving Bramble alone with his thoughts.", "Bramble sat still on the branch for a long while, staring at the mist that curled between the trees. Winter waits for no one. The words echoed in his head.", "Finally, he flicked his tail and puffed out his chest. “All right then. I’ll figure this out. I’ll watch, I’ll learn, and I’ll prepare.”", "The forest whispered around him, leaves tumbling like tiny dancers in the wind. Bramble took a deep breath of the crisp air. He didn’t know exactly what winter would bring, but he knew one thing for certain: his adventure had just begun."],
+ ["@Chapter 2: Hazelnut Hunt", "The next morning, Bramble awoke to a world dusted in silver. Frost glittered on every branch and leaf, turning the forest into a sparkling kingdom. He stretched, yawned, and rubbed his sleepy eyes with his tiny paws.", "Then he remembered Oakley’s warning: Winter waits for no one."],
+ ["With a determined flick of his tail, Bramble scurried down the trunk of his oak tree. “Right,” he said to himself. “Time to gather food! I’ll have so many nuts that I’ll never go hungry.”", "The forest floor was a treasure chest waiting to be opened. Acorns lay scattered under the oaks, beechnuts were tucked into the damp soil, and hazelnuts hid among the leaves. Bramble bounded happily between them, picking up the biggest ones he could find."],
+ ["“Too small,” he muttered, tossing aside a shrivelled nut. “Too cracked,” he said, rejecting another. “Aha! Perfect!”", "He clutched a fat hazelnut to his chest, beaming. He dug a little hole under a root, buried the nut, and patted the soil neatly with his paws. “There! Safe and sound.”", "Pleased with himself, Bramble raced to the next tree, his paws crunching through frosted leaves. He found another nut, then another, and another. Soon he had several hiding spots dotted across the forest floor."],
+ ["The trouble was, Bramble was easily distracted. A woodpecker tapped loudly nearby, and Bramble paused to watch. A pile of leaves swirled in the wind, and he jumped in just for fun. Before long, he was chasing his own tail, forgetting about the hazelnuts entirely.", "When his tummy rumbled, he remembered. He was supposed to be storing the nuts, not eating every other one.", "“Oh dear,” Bramble sighed, staring at the crumbs around his paws. “I was doing so well!”"],
+ ["A faint squeak startled him. He pricked his ears and turned. From under a patch of brambles came two tiny faces with twitching whiskers and shiny black eyes.", "“Hello?” Bramble said, tilting his head.", "“Who are you talking to?” squeaked the smaller one.", "“To you, of course,” Bramble replied.", "Out stepped two field mice, their fur soft and brown. One was slightly larger and stood tall with a careful expression. The other was smaller, with twitchy whiskers and a nose that never stopped wiggling.", "“I’m Tansley,” said the larger one."],
+ ["“And I’m Emsley!” the smaller one squeaked. “We were watching you bury nuts. You’re very noisy.”", "Bramble’s ears turned pink. “I’m, um, I’m new to this getting-ready-for-winter thing.”", "Tansley nodded wisely. “You’ll want to be quieter. Hungry birds might hear.” He glanced nervously at the sky, as if expecting a hawk at any moment.", "Emsley piped up, “We’re gathering seeds and grains! Come and see!”", "Curious, Bramble followed them to a hollow log tucked against the roots of a beech tree. Inside, the mice had carefully stored a pile of seeds, berries and tiny nuts."],
+ ["“Wow,” Bramble breathed. “You’ve been busy.”", "Tansley puffed out his chest. “We have to be. Winter is long for mice. We don’t sleep through it like some animals. We stay awake, and if we don’t have enough food, well...” He trailed off, and Emsley shivered at the thought.", "Bramble nodded seriously. “Oakley said I need to gather lots, too. But it’s hard not to get distracted.”", "Emsley giggled. “You’ll get used to it! We make a game of it. We race to see who can carry the most seeds without dropping any!”"],
+ ["“Or we hide them in tricky places,” Tansley added. “Like under moss or inside old nutshells. That way, if another animal finds one stash, we’ve got backups.”", "Bramble’s eyes lit up. “That’s clever!”", "The three of them spent the afternoon racing between trees, scooping up seeds and nuts, and hiding them in secret places. Emsley made up songs to help them remember where the stashes were. Tansley scolded Bramble whenever he stopped to play in the leaves, but his whiskers twitched with amusement all the same."],
+ ["By the time the sun dipped low, the little trio had collected a fine supply. Bramble sat proudly on a log, his paws dusty and his tail full of leaves.", "“This is hard work,” he panted. “But it feels good. I’ll be ready for winter in no time!”", "Tansley gave him a steady look. “Remember, Bramble, winter is long. One good day won’t be enough.”", "Emsley nodded, her eyes wide. “We work every day until the snow comes!”"],
+ ["Bramble’s determination wobbled just a little. Every day? That sounded exhausting. But he made himself smile. “Then I’ll keep going, too. I’ll be the best-prepared squirrel in the whole forest!”", "The mice squeaked encouragement and scurried back to their log. Bramble bounded up into the branches of his oak, his mind buzzing with new ideas.", "As night fell, the forest glittered under a blanket of frost. Bramble curled up in his nest, tired but proud. He was still learning, and still fumbling, but for the first time, he felt like he was really preparing."],
+ ["@Chapter 3: A Spiky Secret", "Bramble woke the next morning to the sound of leaves crunching faintly nearby. The forest floor, frosted white, glittered in the sunlight that filtered through the bare branches. He scurried down the oak trunk, his claws scratching the bark, and pricked his ears.", "Shuffle. Shuffle. Snuffle.", "It wasn’t the quick scamper of Tansley and Emsley, nor the sharp tapping of a woodpecker. This was slower and heavier, like something pushing through a pile of twigs. Bramble followed the sound, his paws sinking into the chilly carpet of leaves, until he found a curious sight: a ball of brown prickles nestled under a tangle of brambles."],
+ ["The ball twitched, sniffed, and let out a grumbly snort.", "“Hello?” Bramble called carefully.", "The prickly ball unfurled, and a small face appeared, with a pointed snout, beady black eyes and whiskers dusted with frost.", "“Oh!” Bramble gasped. “You’re... spiky!”", "The creature chuckled, showing tiny teeth. “Indeed I am. Hazel the Hedgehog, pleased to meet you.” She gave a polite dip of her head, sending a few leaves tumbling from her back. “And who are you, bushy-tail?”", "“I’m Bramble the squirrel,” he said proudly. “And I’m busy preparing for winter!”", "Hazel raised her eyebrows. “Are you, now? I’d say you’re mostly bouncing and babbling.”"],
+ ["Bramble’s ears turned pink. “I’m trying,” he muttered. “Oakley told me winter is coming, and Tansley and Emsley showed me how they store seeds. But it all sounds like... a lot.”", "Hazel chuckled again, the sound rumbling in her chest. “Well, I suppose you could say I take the easy route. I don’t bother rushing about once the frost thickens.”", "Bramble blinked. “You don’t? But Oakley said we all have to prepare.”", "“Oh, I prepare,” Hazel said, waddling over to a patch of leaves. With her snout, she began nosing them into a neat pile. “But not the way you do. I eat. I eat as much as I can now. Worms, beetles, slugs, berries, you name it. I fill myself up, nice and round.” She patted her tummy proudly. “Then, when the cold truly bites, I curl up in a snug little nest and sleep until spring.”"],
+ ["“Sleep?” Bramble squeaked. “All winter?”", "“All winter,” Hazel said with a dreamy sigh. “That’s called hibernation. My heartbeat slows right down, my body cools, and I hardly need any food at all.”", "Bramble stared at her in amazement. “That sounds amazing. No gathering nuts, no worrying, just... snoozing!”", "Hazel smirked. “Think you could manage it?”", "Bramble tried to imagine staying still for months and months. No racing up branches, no nibbling crunchy hazelnuts, no chasing Emsley in circles just for fun. His whiskers twitched. “I’d go nuts!”"],
+ ["“Exactly,” Hazel said with a wink. “Hibernation isn’t for everyone. You squirrels are made for collecting and hiding food. We hedgehogs are made for fattening up and snoozing. Each creature has its own way.”", "Bramble thought about that as Hazel shuffled more leaves into her pile. The nest was getting quite large, round and soft, with bits of moss poking through.", "“Do you make more than one?” Bramble asked.", "“Always,” Hazel said. “Several nests, hidden in different places. If one gets too damp, or if a fox comes sniffing, I simply move to another. That way, I’m never without shelter.”", "“That’s clever,” Bramble said. “Maybe I could make more nests too. Not for sleeping the whole winter, but for staying warm when the snow comes.”"],
+ ["Hazel’s eyes twinkled. “Now you’re thinking.”", "They spent a while working side by side. Hazel showed Bramble how to weave leaves and moss into layers to trap the warm air. Bramble practised building a small shelter under a log. His paws were clumsy compared to Hazel’s nose, but he was proud when his little pile looked almost like a nest.", "“Not bad,” Hazel said. “Though I’d add more moss. Keeping the warmth in is the key.”", "Bramble puffed out his chest. “I’ll keep practising. Maybe I’ll make a few backup nests, like you.”", "“That’s the spirit,” Hazel said, yawning widely. She curled back into her leaf pile, prickles sticking out like little spears. “You’ll need your energy. Winter doesn’t care if you’re tired.”"],
+ ["Bramble nodded. “Thanks, Hazel. You’ve given me good ideas.”", "Hazel’s eyes were already closing. “Good luck, Bramble. And don’t wish you were me. Your path is yours. Mine is mine. And both can lead to spring.”", "Within moments, her snores joined the rustling of the leaves.", "Bramble stayed a little while, watching her rise and fall gently with each breath. He wished he could feel as calm and certain as she did, but her words gave him courage. He didn’t need to copy anyone exactly. He just needed to prepare in the way that suited him best.", "With a flick of his tail, Bramble bounded back into the trees. Above him, the sky was pale blue, streaked with wisps of cloud. The air smelled sharper and colder. But in his chest, he felt something new: determination."],
+ ["@Chapter 4: Fern the Fox’s Clever Ways", "Bramble was practising burying hazelnuts when he first spotted her. The leaves shifted, the ferns quivered, and out stepped a sleek shape with fiery red fur, a long bushy tail tipped with white, and sharp amber eyes.", "Bramble froze mid-dig, his paws dusty with soil. “A fox!” he squeaked, scrambling halfway up the tree trunk."],
+ ["The fox tilted her head, amused. “Relax, little squirrel. I only came to say hello.”", "Bramble’s ears twitched nervously. “Who... who are you?”", "“Fern,” the fox replied smoothly, giving her glossy coat a lick. “Fern the Fox. And you’re Bramble, if I’ve heard right. Word travels fast in the forest when someone starts running about talking of winter.”", "Bramble blinked. “You’ve heard of me?”", "“Of course,” Fern said with a grin. “Oakley mentioned you. He said you’re learning how to prepare for the cold.”"],
+ ["Bramble crept down a little lower on the tree. He was curious, even though he was nervous. “Yes! I’ve been burying nuts and seeds. Tansley and Emsley showed me their stores, and Hazel taught me about hibernation. But I don’t think I could do what she does.”", "Fern laughed, a sound like wind slipping through tall grass. “I’d like to see a squirrel try to sleep through winter. You’d last a day before you started dreaming of hazelnuts.”"],
+ ["Bramble blushed. “That’s probably true. But what about you? How do foxes get ready for winter? Do you store food? Or... sleep?”", "Fern stretched her long body and flicked her tail. “Neither. We foxes hunt all year round, even in the snow. When the nights grow long, food is harder to find. But we don’t hibernate, and we don’t stash food in neat piles like you do. We rely on our wits, our ears and our noses.”", "Bramble tilted his head. “So you just... keep looking? Even when the ground is frozen?”"],
+ ["“That’s right,” Fern said proudly. “A fox can hear the tiniest rustle under the snow. When the forest is quiet, we listen. We wait. We pounce.” She pretended to leap, landing so lightly that the leaves barely rustled.", "Bramble clapped his paws. “That’s amazing!”", "Fern smiled. “It works well enough. Sometimes we find extra food and bury it to eat later. But mostly, we trust our skills. We take whatever chances we’re given.”", "Bramble thought hard. “That sounds... risky. What if you don’t find anything?”"],
+ ["Fern’s amber eyes softened. “That happens sometimes. Winter is not easy, even for us. But foxes are clever. We sniff out scraps, raid berry bushes, and nibble beetles if we must. We get through because we adapt.”", "The word made Bramble’s whiskers twitch. Adapt. Oakley had said something similar: every animal had its own way. Hazel hibernated, Tansley and Emsley stored seeds, and Fern searched through the snow.", "“You’re not afraid of the cold, then?” he asked quietly.", "Fern chuckled. “I respect it, but I don’t fear it. Winter is a test. If I’m clever, I’ll eat. If I’m foolish, I’ll go hungry. It keeps me sharp.”"],
+ ["Bramble nodded slowly. “I don’t think I could live like that. I’d panic if I didn’t know where my next nut was coming from.”", "“Exactly,” Fern said kindly. “Which is why you do what you do best. You bury food in clever places. That is your gift.” She leaned closer, her warm breath puffing against his fur. “Never forget, being prepared doesn’t always mean doing what others do. It means knowing yourself, and trusting your own way.”", "Bramble’s chest swelled with pride. “So... I’m not silly for spending all day gathering nuts?”"],
+ ["“Not at all,” Fern said. “In fact, I wish I were more like you. My food depends on luck. Yours depends on how hard you work now. If you’re clever, you’ll never go hungry.”", "For the first time, Bramble felt proud of his nut-hoarding habit. He scampered down to show Fern one of his hiding spots: a hollow in a tree root, filled with shiny brown hazelnuts.", "Fern sniffed it politely. “Well hidden,” she said. “Though I’d suggest spreading them out a bit more. If another squirrel or a bird finds this, you’ll lose the whole stash.”"],
+ ["“Oh!” Bramble gasped. “I hadn’t thought of that.”", "Fern winked. “Spread your chances, little squirrel. That’s what I do. Many hiding places, many chances. Then winter can’t surprise you.”", "Bramble grinned. “Thank you, Fern! I’ll do that. I’ll make lots of stashes in different places.”", "“That’s the spirit,” Fern said, turning back towards the meadow. “Now, I’ve spent enough daylight chatting. There are berry bushes out there with my name on them.”"],
+ ["Bramble laughed. “Good luck!”", "Fern glanced back once, her amber eyes glinting. “Remember, Bramble: cleverness comes in many forms. Find yours.”", "With a graceful leap, she vanished into the tall grass, leaving Bramble buzzing with new ideas.", "He scampered back to his oak, tail flicking happily. He would bury more nuts, yes, but in cleverer ways. Under moss, behind rocks, inside hollow logs. He would not just gather. He would outsmart winter."],
+ ["@Chapter 5: The Builders by the River", "The air smelled different near the river. Bramble padded carefully along the bank, his paws crunching damp leaves. He’d never come this far before, but Oakley had said the river folk worked harder than anyone when autumn arrived. Bramble wanted to see for himself.", "The river shone like silver in the morning light, flowing swiftly past reeds and pebbly shores. Across the water, he spotted a great mound of sticks, mud and branches rising from the shallows. It looked like a floating woodpile, until something moved inside."],
+ ["A flat tail slapped the surface with a crack! Bramble jumped back with a squeak. From the lodge popped a rounded brown head with small eyes and big orange teeth that glinted in the light.", "“Who’s on the bank?” called a deep, steady voice.", "Bramble gathered his courage. “It’s me, Bramble the squirrel. I’m learning how to prepare for winter.”", "The beaver’s eyes softened. “Ah, a student of the seasons! Then you’re welcome here. Come closer, little one. I am Rylee.”", "Bramble hopped nearer, curiosity tugging him forward. “What is that enormous pile? Is it... your home?”"],
+ ["Rylee chuckled. “Indeed it is. This is my lodge, built from sticks, mud and reeds. Strong against storms, warm against the frost. My family and I live inside, safe and dry.”", "Bramble’s whiskers twitched. “It looks like so much work. Did you build it all yourself?”", "Rylee’s tail thumped the water proudly. “Not alone. Beavers work together. My family and I gather branches, drag them through the water, and weave them tight. Every season, we add more. The river tests us, so we must always repair and always improve.”", "Bramble’s eyes went wide. “You keep building even now, before winter?”"],
+ ["“Oh yes,” Rylee said. “Winter brings ice. If our lodge is weak, the cold water creeps in. If the roof leaks, we shiver. So we thicken the walls, pack mud into the holes, and fill our pantry.”", "“Pantry?” Bramble perked up. “You keep food in there too?”", "Rylee nodded. “Branches. We nibble the bark all through the cold months. We keep piles of fresh sticks underwater, so even when the river freezes over, we can dive down and fetch our food.”", "Bramble gasped. “That’s brilliant! You never run out?”"],
+ ["“Not if we plan wisely,” Rylee said with a toothy grin. “We don’t store seeds like you, or hunt like Fern. Our winter feast grows in the forest itself. We take what we need, and the trees sprout new shoots in spring.”", "Bramble sat on the bank, his tail curled around his paws. “It must take so much strength to drag all those logs. Don’t you ever get tired?”", "Rylee’s laugh rumbled like distant thunder. “Of course. But beavers believe in teamwork. Alone, I might fail. Together, we succeed. My little ones learn to chew and carry, and the grown-ups patch the holes. No paw is wasted.”"],
+ ["Bramble thought of his stashes scattered across the woods. He worked alone, always darting here and there. He felt a small pang. How nice it must be to have a family lodge, with everyone preparing side by side.", "“You’re very lucky,” he murmured.", "Rylee looked at him kindly. “And so are you, little squirrel. Not everyone must build lodges or dams. Your strength is in your speed. You can race through the branches and hide your food where few can find it. Every creature prepares in the way it was made to.”", "Bramble brightened. “I suppose that’s true.”", "Just then, a young beaver popped its head out of the lodge, whiskers dripping with water. “Papa! We found another willow branch downstream!”"],
+ ["“Well done!” Rylee called. “Drag it to the pile. And remember, angle the twigs so they lock tight!”", "The little beaver nodded and vanished again, splashing happily.", "Bramble smiled. “They work so hard, even when they’re little.”", "Rylee’s eyes twinkled. “They do, because they know it matters. Winter is not a season for being lazy. It is a season for being wise. Prepare now, live later.”", "The words sank deep into Bramble’s heart. Prepare now, live later.", "He stood up, brushing soil from his paws. “Thank you, Rylee. I think I understand better now. Winter isn’t just about gathering. It’s about being clever, strong and ready in your own way.”"],
+ ["Rylee dipped his head. “You’ve learned well. Go, Bramble. Make your part of the forest safe for yourself. And when the snow falls, remember that by the river, the builders’ lodge will still stand.”", "Bramble waved his tail goodbye, then scampered back through the woods, carrying the beaver’s lesson with him. He didn’t just need to bury nuts. He needed to bury enough, in the right places, with clever thought. He would work hard, just as the beavers worked on their lodge.", "By the time Bramble reached his oak, the sun was sinking behind the hills. The sky glowed pink and gold, and the first stars were blinking awake.", "A soft whoosh of wings made him look up."],
+ ["Oakley settled on the branch beside his nest. His round eyes shone in the dusk.", "“You have been busy, young Bramble,” the owl said. “The mice, the hedgehog, the fox and the beaver have all been talking about the curious little squirrel who asks so many questions.”", "Bramble’s ears turned pink. “I’ve learned so much, Oakley. But I still don’t feel ready.”", "“That is because your lessons are not finished,” Oakley said. He leaned closer, and his voice dropped to a whisper. “When the moon is full, the owls of the forest will meet in the tall spruce. It is called the Midnight Council. No squirrel has ever been invited.” He blinked slowly. “Until now.”"],
+ ["Bramble’s mouth fell open. “Me? At night? With the owls?”", "“Rest well,” Oakley said, spreading his great wings. “You will need your courage.”", "And with a sweep of feathers, he was gone into the darkening sky.", "Bramble curled up in his nest, his heart thumping. Above the trees, the moon was growing rounder every night. Somewhere out there, the owls were waiting.", "And Bramble’s winter plan was only just beginning.", "!To be continued in Bramble Braves the Snow"]
+],
+/* Bramble Braves the Snow. Approved 13 Oct 2026. Story so far + 5 chapters, 43 screen pages, 18 pictures. */
+"bramble-2": [
+ ["@The story so far: Where We Left Bramble", "When the first frost came, Oakley the Owl told Bramble the red squirrel that winter waits for no one.", "So Bramble set out to learn. Tansley and Emsley, the field mice, showed him how to hide food in lots of secret places. Hazel the Hedgehog taught him to build warm nests of leaves and moss. Fern the Fox taught him to be clever and spread out his stashes. And Rylee the Beaver showed him that it is wise to prepare now, so you can live well later.", "Then, one golden evening, Oakley brought a surprise. The owls of the forest were holding their Midnight Council. And for the very first time, a squirrel was invited."],
+ ["@Chapter 6: The Owls’ Midnight Council", "The forest was quieter at night than Bramble expected. The rustle of leaves had faded, the wind whispered low through the branches, and even the river seemed to hush its voice. Bramble clung to the trunk of a tall spruce, his eyes wide.", "He wasn’t used to being awake after sundown, but Oakley had told him: If you truly want to understand how the forest prepares for winter, you must also listen to those who rule the night."],
+ ["Bramble had shivered at the thought. Night creatures! Sharp eyes, silent wings, calls that echoed like ghostly songs. Still, his curiosity tugged him onward. Now, perched on the spruce, he waited.", "From the darkness came a low, steady hoot. “Whooo... whooo goes there?”", "Bramble jumped. His tail puffed up like a bottlebrush. “It’s, it’s Bramble! Just Bramble the squirrel! Oakley invited me!”", "A shadow moved without a sound above him. Wide wings stretched, catching the faint moonlight. Then, with barely a whisper, a tawny owl landed on the branch beside him. Her dark eyes were careful and calm."],
+ ["“Welcome, little one,” she said gently. “You are safe here. This is a council, a meeting of friends.”", "Bramble gulped. “A council?”", "The owl tilted her head. “Yes. When autumn deepens, the owls gather to share news of the forest. We talk about where to find food, when to move, and how to keep the forest in balance through the lean months. I am Sage, and I lead the council. And you, little squirrel, are a very unusual guest.”", "Bramble’s whiskers trembled. “I’m learning how everyone prepares for winter. I’ve spoken with Tansley, Emsley, Hazel, Fern and Rylee. Oakley thought I should hear from the owls too.”"],
+ ["Sage’s eyes glowed. “Oakley is wise. Very well. Sit quietly, and listen.”", "With a soft beat of wings, other owls appeared, gliding in from the dark. Oakley settled on a branch just above Bramble and gave him a slow, proud blink. One owl, smaller and speckled, landed nearby. Another, pale as moonlight with a heart-shaped face, perched higher up. Soon, half a dozen owls surrounded Bramble, their round faces turned towards him like the moons of the forest."],
+ ["Bramble tucked his paws close. He’d never felt so small.", "Sage lifted her beak. “Friends, the squirrel has come to learn. Let us share our ways.”", "The barn owl spoke first, her voice cool and clear. “I fly over the open meadow. In winter, the meadow is quiet and still. My soft feathers let me fly without a sound, and I listen for the smallest rustle in the grass. I rely on patience.”"],
+ ["The speckled owl bobbed his head. “I keep close to the woods. My ears guide me, even sharper than my eyes. Winter is harder, yes, but I have learned where to search: fallen logs, frozen thickets, and quiet corners where others forget to look.”", "Another owl, small and bright-eyed, ruffled her feathers. “When I find more food than I need, I tuck it away in the branches or inside hollow trees. Later, when I am hungry, I find it again.”", "Bramble’s ears perked up. “That’s like what I do with nuts!”"],
+ ["The owls chuckled softly, their laughter like rustling leaves.", "Sage spoke last. “We owls prepare by sharpening our skills, by knowing the land, and by listening. Some of us fly to new hunting grounds when food grows too scarce. Others stay, trusting in our patience. Each chooses a path, but all must be wise. Winter is hard on those who waste.”", "Bramble thought hard. “So... you don’t build or store much. You practise. You watch. You make good choices.”"],
+ ["“Exactly,” Sage said. “Preparing is not always piling up or saving. Sometimes, it is learning, adapting and keeping balance.”", "Bramble’s heart thudded. Every animal seemed to teach him something new. Tansley and Emsley had taught him to stash food. Hazel had shown him the calm of hibernation. Fern used her wits. Rylee built with strength. And now, the owls whispered of patience and wisdom.", "He looked around at their glowing eyes. “It sounds like winter tests everyone, no matter how they live.”"],
+ ["Sage’s gaze softened. “It does. Yet remember, Bramble: tests can be passed. The forest keeps going because each creature plays its part. When you bury acorns, you feed yourself, yes. But sometimes, the ones you forget grow into trees. That, too, is preparing. For the forest, and for the future.”", "Bramble’s chest swelled with pride. He hadn’t thought of that before. His work mattered not just to him, but to the whole wood.", "The owls shifted, wings rustling as the night deepened. Sage spread her broad feathers. “The council is ended. Go, young squirrel. Learn well. And when the snow falls, remember our lesson: patience, wisdom and balance.”"],
+ ["One by one, the owls lifted into the sky, their wings carrying them like shadows across the moon. Oakley was the last to go, dipping one wing to Bramble as he passed. Soon, only Sage remained. She leaned close. “Do not fear the night, Bramble. Even the darkness has its guardians.”", "Then she, too, was gone.", "Bramble sat in awe, his fur tingling with excitement. He had been afraid of the owls, yet they had welcomed him. They had taught him something he would never forget: preparing for winter wasn’t only about food or shelter. It was about knowing how to live wisely through the hardest days.", "He scampered down the spruce, heart racing. His winter plan was growing, piece by piece, with every lesson he learned."],
+ ["@Chapter 7: Badger’s Underground Secrets", "The next morning, Bramble scampered further than ever before. The forest floor dipped into a hollow where the air smelled of damp earth and moss. The ground here was full of tunnels, small mounds of soil, and worn paths that curved beneath tangled roots.", "Bramble slowed down. He’d heard stories of the creature who lived here. Powerful and broad-shouldered, with claws strong enough to carve through the earth. Some animals whispered warnings: Don’t upset the badger.", "Still, Bramble had promised himself he’d learn from everyone. He gulped, twitched his whiskers, and called softly, “Hello? My name’s Bramble. I’m learning how to get ready for winter. Is anyone... home?”"],
+ ["For a long moment, nothing stirred. Then the ground shifted. Soil crumbled. Up from a tunnel came a sturdy black-and-white head with a long snout and small dark eyes.", "“Well, well,” the badger rumbled. “A squirrel visitor. That’s not common.”", "Bramble’s tail twitched nervously. “I hope it’s not rude. I only wanted to ask... how do you prepare for winter?”", "The badger heaved himself out of the tunnel. His body was thick, his striped fur sleek, his claws curved and strong. “The name’s Bracken,” he said. “And winter, little squirrel, is serious business. Come inside. You’ll see.”"],
+ ["Bramble hesitated for only a moment before following Bracken into the tunnel. It was cool and dark, but surprisingly roomy. Chambers branched off like little rooms, their floors padded with dry grass and moss. The walls smelled rich with earth.", "“Welcome to my sett,” Bracken said proudly. “Dug by my family and cared for over many, many years. Some tunnels are older than the oak trees above.”", "Bramble’s eyes widened. “You live underground all the time?”", "Bracken nodded. “Aye. Warm in winter, cool in summer. When the frost grips the world above, I sleep down here in comfort.”"],
+ ["“Sleep? Like hibernating?” Bramble asked, remembering Hazel.", "“Not quite,” Bracken explained. “Badgers sleep deeply in the coldest spells, sometimes for days. But we wake up when the weather softens, look for food, and then curl up again. It’s more like... long naps.”", "Bramble tilted his head. “So you don’t gather food ahead of time?”", "Bracken grunted. “We eat well in autumn, and fatten up while the earth still gives us worms, berries and roots. Then our bodies carry us through the leanest days. I also line the chambers with straw and moss, so my family stays warm. A good sett is half the battle.”"],
+ ["Bramble brushed a paw against the mossy bedding. It was soft, almost like feathers. “It’s so cosy!”", "Bracken’s eyes twinkled. “Aye. Comfort matters. Winter bites hard, but down here, the cold barely touches us. My cubs curl up close, and the earth keeps us safe.”", "Bramble thought of his nest high in the oak. It swayed in the wind, its thin twigs rattling. Compared to this sturdy underground home, his leafy nest felt fragile. “Do you ever worry about storms or snow?”", "“Not underground,” Bracken said simply. “That is the secret of the badger. Dig deep, stay hidden, and wait it out.”", "Bramble thought about this. “That’s clever. You don’t fight winter. You keep out of its way.”"],
+ ["“Exactly,” Bracken said with a satisfied grunt. “Every creature must find its shield. Mine is the earth.”", "He nosed through a side chamber where dried bracken leaves were heaped. “There’s more. We badgers like company. My family shares the tunnels, takes turns watching the young ones, and keeps each other warm. Alone, a badger might struggle. Together, we do well.”", "Bramble’s whiskers twitched. “Rylee said something like that, too. His family builds their lodge together.”", "Bracken gave a slow nod. “The forest is full of lessons. Remember them.”", "Bramble looked around the sett with shining eyes. “Thank you, Bracken. You’ve shown me something new. Maybe I can line my nest with moss, too. It would make it much warmer.”"],
+ ["The badger chuckled. “Now that’s thinking like a badger. Use what you learn. Take a little from each of us, and you’ll be ready when the snow comes.”", "Bramble’s chest swelled. Each animal had given him a gift: ideas, wisdom and new ways of doing things. His winter plan was growing stronger with every step.", "He scampered back towards the tunnel entrance, then paused. “Bracken? One more question. Do you ever feel afraid when winter is coming?”", "The badger’s eyes softened. “Of course. Even the strongest do. But fear is only a signal. It tells us to prepare. And if you’ve prepared, you have nothing to fear.”", "Bramble carried those words with him as he climbed back into the sunlight."],
+ ["@Chapter 8: The Deer’s Autumn Feast", "The forest smelled sweet with fallen apples and damp leaves as Bramble hopped along the woodland path. Morning sunlight streamed through the bare branches, lighting up the mossy floor. Today, he was visiting a different kind of creature: the deer family who grazed in the open meadows at the edge of the forest.", "Bramble paused at the edge of the trees. Through the gaps, he could see them. Slender bodies, thick grey-brown winter coats, and large gentle eyes that seemed to notice everything."],
+ ["“Hello?” Bramble called softly.", "In the meadow, a tall doe lifted her head. Her ears flicked as she sniffed the crisp air. “Hello, little one. Who are you?”", "“I’m Bramble,” he said, stepping forward. “I’m learning how everyone prepares for winter. Can you tell me what you do?”", "The doe tilted her head and smiled. “Of course. I am Willow, and I lead this herd. Follow me.”", "Bramble hopped after her as she led him to a clearing where the grass had been nibbled short, and acorns and fallen fruit lay scattered on the ground. A few fawns pranced nearby, nibbling tender shoots."],
+ ["“We do not hibernate or stash nuts,” Willow said as she moved gracefully among her family. “We prepare by eating everything the forest gives us, and storing the energy in our bodies for the cold months.”", "Bramble’s eyes widened. “You just... eat?”", "“Yes,” Willow said gently. “Autumn is a time to feast. Roots, berries, fallen apples and tender shoots. Our bodies must grow strong. In winter, the snow covers most of our food. We get through because we filled our bellies and made our legs and hearts strong.”"],
+ ["One fawn bounded over and nudged Bramble with a soft nose. “Hello!” it said. “You’re funny. Small and quick!”", "Bramble laughed. “And you’re soft and bouncy! How do you know where to find food?”", "Willow lowered her head to nuzzle the fawn. “We watch the forest. We remember the spots where fruit grows, where grass is tender, and where the acorns fall thickly. Autumn teaches us patterns. Winter tests them.”", "Bramble twitched his whiskers. “Patterns?”"],
+ ["“Yes,” Willow said. “The forest changes. The trees drop their leaves, frost covers the ground, and the rivers slow down. We must adapt every day. Some winters are mild, and some are harsh. If we move carefully, listen and learn, we will be fine.”", "A stag stepped into the clearing, his antlers tall and impressive. He sniffed the air. “We also teach our young,” he said. “They learn to spot danger, to find food, and to stay together. A deer alone is easily frightened. Together, we are strong.”", "Bramble watched the family grazing. They moved as one, each step careful, ears flicking, eyes alert. Unlike the busy squirrel, the clever fox or the patient badger, the deer relied on each other."],
+ ["“This is so different,” Bramble murmured. “Everyone has their own way.”", "“Yes,” Willow said kindly. “Watch, and you will learn. Collect nuts, build nests, dig tunnels, hibernate, listen in the dark... and sometimes, simply grow strong in your own body. Each way fits the animal.”", "Bramble sat by a pile of fallen acorns, watching the fawns nibble. “It must take a lot of energy to move about all day, even in winter.”", "The stag nodded. “It does. That is why we prepare in autumn. Our bellies full, our senses sharp, our muscles strong. Winter challenges us, but we endure.”"],
+ ["Bramble’s tail twitched thoughtfully. He had collected, watched, listened and learned. He had seen the mice stock seeds, Hazel settle down to hibernate, Fern think cleverly, Rylee build, the owls watch, and Bracken sleep safely underground. And now, the deer reminded him that some animals prepare simply by making themselves strong.", "He sat quietly, feeling the warm, calm energy of the herd around him. Every animal had its lesson, and every lesson mattered. He had more ideas for his winter plan than ever before."],
+ ["As the sun sank lower, casting a golden glow across the meadow, Willow nudged Bramble gently. “Remember, little squirrel, winter is long, but it is not meant to frighten you. Prepare in the way that suits you best. Then enjoy the forest in every season.”", "Bramble beamed. “Thank you, Willow. I’ll remember. I understand so much more now.”", "The deer grazed on, quiet and steady, as Bramble scampered back towards the forest. His mind buzzed with plans: more hiding places, warmer nests, extra energy and clever tricks. His winter plan was taking shape, stronger and more complete with every lesson learned."],
+ ["@Chapter 9: Stormy Lessons", "The first snowflakes of winter fell softly while Bramble was busy checking his nut stashes. Tiny white flakes drifted down, settling on branches and leaves, turning the forest into a quiet, sparkling world. Bramble twitched his nose. It was beautiful, but also a little frightening.", "“I hope I’m ready,” he whispered to himself, his tail flicking nervously."],
+ ["The wind picked up, whistling through the bare oak trees. Bramble shivered, remembering Hazel’s snug nests, Bracken’s warm underground sett and Rylee’s sturdy lodge. His own tree nest felt fragile compared to all of them. Still, he had worked hard. He had hidden nuts in dozens of clever places, lined his nest with moss, and built a small backup nest in a nearby hollow.", "Suddenly, a gust of wind swept down the branch, rattling the nuts in his paws. Bramble clutched them tightly, but a few tumbled to the forest floor with a soft plop. Panic rose in his chest. “Oh no! What if the snow keeps falling and I can’t find them?”", "A familiar voice called from below. “Calm down, Bramble!”"],
+ ["It was Tansley, his little mouse friend, with Emsley close behind. “The storm’s only just starting,” Tansley said. “Don’t worry. You’ve hidden them in lots of places, haven’t you?”", "“Yes... yes, but...” Bramble’s whiskers twitched. “I’m scared I won’t reach them all in time!”", "“Then take it slowly,” Emsley said, scrambling onto a low branch. “We can help each other. We know where some of your nuts are, and we can mark safe paths.”", "Bramble’s ears perked up. “Really? You’d help me?”", "“Of course!” said Tansley. “Friends stick together, especially in winter.”"],
+ ["Just then, another gust blew even stronger, and snow swirled through the forest like tiny dancers. Bramble felt a chill run down his spine. He thought of Hazel, curled up fast asleep in her leafy nest, safe until spring. He took a deep breath and remembered the lessons of every friend he’d met. Adapt. Be clever. Use what you’ve learned.", "Bracken the badger appeared next, snuffling through the snow with a steady calm. He had woken from one of his long naps to check on the forest. “Wind, snow, frost. It is all part of the challenge,” he rumbled. “But you’ve prepared, little squirrel. Your stashes are smart, and your nests are strong. Trust yourself.”"],
+ ["Bramble nodded. “I will try.”", "As the snow thickened, Bramble, Tansley and Emsley set off to check the stashes. The flakes grew heavier, clinging to the branches and turning the forest floor into a sparkling white blanket. Bramble scurried from one hiding place to another, sniffing out each one with his clever nose, even under the snow. He dug out his nuts and checked them. Everything was safe, except for one small stash tucked under a pile of leaves. The snow had buried it deep.", "“Oh no!” Bramble gasped.", "Tansley hopped up beside him. “It’s all right! We can uncover it together. Dig carefully.”"],
+ ["The three friends worked side by side, brushing snow from the leaves and twigs. Emsley’s tiny paws were surprisingly quick, and Tansley darted in to uncover hidden nuts faster than Bramble could have imagined.", "After a few tense minutes, the stash was safe, and Bramble’s chest filled with relief. “Thank you both! I couldn’t have done it alone.”", "Emsley grinned. “Winter is much less scary when friends lend a paw.”", "Suddenly, a shadow darted past. It was a fox moving through the snow, but it wasn’t Fern. This fox was a stranger, thin and hungry, with one torn ear and a sharp, sniffing nose. It was heading straight for Bramble’s biggest stash."],
+ ["Bramble froze. Then he remembered Fern’s advice: be clever. Quickly, he dropped a trail of sticks and a few acorns leading away from his hiding places and off into the trees. The stranger fox sniffed, followed the trail for a moment, and then disappeared into the forest.", "Bramble let out a long breath. “That... worked!”", "“Yes!” Tansley cheered. “See? You’ve learned well. Clever hiding, careful thinking and quick action. You’re ready for winter.”"],
+ ["The snowstorm carried on through the night, but Bramble’s heart felt warmer than ever. He had faced the first challenge and come through it. He had checked every stash, made his nests safe, and even protected his food from a hungry stranger. Most importantly, he had remembered the lessons of every forest friend: planning from Tansley and Emsley, patience from the owls, cleverness from Fern, preparation from Hazel and Rylee, strength from the deer, and safety from Bracken.", "When the storm finally eased, Bramble climbed back into his nest, pulling moss around him like a blanket. He looked out over the snow-covered branches, glittering in the pale moonlight."],
+ ["“I’m ready,” he whispered to himself. “I’ve done everything I can. Winter won’t scare me any more.”", "And all around the forest, the other creatures were ready too. Tansley and Emsley were snug in their hollow log with their seeds, Hazel slept under her leaves, Fern padded cleverly through the snow, Rylee’s lodge stood sturdy by the river, Bracken rested safe in his sett, and the deer huddled patiently together. Each had prepared in their own way, just as Bramble had.", "The forest was alive with quiet strength, and Bramble knew he was now a part of it."],
+ ["@Chapter 10: Bramble’s Winter Victory", "The forest had turned into a sparkling winter wonderland. Snow clung to the branches, blanketed the ground, and covered the hidden stashes Bramble had worked so hard to make. The chill in the air made his whiskers twitch, but Bramble’s heart felt warm. He had prepared.", "He scampered up to his moss-lined nest and peeked inside. Everything was exactly as he had left it: soft, cosy and safe. He looked around the tree trunk and down at the forest floor. Every nut he had buried, in every careful hiding spot, was safe beneath the snow. Relief and pride bubbled up inside him.", "“Phew,” Bramble murmured, tucking a hazelnut close. “I think I really did it.”"],
+ ["Across the snowy meadow, Tansley and Emsley came bounding over, chattering excitedly. “Bramble! Your stashes are perfect! You’ve hidden them so cleverly, just like we practised.”", "Bramble grinned. “I couldn’t have done it without you two. You taught me how to store food carefully and plan ahead, and it made all the difference.”", "Then Bramble crept quietly to a tangle of brambles and peeped inside. There was Hazel, curled up in a round, prickly ball, snoring softly in her nest of leaves and moss. Bramble smiled and tiptoed away. He didn’t want to wake her. Hazel had taught him that winter isn’t only about storing food. It’s also about resting, and trusting your body when it needs to sleep. Even a busy squirrel needed rest to face the long, cold months ahead."],
+ ["A flash of red fur appeared among the trees. Fern the fox paused beside him, her amber eyes gleaming. “Clever hiding and quick thinking. Very impressive,” she said. “I heard how you sent that stranger off on a wild goose chase. Winter isn’t just about what you store. It’s about being ready to adapt and think fast when surprises appear. You’ve learned that well.”", "Near the frozen river, Rylee the beaver popped his head up through a gap in the ice beside his lodge. “Your nests and stashes are strong, Bramble,” he rumbled. “A safe home is just as important as food. And remember, working together and building carefully can make all the difference between warm and cold.”"],
+ ["Bramble smiled. He remembered watching Rylee’s family work on their lodge, and how much strength it had taken to drag the sticks and pack the mud. He realised he could make his own nest even sturdier by borrowing a few of Rylee’s tricks.", "A low rumble sounded from the ground as Bracken the badger poked his head out of his sett. “All is safe,” he said in his deep, steady voice. “Safety comes from preparing. A cosy, well-lined nest can keep you warm when the wind bites. You’ve thought ahead, little squirrel, and that matters most.”"],
+ ["Bramble’s eyes shone. Each friend had taught him something special. Tansley and Emsley had shown him how to plan and store. Hazel had taught him to rest. Fern had taught him clever thinking. Rylee had taught him about teamwork and strong shelters. And Bracken had shown him how preparing keeps you safe.", "Above him, Sage the owl perched quietly on a branch, her dark eyes calm and wise. “Watching, patience and balance guide those who keep watch at night,” she said. “You have learned from every part of the forest, Bramble. Each lesson is a piece of the whole.”", "In the distant meadow, the deer pawed gently through the snow to find the grass beneath. Willow and her family moved together with quiet energy, reminding Bramble of the strength that comes from standing together and a body made ready."],
+ ["Bramble gazed across the snowy forest, the lessons of every creature swirling together in his mind. His nests were safe, his stashes secure, and his body ready. But more than that, he carried the wisdom of the forest itself: to plan, to rest, to think cleverly, to work with others, to be safe, to watch, and to move with strength and balance.", "As the sky turned dusky blue, a soft whoosh of wings made him look up. Oakley settled on the branch beside him, just as he had on that very first frosty morning.", "“Winter waits for no one,” the old owl said, his round eyes twinkling. “But this year, young Bramble, you were waiting for winter.”", "Bramble laughed and puffed out his chest. “I watched, I learned, and I prepared. Just like you said.”"],
+ ["“You did,” Oakley said warmly. “And you made a whole forest full of friends along the way.”", "Bramble climbed into his moss-lined nest and curled his tail around himself. Snowflakes drifted past the branches, sparkling in the moonlight, but inside, Bramble felt warm and peaceful. The wind howled and the snow kept falling, but he knew he was ready.", "“Thank you, everyone,” Bramble whispered softly. “Tansley and Emsley, Hazel, Fern, Rylee, Bracken, Willow, Sage and Oakley. I’m ready for winter now.”", "Outside, the forest rested and watched, each creature prepared in its own way. The owls alert. The fox clever. The mice snug in their hollow log. The beavers cosy in their lodge. The badger safe underground. The hedgehog fast asleep. The deer strong and together. And the little squirrel, snug in his cosy nest, carrying all their lessons in his heart."],
+ ["For the first time, Bramble understood completely. Winter was not something to fear. It was a challenge to face, a season to honour, and a time to be clever, strong and prepared, with friends and wisdom to guide the way.", "And as he drifted into a peaceful sleep, the forest seemed to whisper its approval, the snowflakes twinkling like stars in the night.", "#The End"]
+],
+/* Eri and the Magic Book. Text approved by Tania on 3 Oct 2026, book approved 8 Oct 2026. A chapter book: 6 chapters, 32 screen pages, 19 pictures.
+   "@" = chapter heading, "" = a small space between groups of lines. Which picture goes with which page is in picMap on the story card. */
+eri: [
+ ["@Chapter 1: Stickers and Stories", "Eri was eight years old, and she loved books.", "She read at breakfast.", "She read in the car.", "She even read in the bath. But only once.", "", "Her little sister, Marie, was five.", "Marie loved two things.", "Stickers and snacks."],
+ ["Marie could not read yet.", "But she could stick.", "She stuck a star on the fridge.", "She stuck a frog on Dad’s shoe.", "She stuck a bunny on Eri’s book."],
+ ["“Marie! Not on my book!” said Eri.", "“Sorry,” said Marie.", "She did not look very sorry.", "", "“Library day!” called Mum.", "“Yay!” said Eri.", "“Can I get a book about bunnies?” asked Marie.", "“You can’t read,” said Eri.", "Marie looked down at her shoes.", "", "“She can’t read yet,” said Dad. “Yet is a little word, but it does a big job.”"],
+ ["Marie put her stickers in one pocket.", "She put two biscuits in the other.", "“Just in case,” she said.", "", "The library was big and quiet.", "It smelled of paper and polish.", "", "“Quiet voices,” said Mum.", "“Walking feet,” said Dad.", "“And stay together, you two,” said Mum.", "", "Mum and Dad sat down in the big soft chairs.", "The children’s corner was right beside them."],
+ ["Eri ran her finger along the bottom shelf.", "Bump, bump, bump.", "Then she stopped.", "", "There was a small red book.", "It had no name on the front.", "It had no name on the back.", "And it was warm, like toast.", "", "Eri opened it.", "The pages were empty.", "“That is a boring book,” said Marie."],
+ ["Then a thin black line wiggled across the page.", "It drew a shelf.", "It drew a chair.", "It drew a tiny bunny.", "", "“It’s a map!” whispered Eri. “A map of our library!”", "Marie pointed at the tiny bunny.", "“That’s the bunny shelf,” she said. “I know where that is.”", "", "Under the map, words began to grow.", "Eri read them out, one by one.", "“Children only. Knock three times.”"],
+ ["@Chapter 2: The Little Red Door", "Marie led the way.", "She used her walking feet. It was not easy.", "", "The bunny shelf stood at the far end of the children’s corner.", "Eri pulled out one bunny book.", "Then another.", "", "^CLICK!", "", "The shelf swung open like a gate.", "Behind it was a little red door.", "It was just as tall as Marie, and no taller.", "It had a round gold handle."],
+ ["“A grown-up would have to crawl,” said Eri.", "“A grown-up would get stuck,” said Marie.", "", "Eri looked back.", "Mum was reading.", "Dad was reading.", "The big library clock said ten o’clock.", "", "Eri’s tummy felt fizzy.", "“Stay together,” she said.", "She held out her hand, and Marie took it.", "", "Knock. Knock. Knock."],
+ ["The little red door swung open.", "", "Inside was a round room, glowing with golden lanterns.", "Books went up and up, all the way to the ceiling.", "In the middle stood a chair shaped like a duck.", "", "On the chair sat a big grey cat.", "He wore tiny round glasses on the end of his nose.", "", "“Ah,” said the cat. “Readers. At last.”"],
+ ["Eri and Marie jumped.", "“You can talk!” said Eri.", "“Of course I can talk,” said the cat. “I live in a library. I have had plenty of time to learn the words.”", "", "He bowed his furry head.", "“I am Sir Whiskers, Keeper of the Children’s Room.”"],
+ ["“Why is it only for children?” asked Eri.", "“Grown-ups have the whole library,” said Sir Whiskers. “This room is yours.”", "He winked.", "“Besides, grown-ups never find the door. They look up high. Children look down low. All the best things are down low.”", "", "“Can we stay?” asked Marie.", "“You may,” said Sir Whiskers. “But first, you must answer three questions.”"],
+ ["@Chapter 3: Three Questions", "Sir Whiskers cleaned his glasses on his tail.", "", "“Question one,” he said. “I have a spine, but no bones. I can take you far away, but I never move. What am I?”", "Eri’s hand shot up.", "“A book!” she said.", "“Correct,” said Sir Whiskers."],
+ ["“Question two. I have no words at all, but I can tell you a whole story. What am I?”", "Eri thought.", "She thought some more.", "No words? Every story she knew was full of words.", "“I don’t know,” she said at last.", "Eri did not like not knowing."],
+ ["Marie tugged her sleeve.", "“A picture,” said Marie. “A picture tells a story.”", "“Correct!” said Sir Whiskers.", "", "Eri stared at her little sister.", "“How did you know that?” she asked.", "“I read pictures all the time,” said Marie."],
+ ["“Question three,” said Sir Whiskers. “This one is very important. What is round, and sweet, and lovely with a cup of tea?”", "“A biscuit!” shouted both girls.", "“That is not a riddle,” said Eri.", "“No,” said Sir Whiskers. “I am just hungry.”", "", "Marie reached into her pocket.", "She held out a biscuit. It was a bit squashed.", "Sir Whiskers ate it in two bites and purred like a little engine.", "", "“Now,” he said, licking his whiskers. “You may open the Magic Book.”"],
+ ["@Chapter 4: The Giggle Page", "“Where is it?” asked Eri.", "She looked up at the tall shelves.", "“You are holding it,” said Sir Whiskers.", "", "Eri looked down.", "The little red book was glowing."],
+ ["“The Magic Book chooses its own readers,” said Sir Whiskers. “Today, it chose you two.”", "", "Eri opened the book.", "Now there were words inside, curly and gold.", "She read them out loud.", "", "~“Giggle, wiggle, snort and squeak,", "~Tickle every nose and cheek!”"],
+ ["^POOF!", "Glitter puffed into the air.", "", "^BOING!", "A big yellow rubber duck bounced past.", "", "A drawer slid open.", "Out marched a stripy sock.", "Then another.", "The socks began to dance."],
+ ["Marie laughed until she got the hiccups.", "Eri laughed so hard she had to sit down on the floor.", "", "“Ah,” said Sir Whiskers happily. “The giggle page. My favourite.”", "", "^BOING!", "Another duck bounced by.", "", "^BOING! BOING!", "Then two more."],
+ ["Now there were ten socks, dancing in a long, wiggly line.", "The glitter was up to their ankles.", "", "“That is enough now,” said Eri.", "But the magic did not stop.", "", "Eri shut the book.", "It sprang open."],
+ ["She shut it again and sat on it.", "^FLUMP!", "It sprang open and tipped her onto the floor.", "", "“Sir Whiskers!” called Eri. “How do we make it stop?”", "", "But Sir Whiskers was laughing too hard to help.", "He rolled right off the duck chair.", "“Last page!” he squeaked. “Hee hee! Look at the last page!”"],
+ ["Eri turned to the last page.", "Her tummy went cold.", "“There are no words,” she said. “It’s only a picture. I can’t read it!”", "", "A duck bounced off her head.", "^BOING!", "", "“I can,” said Marie."],
+ ["@Chapter 5: The Gold Star", "Marie looked at the picture.", "She looked hard, the way she always looked at pictures.", "", "There was a red book.", "The book was shut.", "And on its cover sat one gold star.", "", "“It wants a star,” said Marie. “A star to keep it shut.”", "", "She reached into her pocket.", "She peeled off her very best gold star.", "", "Eri shut the book and held it tight with both hands.", "Marie pressed the star onto the cover."],
+ ["The book gave a small, happy sigh.", "", "The ducks sat down.", "The socks folded themselves into pairs.", "The glitter floated down like snow.", "", "Everything was still.", "", "“You did it,” said Eri. “You read the last page.”", "“But I can’t read,” said Marie.", "“Not yet,” said Eri. “Not words. But you read pictures better than anyone I know.”", "", "Marie stood up very tall."],
+ ["Sir Whiskers climbed back onto the duck chair.", "He put his glasses straight.", "“One of you reads words,” he said. “One of you reads pictures. A good book needs both. That is why it chose the two of you.”", "", "Sir Whiskers pulled a book from the lowest shelf.", "There were bunnies on every page.", "“For our picture reader,” he said. “Borrow it. Bring it back next week.”", "Marie hugged it to her chest."],
+ ["The girls squeezed onto the duck chair together.", "Eri read the words.", "Marie read the pictures.", "Sir Whiskers ate the second biscuit and listened with his eyes shut."],
+ ["Then the lanterns began to dim.", "“Time to close the room,” said Sir Whiskers.", "", "“Can we come back?” asked Eri.", "“Whenever you like,” said Sir Whiskers. “Knock three times. And always come together.”"],
+ ["“Can we bring Mum and Dad?” asked Marie.", "Sir Whiskers shook his head.", "“Tell them all about it,” he said. “But they will not find the door. This room is just for children. It always has been.”", "", "“And the Magic Book?” asked Eri.", "“Put it back on the bottom shelf,” said Sir Whiskers. “It will find you when it has a new page ready.”"],
+ ["@Chapter 6: Glitter", "The little red door closed with a click.", "The bunny shelf swung back into place.", "", "The big library clock still said ten o’clock.", "Not one minute had gone by.", "", "Eri slid the little red book back onto the bottom shelf.", "Its gold star twinkled.", "", "Mum looked up from her book.", "“Did you find something good?” she asked."],
+ ["“A secret room!” said Marie. “And a talking cat! And ducks! And dancing socks!”", "“It’s behind the bunny shelf,” said Eri.", "", "Dad got down on his hands and knees.", "He peered behind the bunny shelf.", "He saw a wall.", "“No door here,” he said, smiling. “But what a wonderful story, you two.”", "", "“Marie,” said Mum, “why is there glitter in your hair?”", "Eri and Marie looked at each other.", "They giggled."],
+ ["That night, Marie climbed onto Eri’s bed with the bunny book.", "She stuck a bunny sticker on Eri’s pillow.", "This time, Eri did not mind at all.", "", "“You read the words,” said Marie. “I’ll read the pictures.”", "And that is just what they did."],
+ ["“Next week,” whispered Eri, “we bring more biscuits.”", "“And more stickers,” said Marie.", "", "Far away, on the bottom shelf of the library, a little red book gave one tiny giggle.", "", "#The End"]
+],
+/* Benny the Bunny's Bold Leap. Text approved by Tania on 6 Oct 2026. One page per picture. */
+benny: [
+ ["Benny the bunny hid behind a big, green, leafy bush.","He was very shy.","He wanted to be as brave as the birds flying in the big blue sky.","He sighed a big, sad sigh."],
+ ["Lila the ladybird landed on a leaf near Benny, smiling.","“What’s wrong, Benny?” she asked kindly.","Benny whispered, “I’m afraid of everything.”"],
+ ["Lila smiled. “Being brave doesn’t mean you’re never scared,” she said.","“It’s about trying, even if you feel afraid!”"],
+ ["Lila pointed to a gurgling stream.","“I’m afraid to cross the stream, but today I will try. Let’s cross!”","Benny hesitated."],
+ ["He took a deep breath and hopped.","He made it! He couldn’t believe it.","It felt great! He’d been brave!"],
+ ["As they continued their journey, they met their friend, Max the Mouse.","They came across a colourful flower garden with tall sunflowers and bright daisies."],
+ ["Benny felt nervous, but he remembered that being brave didn’t mean you weren’t nervous, and he had his friends by his side.","Lila and Max encouraged him to take small steps through the garden.","They worked together as a team!"],
+ ["They saw a dark cave ahead. It looked scary.","“I’m afraid,” whispered Benny.","Lila stayed close beside him, and they walked together slowly."],
+ ["Soon, they saw the sunlight, and Benny knew the scary part was over!"],
+ ["As they continued their journey, they came across a small pond with lily pads scattered across its surface.","On the far side, they saw a group of friendly frogs having a party.","“Oh, it looks like so much fun over there!” Max exclaimed.","“But how can we join them?”"],
+ ["Benny felt nervous about crossing the water.","“I don’t know if I can do it,” he whispered.","Lila smiled encouragingly.","“Remember, we can do this together,” she said kindly.","“Let’s think of a way to get across!”"],
+ ["They looked around and spotted some large, flat leaves nearby.","Working as a team, they gathered the leaves and placed them on the water, creating a path of makeshift rafts.","“Now we can hop from leaf to leaf!” Max said excitedly."],
+ ["Benny took a deep breath.","With Lila and Max cheering him on, he made the first hop onto a leaf.","Then another, and another.","His friends followed closely behind."],
+ ["When they reached the other side, the frogs welcomed them with cheers.","Benny couldn’t believe he’d done it!","He felt proud and happy as they joined the lily pad party.","Everyone cheered! Benny had lost his shyness."],
+ ["He realised that being brave didn’t mean never being afraid.","It meant doing your best, especially with friends by your side.","He knew he could do anything!","That night, Benny went to sleep, dreaming of his next adventure.","!He knew he could do anything with Lila and Max by his side.","#The End"]
+],
+/* Benny and the Secret Meadow (Benny Book 2). Text version 3, book draft 2 approved by Tania on 30 Oct 2026. One page per picture. */
+/* Max and Mia’s Autumn Week. Approved 2 Nov 2026 (book draft 4). 13 screen pages, one per picture. */
+/* The Sounds of Autumn. 14 screen pages, one per picture. "^" = sound words. */
+"brave": [
+ ["@Chapter 1: The Old Map", "Emily, Riley and Reid were best friends.", "They called themselves Team Brave.", "They were always ready for an adventure.", "", "One sunny morning, they were playing in Emily’s garden.", "Poppy, Emily’s little dog, was digging in a pile of leaves.", "Suddenly she barked.", "Under the leaves was a crumpled old map."],
+ ["The paper was yellow and torn at the edges.", "Across the top, in curly letters, it said:", "MAP TO THE MYSTIC MONKEY GEM.", "Hidden deep in the jungle!", "", "Riley’s eyes grew wide. “Is this real?”", "Emily brushed off the dirt. “It looks real to me!”", "Reid grinned. “Then let’s go on a jungle quest!”", "", "They packed snacks, torches and two walkie-talkies.", "Poppy wagged her tail so hard her whole body wiggled.", "Emily’s gran was looking after all three of them that day.", "She waved from the back door.", "“Stay together,” she called. “And be back before dark!”", "“We will!” said Team Brave."],
+ ["@Chapter 2: The Tree with a Twist", "The jungle was at the edge of town.", "Past the playground.", "Behind Mr Talbot’s farm.", "Nobody in town ever went there.", "Most people didn’t even know it was there.", "", "The trees grew tall and thick.", "The leaves were shiny and green.", "Colourful butterflies floated by like tiny kites.", "", "“This place is amazing!” said Reid.", "Riley pointed up. “Look! A parrot with red, blue and yellow feathers!”"],
+ ["Emily opened the map.", "“First we have to find the Tree with a Twist.”", "", "They stepped over roots and ducked under vines.", "Poppy sniffed every leaf and every log.", "Emily kept her eyes on the map.", "Then they saw it.", "A giant tree with a trunk that twisted round and round like a corkscrew.", "", "“The Tree with a Twist!” said Emily."],
+ ["@Chapter 3: The Talking Parrot", "The parrot flew down and landed on a branch above them.", "“Squawk! Only the brave may pass!” it said.", "“Answer me this. What has a face and two hands, but no arms or legs?”", "", "Team Brave looked at each other.", "“A face and hands,” said Riley slowly. “But no arms or legs?”", "Emily thought hard.", "“Is it a clock?”"],
+ ["The parrot flapped its wings.", "“Correct! Squawk! Follow the purple flowers!”", "", "A narrow path, lined with purple flowers, led deeper into the jungle.", "“Thank you, Mr Parrot!” said Reid.", "And off they marched."],
+ ["@Chapter 4: The Bridge of Wobbles", "Soon they came to a river.", "The water rushed and roared far below.", "Across it hung a long, narrow rope bridge.", "", "Riley gulped. “That’s a long way down.”", "“We’re Team Brave,” said Emily. “We can do this. One at a time.”"],
+ ["Reid went first.", "He held a rope in each hand.", "He took one careful step.", "Then another.", "Halfway across, the wind blew and the bridge wobbled.", "Reid stood still and held on tight until it stopped.", "Then he kept going, all the way to the other side."],
+ ["Reid took out his walkie-talkie.", "“It’s fine!” his voice crackled. “Hold on with both hands. Don’t look down!”", "", "Riley went next.", "His knees were shaking.", "“You can do it, Riley!” Reid called from the other side.", "“Nearly there!” Emily called from behind.", "Step by step, Riley made it across."],
+ ["Last came Emily.", "Poppy was zipped into the big pocket of her backpack, with just her head poking out.", "Emily held the ropes with both hands and walked slowly across.", "Poppy didn’t make a sound.", "", "“Phew!” said Reid. “We did it!”", "They sat down and shared their snacks.", "Poppy got a dog biscuit."],
+ ["@Chapter 5: The Cave", "Past the bridge, the jungle grew darker.", "The trees blocked out the sun.", "Behind a curtain of vines was the opening of a cave.", "", "“The map says we go through here,” said Emily.", "They switched on their torches."],
+ ["The cave was cool and damp.", "Bats fluttered high above.", "The walls sparkled with crystals.", "Old tree roots had grown down through the rock and twisted across the floor.", "", "Then they heard a small, sad cry.", "Poppy stopped and stared into the dark.", "Riley shone his torch."],
+ ["It was a jaguar cub.", "Its back paw was stuck in a knot of roots.", "", "“It’s only a baby,” whispered Riley.", "“We mustn’t touch it,” said Emily. “It’s wild. But we can help.”", "", "Emily and Riley shone their torches on the roots.", "Reid found a long stick.", "Very gently, he lifted the roots.", "The cub pulled its paw free.", "It gave a soft, happy chuff.", "", "Then it padded deeper into the cave.", "It stopped and looked back at them.", "“I think it wants us to follow,” said Reid."],
+ ["@Chapter 6: The Hidden Temple", "The cave opened into a sunny clearing.", "In the centre stood an old stone temple, covered in moss and vines.", "", "“We found it!” whispered Reid.", "", "The walls were carved with monkeys and jewels.", "A big stone door was shut tight.", "The jaguar cub jumped onto a stone step and pressed it with its paw.", "^RUMBLE.", "Slowly, the door opened."],
+ ["Inside, the air sparkled with dust.", "In the middle of the room stood a stone stand, carved like a bunch of bananas.", "On top sat a glowing red gem.", "", "“The Mystic Monkey Gem!” gasped Emily."],
+ ["@Chapter 7: The Last Challenge", "Riley reached for the gem.", "The ground shook.", "A deep voice filled the room.", "“Choose the one thing you could not have done without.”", "", "Three stone monkeys on the wall moved their arms.", "Behind them were three buttons.", "One said Bravery.", "One said Kindness.", "One said Teamwork."],
+ ["“Bravery,” said Riley. “We crossed the bridge.”", "“But I only crossed because you two were cheering me on,” said Reid.", "“Kindness,” said Emily. “We helped the cub.”", "“But we needed all three of us to do it,” said Riley.", "“Two torches and one stick.”"],
+ ["They looked at each other and smiled.", "“Teamwork,” they said together.", "", "They put their hands on the button.", "And pressed."],
+ ["The gem rose into the air.", "It floated down, soft as a feather, into Emily’s hands.", "", "“You have chosen well, Team Brave,” said the voice.", "“The gem is a gift. It is yours to keep.", "Look after it.", "One day, it will call you back.”"],
+ ["@Chapter 8: Back Before Dark", "The jungle seemed brighter on the way back.", "The birds sang louder.", "The leaves seemed to whisper, “Well done.”", "", "The jaguar cub walked with them through the cave.", "When they came out the other side, it stopped and sniffed the air.", "There, in the shadows of the trees, stood a big jaguar.", "The cub’s mum.", "The cub ran to her.", "She looked at the children for a long moment.", "Then mother and cub slipped away into the jungle together."],
+ ["“It found its mum,” said Riley softly.", "", "Team Brave crossed the Bridge of Wobbles again.", "One at a time.", "Both hands on the ropes.", "This time, nobody’s knees were shaking.", "", "As they stepped out of the jungle, the gem’s glow slowly faded.", "Now it looked just like an ordinary red stone.", "", "They got back to Emily’s garden just as the sun went down.", "Emily’s gran brought out sandwiches.", "“Did you have a nice day?” she asked.", "“The best,” said Emily.", "Only Team Brave knew the secret."],
+ ["They put the gem in a box.", "On the lid they wrote:", "Team Brave’s First Adventure.", "", "That night, the first stars came out.", "“Do you think there are more adventures out there?” asked Riley.", "“I hope so,” said Emily.", "“Because Team Brave is just getting started.”", "", "Inside the box, very faintly, something began to glow.", "", "#The End"]
+],
+"soa": [
+ ["Meet Sadie, a girl with boots and cheer.", "Autumn’s sounds are drawing near.", "She jumps, she laughs, she skips along.", "Let’s follow her and hear her song."],
+ ["^Crunch, crunch, crunch,", "leaves fall down,", "a munchy bunch!"],
+ ["^Whoosh, whoosh, whoosh,", "wind sweeps past", "with a hush."],
+ ["^Splish, splash, splosh,", "raindrops dance", "and gently wash."],
+ ["^Pitter, patter, drip, drop,", "tapping rooftops,", "never stop!"],
+ ["^Rustle, bustle,", "squirrels run.", "Chatter, scatter,", "autumn fun!"],
+ ["^Clang, bang, ding, dong,", "acorns tumble", "all day long."],
+ ["^Hoot, hoot, hoot,", "Owl calls out", "in his cosy suit."],
+ ["^Snap, crack, pop,", "twigs go crunch", "with every hop."],
+ ["^Swish, swish, sweep,", "the rake makes piles,", "so tall, so deep."],
+ ["^Crunch, crunch, crunch,", "jump right in,", "a leafy lunch!"],
+ ["^Whisper, shimmer,", "autumn sings.", "Golden days", "with happy things."],
+ ["^Firelight flickers", "in our room, cosy and bright.", "A kitten purrs softly", "as day turns to night."],
+ ["But autumn’s story keeps going.", "Did you hear the sounds too?", "!Let’s go outside and find some more!", "#The End"]
+],
+"max-mia": [
+ ["Autumn had come at last. The air was cool and crisp. The trees wore coats of red, orange and gold.", "Max and Mia couldn’t wait to play outside with Fluffy, their little dog.", "There were leaves to jump in, apples to pick, and pies to bake with Mum and Dad."],
+ ["@: Monday", "On Monday, Max woke up with a smile. “Let’s go to the park!” he said.", "Mia pulled on her scarf. “Race you!”", "The park was full of crunchy leaves. They made big piles. They jumped. They rolled. They threw leaves high into the air.", "Dad joined in. His pile was the biggest!", "A squirrel stopped to watch. The leaves danced. The children laughed."],
+ ["@: Tuesday", "On Tuesday, the rain tapped on the windows. Drip. Drop. Drip.", "Max peeked outside. “The park looks soggy,” he said. “Let’s stay in and play!”", "They built a fort with blankets. They played board games by the fire and made hot chocolate with marshmallows.", "Dad told silly jokes. Mum laughed so hard, her hot chocolate nearly spilled.", "Outside, the rain whispered. Inside, the room glowed warm and bright. It was perfect."],
+ ["@: Wednesday", "On Wednesday, the sky was clear and bright. Max packed sandwiches into a small basket. Mia tied her shoes tight.", "“Let’s find treasures in the forest!” she said.", "Leaves crunched under their feet. Mushrooms peeked out from the moss. They looked closely, but they didn’t touch.", "A squirrel scurried by, carrying an acorn.", "By the time they got home, their pockets were full of colourful leaves, and their hearts were full of wonder."],
+ ["@: Thursday", "On Thursday, the family went to the pumpkin patch. Max picked a round pumpkin. Mia picked a wobbly one.", "Back home, Mum spread old newspaper over the kitchen table. Out came the paints and brushes.", "Max painted big orange and yellow stripes. Mia painted bright spots. Dad painted a smiling sun, and Mum added tiny autumn leaves.", "Fluffy sniffed the paint pots. When he looked up, there was a little dot of paint on his nose!", "It was messy. It was fun. It was a perfect autumn day."],
+ ["@: Friday", "On Friday, the wind blew strong and fast. “Perfect for kites!” said Dad.", "Max and Mia ran across the field, holding their kites high. The kites twirled and danced in the sky. Up. Up. Up!", "Dad spun them around. Mum twirled too. Even Fluffy chased the ribbons.", "The wind carried their laughter far, far into the autumn sky."],
+ ["@: Saturday", "On Saturday, the air was cool and bright. “Let’s go apple picking!” said Dad.", "Max reached for the shiny red apples. Dad lifted Mia up to reach the top branch.", "Crunch. Crunch. Crunch. The apples dropped softly into the basket.", "“Tomorrow,” said Mum, “we’ll bake a big apple pie together.”", "Everyone cheered. It was the perfect Saturday."],
+ ["@: Sunday morning", "On Sunday, the kitchen hummed with warmth and laughter. “Who’s ready to bake?” asked Mum.", "Dad sliced the apples. Max rolled out the pastry, and Mia sprinkled the sugar and cinnamon.", "Mum guided their hands as they filled the pie dish. Fluffy wagged his tail, hoping for a crumb.", "Into the oven it went. Max and Mia could hardly wait."],
+ ["@: Leaf crowns", "“Let’s wear autumn!” said Mia. Max’s eyes lit up. “Leaf crowns!”", "They filled a basket with leaves. Red, orange, yellow and brown. Each one was different and beautiful.", "Dad held the paper while Max and Mia pressed on the leaves. Max added a shiny acorn in the middle.", "“Look!” said Max. “We’re the King and Queen of Autumn!” Fluffy barked happily."],
+ ["@: Pinecone owls", "Later, the family went for a walk. “Look at all these pinecones!” said Max.", "“They’d make cute little owls!” said Mia.", "Back home, Mia stuck on round paper eyes. Max added tiny wings. Dad helped glue a yellow beak in the middle.", "One pinecone rolled off the table. Fluffy caught it and brought it back! “Perfect helper!” said Mum.", "The pinecone owls lined up on the windowsill, watching over their cosy autumn home."],
+ ["@: Drawing the week", "The evening light spilled across the table. Paper, crayons and coloured pencils waited, bright and ready.", "“Let’s draw our favourite autumn memories,” said Mum.", "Max drew a tall tree with swirling leaves. Mia drew herself racing through the park. Dad drew a kite. Mum drew a pie.", "Fluffy pressed a paw onto the corner of Max’s page. They all laughed."],
+ ["@: Sunday supper", "The house smelled of apples and cinnamon. Mum took the golden pie out of the oven.", "Each bite was warm and sweet. “This is the best pie ever!” said Mia.", "They talked about their week. Jumping in leaves. Building a fort. Painting pumpkins. Flying kites. Picking apples.", "“What a wonderful week,” said Mum. Dad nodded. “The best kind. One we shared together.”"],
+ ["@: Goodnight, autumn", "The stars began to twinkle. The fire crackled. Fluffy curled up, tired and happy.", "Max yawned. Mia leaned against Mum’s shoulder.", "“Can we do it all again next autumn?” asked Max.", "“Of course we can,” said Mum softly.", "It had been a week of colour, laughter and cosy days. A perfect autumn week, made with love, together.", "#The End"]
+],
+"benny-2": [
+ ["The next morning, Benny the bunny hopped out into the warm, golden sunshine.","He packed five juicy strawberries for lunch.","He was ready for a new adventure!"],
+ ["Lila the ladybird landed on a daisy beside him.","Max the Mouse came scurrying up with a crumpled map.","“Look!” said Max. “It shows the way to the Secret Meadow!”"],
+ ["“The Secret Meadow is full of flowers and sweet, ripe berries,” said Lila.","“But a big, grumpy badger lives right by the gate,” squeaked Max.","Benny’s tummy did a little flip."],
+ ["Then Benny remembered the stream, the dark cave and the lily pads.","“Being brave means trying, even when you feel afraid,” he said.","“We’ll face it together!” said Lila."],
+ ["The path led to a fast, rushing stream.","The only way across was a wobbly old log.","It was much bigger than the stream Benny had crossed before."],
+ ["Benny took a deep breath.","Hop. Wobble. Hop. Wobble. Hop!","He made it! Max scampered across behind him, and Lila fluttered over the top."],
+ ["Next, a wall of thick, prickly bushes blocked their way.","Lila flew up high to look.","“There’s a gap!” she called. “Follow me!”"],
+ ["Max sniffed the ground with his clever nose.","“Mind the sticky mud,” he said. “Step on the stones.”","Together, they squeezed through the gap. Not one of them got stuck."],
+ ["On the other side was a wooden gate, covered in flowers.","Beside it was a big hole under an old oak tree.","Suddenly, out popped a HUGE, stripy badger."],
+ ["“Who’s making all that noise?” grumbled the badger. “I was fast asleep!”","Max hid behind Benny. Benny’s knees went wibble-wobble.","But the badger didn’t look scary now. He looked tired."],
+ ["Benny stepped forward.","“I’m sorry we woke you up,” he said. “Would you like a strawberry?”","He held out the biggest, juiciest strawberry from his lunch."],
+ ["The badger blinked. Then a smile spread across his stripy face.","“Nobody has ever said sorry to me before,” he said. “They usually run away.”","“I’m Barnaby. Would you like to see the meadow?”"],
+ ["Barnaby opened the gate.","The Secret Meadow was even more beautiful than the map!","There were flowers of every colour, and berries everywhere they looked."],
+ ["They had a picnic in the long grass.","Benny shared his last four strawberries, and Barnaby shared the sweetest blackberries in the meadow.","Bees buzzed, butterflies danced, and everyone giggled until the sun went down."],
+ ["“Goodnight, Barnaby!” said Benny with a yawn.","“Good morning!” laughed Barnaby. Badgers wake up when the stars come out.","That night, Benny snuggled into bed.","Being brave had taken him all the way to the gate.","!But being kind had opened it.","#The End"]
+],
+/* The Lion Who Was Afraid of the Dark. Version 2, approved by Tania on 29 Sept 2026. One page per picture. */
+lion: [
+ ["Long ago, when animals could talk, there lived a great lion named Lumo.", "Lumo was the biggest and strongest animal on the grasslands.", "His paws were enormous.", "His teeth were sharp.", "And his roar made the trees tremble.", "^ROOOAAAR!"],
+ ["“Lumo is afraid of nothing!” the animals would say.", "Lumo always smiled when he heard this.", "But the animals were wrong.", "Lumo was afraid of the dark."],
+ ["Every evening, before the sun disappeared, Lumo hurried back to his cave.", "He never joined the other animals beneath the stars.", "“I need my rest,” he would say.", "But Lumo did not sleep.", "He stayed awake, listening to every sound outside his cave."],
+ ["One afternoon, Lumo walked farther than usual while searching for water.", "He crossed a dry riverbed.", "He climbed over a rocky hill.", "At last, he found a clear pool."],
+ ["Lumo drank until he was no longer thirsty.", "When he lifted his head, the sun had disappeared.", "The grasslands were dark.", "Lumo tried to remember the way home, but every rock looked the same."],
+ ["A branch snapped behind him.", "^CRACK!", "“Who is there?” Lumo roared.", "A tiny firefly appeared beside his nose.", "“It is only me,” she said."],
+ ["“I knew that,” Lumo replied quickly. “I was not frightened.”", "The firefly flew around Lumo’s shaking paws.", "“You may be able to fool the other animals,” she said kindly, “but you cannot fool me.”"],
+ ["Lumo lowered his head.", "“I am afraid of the dark,” he admitted. “Please do not tell anyone.”", "“There is no shame in feeling afraid,” said Firefly. “Come. I will help you find your way home.”"],
+ ["“You?” asked Lumo. “But you are so small!”", "“And you are very big,” Firefly replied. “Yet tonight, you need my light.”", "Firefly flew ahead, and Lumo followed her tiny glow."],
+ ["Soon, they reached two paths.", "The wide path looked smooth and easy.", "The narrow path wound between tall, dark rocks.", "“We should take the wide path,” said Lumo."],
+ ["“No,” said Firefly. “That path leads to the crocodiles’ river. The narrow path leads home.”", "Lumo did not like the narrow path.", "But he trusted Firefly."],
+ ["She stayed close to him as they walked between the rocks.", "Whenever Lumo took a wrong turn, she gently guided him back.", "Whenever he heard a frightening sound, her little light reminded him that he was not alone."],
+ ["At last, they reached the top of a hill.", "Below them lay Lumo’s cave.", "The other animals were waiting for him.", "“Where have you been?” asked Elephant.", "Lumo wanted to pretend that he had been on a great adventure.", "Then he looked at Firefly."],
+ ["“I became lost,” he admitted. “I was frightened of the dark, and Firefly stayed with me and showed me the way home.”", "The animals stared in surprise.", "Then Elephant stepped forward.", "“I am afraid of bees,” he confessed.", "“I am afraid of deep water,” said Cheetah.", "“And I am afraid of storms,” said Buffalo.", "No one laughed."],
+ ["From that night on, Lumo stopped pretending to be fearless.", "He still had enormous paws, sharp teeth and a mighty roar.", "But now he understood that even the strongest animal sometimes needs help.", "He also learned that a tiny light can guide even the greatest lion home.", "#The End"]
+],
+/* Nina's Tasty Trip: The Magic Spoon. Print layout draft 3, approved by Tania on 7 Oct 2026.
+   22 pages. Each country is two pages: the arrival and the tasting, then "Then ..." to WHOOSH. */
+"nina-1": [
+ ["Once upon a time, in a snug little town between rolling hills, there lived a bright-eyed girl named Nina.", "Nina adored food. Sweet, salty, crunchy, squishy, and everything in between!", "She loved helping Grandma in the kitchen. She stirred the pots. She kneaded the dough. And she tasted everything.", "One sunny afternoon, as they baked biscuits together, Nina asked, “Grandma, what do children eat in other parts of the world?”"],
+ ["Grandma’s eyes twinkled. She opened a drawer and took out a shiny silver spoon.", "“This is no ordinary spoon, my dear,” she said.", "“It’s a magic spoon. Hold it tight and say the magic words.”", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "The spoon began to shine."],
+ ["^WHOOSH!", "Nina was swept up into the sky, spinning like a leaf in the wind."],
+ ["Nina landed in a sunny village by the sea. She was in Italy!", "The air smelled of warm tomatoes, garlic and fresh basil.", "A cheerful boy named Luca waved from a bakery door. He held out a slice of pizza, straight from the oven.", "Nina took a big bite. “It’s warm and cheesy and stretchy!” she giggled.", "“Pizza was first made here in Italy, in a city called Naples,” said Luca proudly."],
+ ["Then Luca showed Nina how to spin pizza dough high in the air.", "Up it went. Round and round.", "FLOP! It landed on Nina’s head.", "They laughed until their tummies hurt.", "“Grazie, Luca!” said Nina. That means thank you in Italian.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a quiet garden full of pink cherry blossoms. She was in Japan!", "Petals floated down like snow, and a little stream went trickle, trickle.", "A girl named Aiko smiled and gave a little bow. She held out a small plate of sushi.", "“Sushi is made with sticky rice, fish and seaweed,” said Aiko. “We dip it in soy sauce.”", "Nina took a bite. “It’s cool and soft and salty, like the sea!”"],
+ ["Then Aiko handed Nina two chopsticks.", "Nina tried to pick up a piece of sushi.", "Wobble, wobble. PLOP! Back on the plate.", "She tried again. Wobble, wobble... got it! Aiko clapped.", "“Arigato, Aiko!” said Nina. That means thank you in Japanese.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a busy market full of olives, spices and warm bread. She was in Palestine!", "Stallholders called out, and the smell of herbs drifted through the air.", "A girl named Layla waved from her family’s bakery. She gave Nina a round, warm flatbread called mana’eesh.", "“It’s sprinkled with za’atar, a mix of thyme, sesame seeds and sumac,” said Layla. “We eat it for breakfast.”", "Nina took a big bite. “It’s soft and crispy and herby!”"],
+ ["Then Layla showed Nina how to mix za’atar with golden olive oil.", "Stir, stir, stir. They spread it on fresh dough, ready for the oven.", "They sipped cool mint lemonade while it baked.", "“Shukran, Layla!” said Nina. That means thank you in Arabic.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a sunny square full of music and laughter. She was in Spain!", "A guitar played, and children chased pigeons around a fountain.", "A boy named Mateo waved her over to a long table. His whole family was sitting down for lunch.", "“Try our tortilla española,” said Mateo. “It’s a thick omelette made with potatoes and eggs.”", "Nina took a bite. “It’s soft and golden and so filling!”"],
+ ["Then Mateo’s grandpa showed them a trick.", "He put a plate on top of the pan and... FLIP! The tortilla turned right over.", "“Olé!” cheered everyone.", "“In Spain, the whole family eats lunch together,” said Mateo.", "“Gracias, Mateo!” said Nina. That means thank you in Spanish.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a bright town full of colour. She was in Mexico!", "Paper flags in pink, blue and yellow fluttered above the street.", "A boy named Diego handed her a taco. It was a soft corn tortilla, filled with beans, cheese and salsa.", "Nina took a bite. “It’s soft and cheesy, and a little bit spicy!”", "“Tacos can have lots of different fillings,” said Diego. “Everyone has a favourite.”"],
+ ["Then Diego showed Nina how to make guacamole.", "They squished and mashed ripe green avocados.", "Squish, squash, SPLAT! A blob landed on Diego’s nose.", "They laughed and laughed.", "“Gracias, Diego!” said Nina. “We speak Spanish here too,” Diego grinned.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed on a busy street full of bicycle bells and bright colours. She was in India!", "The air smelled of cumin, ginger and warm spices.", "A girl named Priya took Nina’s hand and led her home. Her mum had cooked a big pot of dal, a warm, golden lentil stew.", "“We scoop it up with chapati,” said Priya. “That’s our flatbread.”", "Nina tore off some chapati and scooped up the dal. “It’s warm and cosy, like a hug!”"],
+ ["Then Priya showed Nina how to roll chapatis into circles.", "Priya’s was perfectly round.", "Nina’s looked like a map of the world!", "“That’s the best one,” laughed Priya.", "“Dhanyavaad, Priya!” said Nina. That means thank you in Hindi.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a courtyard full of music and dancing. She was in Nigeria!", "Drums went boom-ba-boom, and everyone wore bright, patterned clothes. It was a party!", "A boy named Tunde handed her a bowl of jollof rice.", "“Jollof is cooked with tomatoes, peppers and spices,” said Tunde. “We always have it at parties!”", "Nina took a big bite. “It’s smoky and tasty, and a little bit spicy!”"],
+ ["Then Tunde’s auntie let them stir the big party pot.", "Round and round went the long wooden spoon.", "Nina’s magic spoon gave a tiny, jealous wobble.", "Then everyone danced while the rice bubbled.", "“E se, Tunde!” said Nina. That means thank you in Yoruba.", "Nina held her spoon tight.", "~Glow, little spoon, glow, glow, glow!", "~Where in the world will we go?", "^WHOOSH!"],
+ ["Nina landed in a snowy forest, beside a little wooden cabin. She was in Canada!", "Snow crunched under her feet, and smoke curled from the chimney.", "A girl named Emilie waved from the door. “Bonjour! Come in, it’s pancake time!”", "Inside, there were stacks of pancakes and golden maple syrup.", "“Maple syrup comes from maple trees,” said Emilie. “We boil the sap until it’s thick and sweet.”", "Nina took a bite. “It’s fluffy and sticky and sweet!”"],
+ ["Then Emilie’s dad poured hot syrup onto clean snow outside.", "The girls waited, then rolled it up on sticks like lollies.", "“It’s a sweet made by winter!” laughed Nina.", "“Merci, Emilie!” said Nina. That means thank you in French."],
+ ["Nina’s tummy was full. Her heart was full too.", "She held her spoon tight and whispered,", "~Glow, little spoon, glow, glow, glow!", "~Now it’s time for home, you know.", "^WHOOSH!", "Nina landed back in Grandma’s kitchen, just as the biscuits came out of the oven.", "“Well?” asked Grandma. “What did you learn, my sweet girl?”"],
+ ["Nina threw her arms around her.", "“Grazie. Arigato. Shukran. Gracias. Dhanyavaad. E se. Merci,” she said.", "Grandma laughed. “What was all that?”", "“It’s thank you, Grandma,” said Nina. “In every place I visited. Food is different everywhere, but it’s always made with love.”", "Grandma smiled. “That’s the magic of food, Nina. It brings people together, no matter where they’re from.”"],
+ ["The magic spoon gave a tiny twinkle.", "“Grandma,” said Nina, “can we cook something from every place I visited?”", "And that is exactly what they did.", "#The End"]
+]
+};
+
+/* What each picture shows, for children and parents who use a screen reader. */
+/* The Number Knights, both versions, word for word from the approved books of 1 Nov 2026. "?" = a "Can you count them?" or "Your turn" box. */
+TEXT["knights"] = [["In the land of Numeria, numbers were everywhere.", "They were on the doors. They were on the clocks.", "They were on the buns in the baker’s shop.", "", "High on a tower sat the Great Maths Crystal.", "It made every number shine."], ["But one morning, the crystal was gone!", "", "The numbers went wobbly.", "The clock said banana o’clock.", "“Oh dear,” said King Zero. “Call the Number Knights!”"], ["Clip, clop, clip, clop. Here they came.", "", "Sir Plus, who loved to add.", "Lady Minus, who loved to take away.", "Sir Times, who loved lots and lots.", "Lady Share, who loved to share.", "", "And at the back, on a very small pony, came Equals.", "Equals was not a knight yet.", "She carried the snacks. She carried the golden scales.", "And she always checked that both sides were the same.", "", "“We will find the crystal!” said the knights.", "“Me too,” said Equals, very quietly."], ["Soon they came to a river.", "The bridge had a broken plank and a big gap.", "“Easy!” said Sir Plus. “We need 3 new planks. 1 and 2 more makes 3.”", "Bang, bang, bang. The bridge was mended.", "Equals held up her scales. “1 and 2 is the same as 3,” she said.", "But nobody heard.", "", "?Can you count them?"], ["Next they met a dragon and his baby brother.", "They had 8 slices of pizza, and they were cross.", "“He has more!” “No, HE has more!”", "“Easy!” said Lady Share. “8 slices, 2 dragons. 4 for you, and 4 for you.”", "Equals held up her scales. “4 is the same as 4,” she said.", "But nobody heard.", "", "The happy dragon pointed across the sea.", "“Something shiny went that way!”"], ["By the sea were 4 pirates and a little boat.", "“We will row you across,” said Captain Dot.", "“But the boat is too full.”", "There were 7 cannonballs in the boat.", "It could only carry 5.", "“Easy!” said Lady Minus. “7 take away 2 leaves 5.”", "Thud, thud. Out came 2 cannonballs.", "", "?Can you count them?"], ["“And rowing is hungry work,” said Captain Dot.", "“2 biscuits for each pirate.”", "“Easy!” said Sir Times. “4 pirates. 4 lots of 2 is 8.”", "Equals opened the snack bag and counted out 8 biscuits.", "“4 lots of 2 is the same as 8,” she said.", "“Thank you, small person,” said Captain Dot.", "He was the first to hear her all day.", "", "?Can you count them?"], ["At last they came to the Castle of Shapes.", "The big door was shut tight."], ["In front of it stood a giant pair of scales.", "One side held 6 golden stones.", "The other side held 4.", "Over the door were five words: MAKE BOTH SIDES THE SAME.", "", "“Add lots!” said Sir Plus.", "“Take lots away!” said Lady Minus.", "“Lots of lots!” said Sir Times.", "“Share them out!” said Lady Share.", "What a muddle! The scales went up and down, and up and down."], ["“STOP!” said Equals.", "Everybody stopped.", "", "?Can you count them?"], ["“This side has 6,” said Equals. “That side has 4. And 4 and 2 more is the same as 6.”", "She put 2 golden stones on the scales.", "Clunk.", "Both sides were the same.", "Creeeak. The door opened."], ["Inside sat the Shape Wizard, with the crystal in his hands.", "“I only borrowed it,” he said sadly. “Nobody ever comes to do puzzles with me.”", "“Then come home with us,” said Equals.", "“We have lots of puzzles. And snacks.”"], ["So the crystal went home, and the Wizard came too.", "The numbers shone again.", "The clock said six o’clock."], ["King Zero tapped Equals gently on the shoulder with his sword.", "“Arise, Lady Equals, Knight of Numeria,” he said.", "“Without you, a sum is only a question.”", "", "Now there are five Number Knights.", "Plus, Minus, Times and Share.", "And Equals, who makes it fair."], ["So if a sum ever makes your tummy feel wobbly, remember what the Number Knights say.", "!Maths is not a monster. It is a puzzle.", "And puzzles are best when we solve them together.", "", "#The End"]];
+TEXT["knights-long"] = [["@Chapter 1: The Morning the Numbers Went Wrong", "In the kingdom of Numeria, numbers were everywhere.", "They were painted on the doors and stitched onto the flags. They hung in the trees like apples.", "", "High on the tallest tower sat the Great Maths Crystal.", "As long as it shone, every number in Numeria made sense."], ["Then, one morning, the crystal was gone.", "", "By breakfast, the numbers had gone wobbly. The town clock struck banana. The baker’s sign said “3 buns for 0 pennies”, and there was a very long queue.", "On the school wall, 2 + 2 said it was 5, then 9, then a small picture of a duck.", "", "King Zero looked down from his window.", "He was round and calm, and very good at keeping things in their place.", "“This will not do,” he said. “Send for the Number Knights!”", "", "There were four of them."], ["Sir Plus was big and jolly, and he always had room for one more.", "", "Lady Minus was tidy and quick. She took away whatever wasn’t needed, like clutter, and worries, and once, by accident, the King’s lunch.", "", "Sir Times did everything in lots. Lots of talking.", "Lots of galloping. His proper name was Sir Multiply, but nobody had time to say it.", "", "Lady Share made sure everyone got the same.", "Her proper name was Lady Divide, but she liked Share better. It sounded kinder.", "", "And behind them, on a very small pony, came Equals."], ["Equals was not a knight. Not yet. She was a squire, which meant she carried things. She carried the snack bag. And she carried a pair of golden scales, because her job was to check that both sides of every sum were the same.", "", "The knights called this “the boring bit”.", "", "“Knights,” said King Zero, “find the crystal, before the whole kingdom forgets how to count.”", "“We will!” shouted the four knights.", "“Me too,” said Equals. But she said it so quietly that nobody heard."], ["@Chapter 2: The Broken Bridge", "The road out of Numeria crossed a deep, fast river.", "The bridge needed 20 planks. Somebody had counted them out that morning, when the numbers were already wobbly.", "There were only 13.", "", "“Stand back,” said Sir Plus. “This is a job for adding. We have 13 planks and we need 20. So how many more?”", "", "?Your turn. Can you work it out before Sir Plus does?"], ["He counted on his big fingers.", "“14, 15, 16, 17, 18, 19, 20. Seven more!”", "He chopped 7 planks and banged them into place.", "", "Equals took out her little brass weights. She put 13 and 7 on one side of her scales, and 20 on the other.", "The scales sat perfectly level.", "“13 and 7 is the same as 20,” she said.", "But the knights were already halfway across the bridge."], ["@Chapter 3: The Dragon’s Pizza", "On the far side of the river was a cave, and in the cave lived the Fraction Dragon and his baby brother.", "The Fraction Dragon was not a scary dragon. He was a hungry one. His smoke smelled of burnt cheese.", "", "“Have you seen the Great Maths Crystal?” asked Lady Share.", "“I might have,” said the dragon. “Solve my riddle first. This morning we had one whole pizza. I ate half of it. Then my baby brother ate half of what was left. How much pizza is left for supper?”"], ["“None!” said Equals. It just popped out.", "“Not quite,” said the dragon, and a smoke ring puffed out of his nose.", "", "Equals went as red as a tomato. She hid behind the snack bag.", "", "Lady Share drew a circle in the sand with the tip of her sword.", "“Here is the pizza,” she said. She drew a line down the middle. “The dragon ate this half. That leaves one half.” She drew a line across the half that was left.", "“His brother ate half of the half. So only this piece is left. If you cut the whole pizza into pieces this size, you would get four.”", "", "?Your turn. What do we call one of four equal pieces?"], ["“One quarter!” said Lady Share.", "“Correct,” said the dragon.", "", "Lady Share bent down beside the snack bag.", "“You knew that some of the pizza had been eaten,” she said softly. “That was a good start. A wrong answer is not the end, Equals. It is a clue.”", "Equals peeped out. She had never thought of it like that.", "", "“I saw something shiny go by last night,” said the dragon. “Somebody in a pointy hat carried it across the sea.”"], ["@Chapter 4: The Pirates of the Sea of Sums", "By the sea they found a rowing boat and four pirates.", "Their captain was called Captain Dot, because of the big white dot on his hat.", "", "“We’ll row you across,” said Captain Dot. “But she’s sitting too low in the water. We’ve got 30 cannonballs on board, and she only floats with 18.”"], ["“Then some must go,” said Lady Minus happily.", "“30, take away something, leaves 18.”", "", "?Your turn. How many cannonballs have to come out?", "", "“Twelve!” said Lady Minus.", "The pirates rolled 12 cannonballs onto the sand, and the boat bobbed up like a cork."], ["“And rowing is hungry work,” said Captain Dot.", "“Five biscuits for each rower.”", "“Four rowers, five biscuits each,” said Sir Times, very fast. “Four lots of five. Twenty!”", "", "Equals opened the snack bag and counted out 20 biscuits. She checked both sums on her scales.", "They were level both times.", "“Thank you, small person,” said Captain Dot.", "He was the first one all day to notice her."], ["@Chapter 5: The Door That Would Not Open", "Across the sea stood the Castle of Shapes.", "Its towers were triangles. Its windows were circles.", "Its great square door was shut tight.", "", "In front of the door hung a huge pair of stone scales.", "In the left pan sat two stones, marked 9 and 6.", "In the right pan sat one stone, marked 8, with an empty space beside it.", "Next to the scales was a basket of number stones."], ["Over the door, somebody had carved five words:", "MAKE BOTH SIDES THE SAME.", "", "“Easy,” said Sir Plus. “9 and 6 makes 15. The answer is 15!”", "He dropped the 15 stone into the right pan.", "CRASH. The right side thumped to the ground.", "The door did not move.", "", "“Take something away!” said Lady Minus.", "“Put in lots!” said Sir Times.", "“Share them out!” said Lady Share.", "They all grabbed stones at once. The scales swung up and down like a seesaw."], ["“Excuse me,” said Equals. Nobody heard.", "“Excuse me,” she said, a bit louder. Nobody heard.", "", "Her tummy felt wobbly. What if she was wrong again?", "Then she remembered. A wrong answer is not the end. It is a clue.", "", "Equals climbed onto the snack bag.", "“STOP!”", "", "Four knights stopped, with their arms full of stones."], ["“It doesn’t say find the answer,” said Equals. “It says make both sides the same. The left side is 9 and 6. That makes 15. So the right side has to make 15 too. It already has 8.”", "", "?Your turn. 8 and what makes 15?", "", "“Seven,” said Equals. Her voice shook, but she said it.", "She took out the 15 stone and put the 7 stone beside the 8.", "", "The scales creaked. They wobbled. And then they sat perfectly, beautifully level.", "", "Clunk. The great square door swung open."], ["@Chapter 6: The Lonely Wizard", "Inside, at a table covered in puzzles, sat the Shape Wizard. The Great Maths Crystal glowed in his hands.", "", "“I only borrowed it,” he said. He looked down at his pointy shoes. “Nobody ever comes here to do puzzles with me. I thought that if I had the crystal, the numbers might come and keep me company. I didn’t know yours would go wobbly.”", "", "The knights looked at one another. They had been ready for a fight. They were not ready for this."], ["Equals stepped forward.", "“It isn’t the same on both sides,” she said. “You have all the numbers, and Numeria has none. But you have nobody to play with, and we have lots of people.”", "She thought for a moment. “Come back with us. Bring your puzzles. Then both sides are fair.”", "", "The Wizard blinked. “You would want me to?”", "“We have biscuits,” said Equals. “Well. We did.”", "", "So the crystal went home to its tower, and the Wizard came too.", "The numbers stopped wobbling at once.", "The clock struck six. 2 + 2 was 4 again. Buns cost one penny each, which pleased the baker and nobody else."], ["That evening, in front of the whole kingdom, King Zero called Equals forward and touched his sword gently to her shoulder.", "“Arise, Lady Equals, Knight of Numeria,” he said.", "“Plus, Minus, Times and Share can do wonderful things. But without you, a sum is only a question.”", "", "And every Friday after that, the Shape Wizard came to the castle for Puzzle Day. He lost quite often.", "He didn’t mind a bit.", "", "So if a sum ever makes your tummy feel wobbly, remember what the five Number Knights say.", "!Maths is not a monster. It is a puzzle.", "A wrong answer is not the end. It is a clue.", "And puzzles are best when we solve them together.", "", "#The End"]];
+
+const ALT = {
+/* Milo and the Starry Sand. The 15 pictures Tania approved on 29 and 30 Sept 2026. */
+milo: [
+ "Milo the tiny mouse peeps out from a hole under the roots of a willow tree by the stream. He holds a small twig.",
+ "Drawings in the sand of a moon, mountains, a fish and a bear in a small hat. Milo’s tail pokes out from behind a big stone.",
+ "Squirrel juggles acorns on a tree stump. The Rabbit twins hop past, Frog sits on a stone and Badger lies in the grass. A poster hangs on the Big Oak Tree. Milo sits alone at the edge with his twig.",
+ "Milo draws a moon and stars in the sand. Luna the ladybird flies beside him. Ollie the owl watches from a willow branch.",
+ "Ollie the owl stands on the sand and looks down at Milo’s drawings. Luna sits on a pebble. Milo holds his twig.",
+ "Toby the tortoise smiles down at Milo on the sandy bank. Luna sits on a leaf and Ollie watches from a branch.",
+ "Leaf banners and glowing lanterns hang in the willow branches. Badger, the Rabbit twins and Squirrel get the stage ready. Milo watches from under a red mushroom.",
+ "Rain pours down. The Rabbit twins and Badger run for cover, Squirrel climbs a tree and a banner flaps in the wind. Frog sits happily in a puddle.",
+ "After the storm, the sandy clearing is smooth and empty. The Rabbit twins, Badger, Squirrel and Frog sit around the edge. Milo stands at the front with his twig.",
+ "Milo steps out from under the red mushroom, holding his twig. Luna sits on a leaf beside him. Two ducks swim on the stream.",
+ "Milo holds his twig up high. Ollie, Toby, Badger, Squirrel, the Rabbit twins and Frog all look at him. Luna flies above.",
+ "Under the moon, tiny Milo draws swirls, stars and a big moon in the sand. Squirrel presses in an acorn, Rabbit tucks in a flower petal and Toby lays a pebble.",
+ "The Talent Show at night, lit by lanterns. The Rabbit twins dance and Squirrel juggles acorns. Frog, Badger, Toby, Ollie and Milo watch.",
+ "Milo stands in the middle of his finished moonlit drawing. Toby, Badger, Squirrel, the Rabbit twins, Frog and Ollie are gathered around him. Luna sits on a leaf.",
+ "Night time. Milo sleeps curled up in his cosy nest under the willow roots. The moon shines on the stream."
+],
+/* Bramble and the First Frost, 18 pictures. */
+"bramble-1": ["Bramble the red squirrel sits on a frosty branch in a misty autumn wood. His breath makes a little cloud in the cold air.", "Bramble sits on an oak branch beside Oakley the owl, who looks at him kindly. The wood glows golden.", "Bramble sits alone on a branch in the golden morning light, thinking hard.", "Bramble stretches and yawns at the door of his tree. Frost sparkles on the ground.", "Bramble rolls on his back in a pile of crunchy autumn leaves, laughing, with hazelnuts all around.", "Bramble smiles at the two little mice, Tansley and Emsley, beside a hollow log. Seeds and nuts lie in front of them.", "Night time. Bramble sleeps curled up inside the hollow of his tree, under a full moon.", "Bramble meets Hazel the hedgehog, who peeps out from a pile of fallen leaves.", "Bramble and Hazel build a nest of leaves and moss under a fallen log.", "Hazel sleeps curled up inside a closed nest of dry leaves and moss under bramble stems. Bramble sits nearby, watching.", "Bramble digs a little hole in the leaves to bury a hazelnut.", "Bramble sits on the leaves and looks up at Fern the fox, who lies down to say hello.", "Fern the fox pounces high over the frosty grass while Bramble watches from beside a tree.", "Bramble races home across the fallen leaves, his tail streaming out behind him.", "Bramble stands on the river bank, looking at a beaver lodge made of sticks in the water.", "Bramble meets Rylee the beaver, who pops his head up out of the river.", "Bramble watches from the bank as two beavers work on their lodge. One swims with a leafy branch in its mouth.", "Evening. Oakley the owl sits on a branch beside Bramble, glowing in the light of the full moon."],
+/* Bramble Braves the Snow, 18 pictures. */
+"bramble-2": ["Night time. Bramble sits high on a spruce tree under a bright full moon, looking out over the dark forest.", "Sage the owl swoops down beside Bramble with her wings spread wide. Bramble looks up in surprise.", "The Midnight Council. Bramble sits on a moonlit branch surrounded by owls of different kinds.", "Sage lands on the branch beside Bramble, her wings still open, under the full moon.", "Bramble stands on a winding path near the entrance of a badger sett, under the roots of a big tree.", "Bracken the badger looks out from his sett at Bramble.", "Inside the sett. Bracken sits on soft bedding in the earthy tunnel, and Bramble sits beside him.", "Bramble watches a family of deer grazing in a sunny meadow, with apples on the grass.", "A fawn leans down to touch noses with Bramble, who laughs. Willow the doe stands behind them.", "A stag and Willow stand in the meadow. Bramble sits beside a little pile of acorns.", "A golden evening. Two deer graze in the meadow beside Bramble as the sun sets.", "The first snow. Bramble sits on a snowy branch next to some hidden nuts.", "In the falling snow, a stranger fox follows a trail of sticks, while Bramble, Tansley and Emsley wait on a branch.", "Night time. Bramble sleeps curled up in his snug nest in the tree, under the moon.", "A winter morning. Bramble sits happily on a snowy branch in a sparkling forest.", "Hazel the hedgehog is fast asleep inside her closed nest of leaves under snowy brambles. Bramble sits beside it.", "Fern the fox and Bramble stand in the snow by the frozen river. Rylee the beaver peeps out by his lodge.", "Night time. Bramble sleeps in his cosy nest while Oakley the owl sits on the branch beside him, keeping watch."],
+/* Eri and the Magic Book. 19 pictures (18 story pictures and the end picture), final on 8 Oct 2026. Listed by picture number, not by page. */
+eri: [
+ "Breakfast in a sunny kitchen. Marie presses a bunny sticker onto the cover of Eri’s storybook. Eri looks surprised and a little cross. A gold star sticker is on the fridge.",
+ "The children’s corner of the library. Eri kneels on the rug and opens a small red book, and Marie kneels beside her. Mum and Dad sit in big soft armchairs, each reading a book.",
+ "Eri and Marie look at the open red book. A thin black line has drawn a bookshelf, an armchair and a tiny bunny on its pages. Marie points at the bunny.",
+ "A low bookshelf has swung open like a gate. In the wall behind it is a little arched red door with a round gold handle. Marie and Eri look at it with wide, happy eyes. Eri holds the red book.",
+ "Seen from behind, Eri and Marie stand hand in hand in front of the little red door. It is opening, and warm golden light pours out.",
+ "A round room with bookshelves up to the ceiling and golden lanterns. A big grey cat in tiny gold glasses sits on a yellow armchair shaped like a duck. Eri and Marie stand in the little red doorway, holding hands.",
+ "Sir Whiskers the cat sits on the duck chair with one paw lifted. Eri’s hand is straight up in the air, and she holds the red book in her other hand. Marie stands beside her.",
+ "Marie tugs Eri’s sleeve and smiles up at her. Eri looks down at her little sister in surprise.",
+ "Marie holds out a biscuit. Sir Whiskers leans forward from the duck chair with his eyes closed, reaching out a paw for it. Eri laughs.",
+ "Eri reads from the open red book, and a cloud of pink and gold glitter puffs out. A big yellow rubber duck bounces past and three stripy socks dance on the rug. Marie laughs. Sir Whiskers watches from the duck chair.",
+ "Funny chaos in the secret room. Yellow rubber ducks bounce through the air and long red and white stripy socks wiggle across the rug. Eri sits on the floor in the glitter, the red book springs open, Marie giggles and Sir Whiskers rolls on his back, laughing.",
+ "Eri holds the open red book and looks worried. A little yellow duck sits on her head. Marie smiles calmly and points at the page.",
+ "A close view. Eri holds the red book shut with both hands. Marie presses a shiny gold star onto its cover, with the tip of her tongue peeping out.",
+ "The room is calm again. Rubber ducks sit in a row and socks lie in pairs. Marie stands tall and proud with Eri’s arm around her shoulders. Eri holds the red book with its gold star. Sir Whiskers sits on a yellow chair.",
+ "Eri and Marie sit squeezed together in a big yellow chair, sharing a picture book full of bunnies. Sir Whiskers sleeps on the armrest in his gold glasses. Lanterns glow softly.",
+ "Back in the library. Eri kneels and slides the red book, with its gold star, onto the bottom shelf. Marie hugs a picture book with a rabbit on the cover.",
+ "Dad is down on his hands and knees, peering behind a bookshelf and smiling. Mum bends to look at the glitter in Marie’s hair. Marie and Eri giggle.",
+ "Night time in a cosy bedroom. Eri in star pyjamas and Marie in yellow pyjamas sit in bed, sharing the bunny book. A bunny sticker is stuck on Eri’s pillow.",
+ "Night in the quiet library. On the bottom shelf, the little red book glows, and gold sparkles float up from the star on its cover."
+],
+benny: [
+ "Benny the bunny peeps over a leafy green bush. Three swallows fly in the blue sky above him.",
+ "Benny sits under the leaves. Lila the ladybird has landed on a big leaf beside his face.",
+ "Benny sits in the grass. Lila the ladybird stands on a white daisy in front of him.",
+ "Benny sits on the grassy bank of a stream with stepping stones. Lila flies over the water.",
+ "Benny hops across the sparkling stream with his ears flying back. Lila flies beside him.",
+ "Benny meets Max the mouse on a path through sunflowers and daisies. Max waves hello. Lila sits on a daisy.",
+ "Benny takes a careful step under tall sunflowers. Max walks ahead and looks back at him. Lila sits on a leaf.",
+ "Benny crouches low outside a dark cave with his ears back. Max sits beside him and Lila sits on a fern.",
+ "Benny and Max hurry out of the cave into warm golden sunlight. Lila flies in the sunbeams.",
+ "Benny and Max sit on the bank of a wide pond with lily pads. On the far side, green frogs are having a party.",
+ "Benny sits at the edge of the pond with his ears back. Max puts a paw on him. The frogs wait on the far side.",
+ "Benny and Max push a big, round, flat leaf into the pond together. Lila watches from a blade of grass.",
+ "Benny leaps from one big floating leaf to the next. Max follows on the leaf behind. The frogs cheer on the far shore.",
+ "Benny sits proudly on the far shore with cheering frogs all around him. Max dances beside him.",
+ "Night time. Benny and Max sleep curled up in a cosy burrow. The moon and stars shine outside."
+],
+/* Benny and the Secret Meadow. The 15 final pictures of 30 Oct 2026, shown whole and framed like Benny 1 (no fade, rule of 2 Nov 2026). */
+"brave": ["Poppy the little white dog digs happily in a pile of autumn leaves in a sunny garden. Emily crouches and holds up a crumpled old map, while Riley and Reid lean in to look.", "Emily’s gran waves from the back door of her house. Emily, Riley and Reid walk across the grass with their torch and walkie-talkie, waving back, and Poppy trots beside them.", "In a green jungle full of blue butterflies, Riley points up at a red, blue and yellow parrot on a branch. Emily holds the map, Reid looks amazed, and Poppy sniffs the ground.", "Emily points at a giant tree whose trunk twists round like a corkscrew. Riley, Reid and Poppy stand beside her, looking up at it.", "A bright parrot spreads its wings on a branch of the twisted tree. Below, on a path lined with purple flowers, Emily, Reid and Riley look up and think hard about its riddle, with Poppy at their feet.", "Emily, Riley and Reid walk happily along a jungle path between purple flowers. Reid waves back at the parrot in the trees, and Poppy trots along beside them.", "Emily and Riley stand at the start of a long rope bridge, calling to Reid, who is halfway across and holding on with both hands. Poppy wags her tail beside them. A river rushes far below.", "Emily walks across the rope bridge holding the ropes in both hands, with Poppy’s head poking out of her orange backpack. Reid and Riley cheer her on from the far side.", "In a dark part of the jungle, Emily holds aside a curtain of vines to show a cave. Riley and Reid shine their torches into it, and Poppy peeps in.", "Inside a cave with sparkling crystals, a jaguar cub has its paw caught in tree roots. Reid gently lifts the roots with a long stick, while Emily and Riley shine their torches and Poppy watches.", "A jaguar cub presses a stone step, and the door of an old mossy temple slides open. Emily, Riley, Reid and Poppy watch in amazement as the parrot flies overhead.", "Inside the temple, a glowing red gem sits on a stone stand carved like a bunch of bananas. Emily, Riley and Reid gasp with wonder, and Poppy sits beside Emily.", "Three stone monkeys sit above three round buttons in the temple wall. Emily, Riley and Reid reach up together to press the last button, and Poppy wags her tail. The red gem glows behind them.", "The glowing red gem floats down through a trail of sparkles into Emily’s open hands. Riley and Reid stand either side of her, smiling, and Poppy looks up.", "The jaguar cub runs towards the big jaguar, its mum, who watches from a dark hollow in a tree. Emily, Riley, Reid and Poppy watch quietly from the mouth of the cave.", "At sunset, Emily, Riley and Reid sit on the grass in the garden with a small wooden box beside them and Poppy asleep next to it. Emily’s gran comes out of the door with a plate of sandwiches."],
+"soa": ["Sadie skips along a woodland path with her eyes closed, laughing. A red squirrel sits on a tree stump beside her.", "Sadie kicks through a carpet of red and orange leaves while more leaves float down from the trees.", "Sadie stands in a windy autumn wood, hugging herself and smiling, her mustard scarf blowing out sideways as leaves swirl past.", "Sadie splashes in a puddle in the rain, holding a yellow umbrella covered in a leaf pattern.", "Sadie sits by a rainy window, resting her chin on her hand, with a warm mug on the windowsill.", "Sadie crouches in the leaves, smiling at a red squirrel nibbling an acorn.", "Sadie laughs as acorns tumble from an oak tree into the small metal bucket she is holding.", "At dusk, Sadie and Mum sit on a blanket by a little campfire, toasting marshmallows. An owl watches from a branch above.", "Sadie hops along a leafy path with her arms out, one boot snapping a small twig.", "Sadie rakes leaves into a big, tall pile in a golden wood.", "Sadie leaps into a pile of leaves with her arms up, laughing. A robin watches from a wooden fence post.", "Sadie walks hand in hand with Mum along a golden woodland path, holding a small pumpkin.", "Sadie sits on a rug by a glowing fireplace with a fireguard, stroking a sleepy cream kitten.", "Sadie walks home through the golden wood, carrying a basket full of autumn treasures."],
+"max-mia": ["Max and Mia stand outside their red-brick house under autumn trees. Mum and Dad stand behind them, and Fluffy the little white dog jumps up happily.", "In the park, Max and Mia leap and throw leaves high into the air beside a big leaf pile. Dad kneels in the pile, Mum holds Fluffy on his lead, and a red squirrel watches.", "On a rainy day the family sits on the rug by the fire playing a board game, holding mugs of hot chocolate. A blanket fort stands behind them, and Fluffy naps on a cushion.", "In a golden forest, Max carries a small basket and Mia crouches to look at mushrooms in the moss. Fluffy sniffs the leaves, and a squirrel holds an acorn on a mossy log.", "The family paints pumpkins at the kitchen table on old newspaper. Max paints stripes, Mia paints spots, Dad paints a smiling sun and Mum paints little leaves. Fluffy watches.", "Max and Mia run across a golden field with their kites flying high. Dad and Mum spin around with their arms out, and Fluffy chases the kite ribbons.", "In the apple orchard, Dad lifts Mia up to the top branch while Max picks a red apple. Mum holds a basket full of apples, and Fluffy trots beside her.", "In the kitchen, Max rolls out pastry, Mia sprinkles sugar over the pie, and Mum and Dad help with the apples. Fluffy looks up, hoping for a crumb.", "Max and Mia stand in the living room wearing crowns made of autumn leaves. Mum and Dad smile, and Fluffy barks happily.", "Four pinecone owls with big paper eyes sit on the windowsill. Max and Mia lean in to look at them, with Mum behind them and Fluffy holding a pinecone.", "The family sits at the table drawing their autumn memories with crayons and coloured pencils: a tree, a kite and a pie. Fluffy sits beside Max.", "The family eats warm apple pie together at the table. Steam rises from the pie, and Fluffy peeps over the edge of the table.", "At night, the family sits together on the sofa by the glowing fire. Mia leans on Mum, Max yawns, and stars twinkle outside the window. Fluffy sleeps on the rug."],
+"benny-2": [
+ "Benny the bunny hops through a sunny green meadow at sunrise. Five strawberries sit on a leaf in the grass.",
+ "Benny sits among wildflowers. Lila the ladybird sits on a daisy, and Max the mouse holds up a crumpled map.",
+ "Max talks with a worried face. Benny listens, looking worried too. Lila sits on a flower between them.",
+ "Benny stands tall in the wildflowers with Max beside him. Above them float little pictures of a stream, a dark cave and lily pads. Lila sits on a red flower.",
+ "Benny and Max stand on the bank of a fast, rushing stream. A wobbly old log lies across the water.",
+ "Benny hops along the log over the rushing water. Max scampers behind him and Lila flies above.",
+ "A wall of thick, prickly bushes. Benny and Max stand by a small gap at the bottom. Lila flies up high.",
+ "Benny and Max walk through a leafy tunnel in the bushes, stepping on stones in the mud. Lila sits on a leaf.",
+ "A wooden gate covered in flowers beside an old oak tree. A badger pops out of a hole under the roots. Benny and Max watch.",
+ "The badger sits outside his hole with his mouth wide open, grumbling. Benny sits nearby. Lila sits on a leaf.",
+ "Benny holds out a big strawberry to the badger by his hole. More strawberries sit on a leaf.",
+ "The badger smiles and holds a strawberry. Benny smiles back, with Max beside him and strawberries on a leaf.",
+ "Barnaby the badger peeps round the open gate. Benny and Max look into a meadow full of flowers and blackberries. Lila sits on a leaf on the gatepost.",
+ "A picnic in the long grass. Benny, Max and Barnaby share strawberries and blackberries on a big leaf. Bees and butterflies fly around them.",
+ "Evening, with a pink and blue sky. Barnaby stands by the gate. Benny gives a sleepy smile, with Max beside him."
+],
+/* The Lion Who Was Afraid of the Dark. The 15 final pictures of 7 Oct 2026. */
+lion: [
+ "Lumo the lion stands on a big rock in the golden grasslands. He roars so loudly that leaves fly off an acacia tree.",
+ "Elephant, Buffalo and Cheetah look admiringly at Lumo the lion on the sunny grasslands.",
+ "Night time. Lumo lies wide awake at the mouth of his cave. Far below, his friends are tiny and happy under the stars.",
+ "Lumo walks across a cracked, dry riverbed in hot golden sunlight, looking for water.",
+ "Lumo stands beside a moonlit pool at night. The dark rocks around him all look the same.",
+ "Lumo’s startled face in the dark, lit gold by a tiny firefly hovering at the tip of his nose.",
+ "Firefly circles Lumo’s huge front paws on the grass at night, leaving a trail of golden light.",
+ "Lumo lies down with his head low on his paws under the stars. Firefly glows kindly in front of his face.",
+ "Lumo walks carefully across the dark grassland under a starry sky, following Firefly’s tiny golden light.",
+ "Lumo stands at a fork in the path under a full moon. A wide sandy path is on the left. Firefly glows at the start of a narrow path between dark rocks.",
+ "Lumo steps onto the narrow path between tall dark rocks, following Firefly. Far away, a moonlit river has tiny crocodile eyes in it.",
+ "Lumo walks between tall rocks at night, looking braver. Firefly flies beside his face and lights it gold.",
+ "Dawn on the grasslands. Lumo stands on a grassy hilltop with Firefly glowing beside his face. Down in the valley, Elephant, Buffalo and Cheetah wait near his cave.",
+ "Elephant, Lumo, Buffalo and Cheetah stand close together by the cave with kind faces. Firefly glows in the middle.",
+ "Lumo rests happily under the stars with Elephant, Buffalo and Cheetah close beside him. Firefly glows in the night sky above."
+],
+/* Nina's Tasty Trip: The Magic Spoon. 22 pictures in page order: 14 story pictures, and the 8 dish pictures on the second page of each country. Added 7 Oct 2026. */
+"nina-1": [
+ "Nina and Grandma bake together in a sunny yellow kitchen. Nina rolls out dough, and a tray of biscuits sits on the wooden table.",
+ "Grandma holds out a shiny silver spoon that sparkles. Nina clasps her hands in wonder.",
+ "Nina flies through a bright blue sky with her arms out wide, holding the magic spoon up high. Golden sparkles swirl around her.",
+ "A sunny terrace by the sea in Italy. Nina has a floppy circle of pizza dough on her head, and Luca laughs beside her. A pizza sits on the table near a wood oven.",
+ "A pizza with tomato, melted mozzarella and basil leaves on a white plate with a blue rim. One slice is cut.",
+ "A garden full of pink cherry blossom in Japan. Nina kneels at a low table and picks up a piece of sushi with chopsticks. Aiko claps.",
+ "Sushi rolls with salmon and cucumber, two pieces of salmon sushi and a small bowl of soy sauce on a plate.",
+ "A busy market in Palestine. Nina and Layla stir a bowl of za’atar and olive oil. Round flatbreads topped with za’atar lie on the table, with glasses of mint lemonade.",
+ "A round flatbread covered in green za’atar and sesame seeds on a plate. One piece is torn off.",
+ "A sunny square in Spain. Mateo’s grandpa flips a golden tortilla high out of the pan. Nina, Mateo and the family cheer around a long lunch table.",
+ "A thick, golden tortilla española on a plate. One wedge is cut to show the potato inside.",
+ "A colourful street in Mexico with paper flags overhead. Nina and Diego mash avocados in a bowl to make guacamole. A plate of tacos is on the table.",
+ "Three soft tacos filled with beans, lettuce, salsa and cheese on a plate, with a wedge of lime.",
+ "A kitchen in India. Nina holds up a wobbly chapati and Priya holds up a round one. Priya’s mum smiles as she stirs a pot of dal.",
+ "A bowl of golden dal beside two folded chapatis on a plate.",
+ "A party in a courtyard in Nigeria. Nina and Tunde stir a big pot of jollof rice with a long wooden spoon. Tunde’s auntie, in an orange headwrap and party dress, smiles. Drummers play and people dance.",
+ "A steaming bowl of orange jollof rice with pieces of red pepper.",
+ "A snowy forest in Canada. Nina and Emilie, in warm coats and woolly hats, roll maple syrup onto sticks in the snow. Emilie’s dad holds a small pan of syrup.",
+ "A stack of pancakes on a plate, with a square of butter on top and maple syrup dripping down the sides.",
+ "Night time. Nina flies home through a starry sky above the hills, holding the magic spoon. Golden sparkles swirl around her.",
+ "Back in Grandma’s sunny kitchen, Nina hugs Grandma tight. A tray of warm biscuits sits on the table.",
+ "Nina and Grandma stir a bowl together. The table is covered with food from Nina’s trip: pizza, sushi, mana’eesh, tortilla, tacos, jollof rice, chapatis and pancakes."
+]
+};
+
+/* Pages that come after a story: the lesson in a Faith Story, and Nina's thank-you words and recipes. */
+/* The Number Knights: 20 pictures shared by both versions. */
+ALT["knights"] = ["The town of Numeria. A tall clock tower shines with the golden crystal on top. Numbers are everywhere: apples numbered 1 to 6 on a tree, numbered doors, hopscotch squares and a baker’s tray of numbered buns.", "The same town with the crystal gone. The clock shows a banana, numbers float out of the tree and the baker’s tray is empty. The people look worried.", "King Zero stands on the castle steps. Sir Plus, Lady Minus, Sir Times and Lady Share sit on their horses, and Equals sits on a very small grey pony holding her golden scales.", "Sir Plus kneels on the bridge and hammers in the new planks over the river. Equals holds up her golden scales.", "A green dragon and his baby brother sit by their cave. A pizza cut into 8 slices lies on a rock between them. Lady Share smiles.", "On the sandy beach, Lady Minus rolls 2 cannonballs out of the little boat. The 4 pirates watch.", "Three pirates each hold up 2 biscuits. Equals kneels by the snack bag with 2 more biscuits on the sand, and Captain Dot bends down to thank her.", "The Castle of Shapes on a little island, with triangle towers, reflected in still water.", "At the castle door, the knights grab golden stones from a basket while the giant scales swing. Equals watches, worried.", "Equals stands on the snack bag and shouts STOP. The knights freeze on either side of the giant scales.", "The giant scales hang perfectly level. The great door swings open, and golden light spills out. Equals and the knights look on.", "The Shape Wizard sits at a table of puzzles, holding the glowing crystal. Equals reaches out to him kindly. Sir Plus and Lady Share stand in the doorway.", "The crystal shines on the clock tower again, and the clock says six o’clock. The Shape Wizard walks through the happy town with Equals and the knights.", "At sunset, King Zero gently touches his sword to Equals’ shoulder. The other four knights watch proudly.", "Sir Plus kneels on the long wooden bridge and hammers the last new planks into place over the deep river. Equals holds up her golden scales.", "Lady Share kneels and draws a circle in the sand with the tip of her sword. The dragon and Equals, hiding behind the snack bag, watch her.", "Twelve cannonballs lie on the sand beside the rowing boat. Lady Minus and the pirates cheer.", "Twenty biscuits lie on a checked cloth in 4 rows of 5. The pirates kneel round it, with Sir Times and Equals beside the snack bag.", "Equals stands on the snack bag and shouts STOP. On the giant scales, one side holds the 9 and 6 stones and the other side holds the 8 stone.", "The giant scales hang level, with 9 and 6 on one side and 8 and 7 on the other. The great door swings open and golden light pours out."];
+ALT["knights-long"] = ALT["knights"];
+
+const EXTRAS = {
+"bramble-1": [{"type": "facts", "title": "Meet the Real Forest Friends", "sections": [["Red squirrels, like Bramble", ["Red squirrels do not hibernate. They stay busy all winter.", "They bury nuts and seeds in lots of different places. This is called scatter hoarding.", "They find their buried food again using their amazing sense of smell.", "Red squirrels love hazelnuts and pine cone seeds. Acorns are hard for them to digest.", "A squirrel’s nest is called a drey. It is made of twigs and lined with soft moss.", "In autumn, red squirrels grow little tufts of fur on their ears."]], ["Mice, like Tansley and Emsley", ["Mice do not hibernate. They stay awake all winter.", "They store seeds, nuts and berries in safe hiding places, ready for the cold months.", "Mice often snuggle together in their nests to keep warm."]], ["Hedgehogs, like Hazel", ["Hedgehogs eat lots of beetles, worms and slugs in autumn to grow fat.", "They hibernate from around November until March.", "During hibernation, a hedgehog’s heartbeat slows right down and its body cools.", "A hedgehog’s winter nest is made of leaves and grass. It is called a hibernaculum."]], ["Foxes, like Fern", ["Foxes do not hibernate.", "A fox can hear tiny animals moving under the snow.", "Foxes sometimes bury extra food to eat later, just like squirrels.", "In winter, a fox curls its bushy tail around itself like a warm blanket."]], ["Beavers, like Rylee", ["Beavers have orange teeth. The colour comes from iron, which makes their teeth extra strong.", "A beaver’s home is called a lodge. Its doorway is under the water.", "Before winter, beavers store branches underwater. They swim under the ice to eat the bark.", "Beaver families work together to build and repair their lodge."]]]}, {"type": "facts", "title": "Animals Around the World Get Ready Too", "sections": [["", ["Many birds, like swallows and geese, fly thousands of miles to warmer countries when food becomes scarce. This great journey is called migration.", "Some butterflies, such as the Painted Lady, travel long distances to escape the cold, while others find safe hiding places and rest until spring.", "Some frogs spend winter resting at the bottom of ponds, breathing through their skin. Others hide under logs, stones and piles of leaves.", "Bats find cool, quiet places like caves and old trees, and hibernate until spring.", "Snails seal themselves inside their shells with a thin door of dried slime. It’s their very own tiny sleeping bag!"]]]}],
+"bramble-2": [{"type": "facts", "title": "How the Forest Gets Through Winter", "sections": [["Owls, like Oakley and Sage", ["Tawny owls live in woods. The famous “twit twoo” is really two owls calling to each other.", "Barn owls have special soft feathers, so they can fly without making a sound.", "Owls can hear tiny animals moving under leaves and snow."]], ["Badgers, like Bracken", ["Badgers don’t fully hibernate. In very cold weather, they sleep for days, then wake to look for food.", "A badger’s home is called a sett. Some setts are over 100 years old!", "Badgers drag fresh grass and leaves into their sett to make cosy beds."]], ["Deer, like Willow", ["Deer don’t hibernate or store food. They eat a lot in autumn and store energy in their bodies.", "Baby deer are born with spots. The spots fade by autumn.", "In winter, deer grow a thick grey-brown coat to keep warm.", "Stags grow new antlers every year."]], ["Hedgehogs, like Hazel", ["While Hazel sleeps, she can go for weeks without eating at all.", "A hibernating hedgehog may wake up and move to a new nest during winter, just like Hazel said."]], ["Snow and the forest", ["Snow is like a blanket. Under the snow, the ground stays warmer than the air above.", "Squirrels can smell buried nuts even under the snow.", "Acorns and nuts that squirrels forget to dig up can grow into new trees."]]]}, {"type": "facts", "title": "Bramble’s Winter Lessons", "sections": [["", ["Tansley and Emsley: plan ahead and store your food.", "Hazel: rest, and trust your body.", "Fern: be clever and spread out your chances.", "Rylee: work together and build strong.", "The owls: be patient and keep watching.", "Bracken: prepare, and you’ll be safe.", "Willow: grow strong, and stay together."]]]}],
+lion: [{"type": "lesson", "title": "The lesson", "lines": ["You do not need to hide the real you from God.", "He already knows your strengths, your fears and everything in your heart.", "He stays with you wherever you go and lovingly leads you towards the life He wants for you."]}],
+"brave": [{"type": "facts", "title": "True facts from the jungle", "sections": [["Jaguars", ["Real jaguars live in the rainforests and wild places of Mexico, Central and South America.", "A jaguar cub stays with its mum for about two years while it learns to hunt.", "Unlike most big cats, jaguars love water. They are very strong swimmers.", "Jaguars make a soft puffing sound called a chuff. They cannot purr like a pet cat."]], ["Parrots", ["The parrot in this story looks like a scarlet macaw, which has red, blue and yellow feathers.", "Some parrots can copy sounds they hear, even words.", "Macaws can live for a very long time. Some live for more than 50 years."]], ["Bats", ["Bats are the only mammals that can really fly.", "Bats are not blind. Many bats also find their way in the dark by making tiny sounds and listening for the echoes."]], ["Rope bridges", ["In Peru, people still make a rope bridge from woven grass every year, using skills passed down for more than 500 years."]], ["Staying safe", ["Never touch a wild animal, even a baby. Its mum is usually close by."]]]}],
+"soa": [{"type": "recipes", "title": "Try it together", "intro": "A listening game to play outside, just like Sadie.", "items": [{"title": "Autumn Sound Hunt", "need": "A grown-up, warm clothes and boots, and your listening ears.", "steps": ["Go outside with a grown-up on an autumn day.", "Stand very still and close your eyes.", "Listen. What can you hear?", "Crunch some leaves. Snap a twig. Is it loud or soft?", "Listen for the wind, the rain, or a bird singing.", "Back inside, draw the sounds you found.", "Make up your own sound words, like Sadie!"], "note": "Crunch, whoosh, splash. How many sounds did you find?"}]}],
+"max-mia": [{"type": "recipes", "title": "Make it together", "intro": "Autumn crafts and a recipe from Max and Mia’s week, to make with your family.", "items": [{"title": "Leaf Crown", "need": "Colourful autumn leaves (real or paper), a long strip of thick paper or card, glue or tape, scissors, crayons.", "steps": ["Wrap the strip around your head to measure it.", "Ask a grown-up to help you cut it to size.", "Tape or glue the ends together to make a ring.", "Pick your favourite leaves and glue them on.", "Add extra decorations with crayons if you like.", "Wear your crown proudly!"]}, {"title": "Pinecone Owl", "need": "A pinecone, small leaves or felt, paper eyes, glue, small twigs.", "steps": ["Pick a pinecone that stands up on its own.", "Glue two eyes near the top.", "Glue a little leaf or felt beak below the eyes.", "Glue leaves or felt to the sides for wings.", "Add twigs for feet if you like.", "Let your owl dry, then put it on a windowsill."], "note": "Tip: make a whole family of pinecone owls!"}, {"title": "Mum’s Apple Pie", "need": "5 apples, 2 sheets of ready-rolled shortcrust pastry, 50 g sugar, 1 teaspoon cinnamon, 2 tablespoons butter, a pie dish.", "steps": ["Ask a grown-up to heat the oven to 180°C (160°C fan).", "Ask a grown-up to peel and slice the apples.", "Lay one sheet of pastry in the dish and add the apples.", "Sprinkle the sugar and cinnamon over the apples.", "Dot small pieces of butter on top.", "Cover with the second sheet and press the edges with a fork.", "Ask a grown-up to bake it for 35 to 40 minutes, until golden.", "Let it cool a little, then share it with your family!"], "note": "A grown-up helps with the oven and the knife."}, {"title": "Draw Your Own Autumn Adventure", "steps": ["Get some paper and crayons or coloured pencils.", "Imagine your perfect autumn day.", "Draw yourself jumping in leaves, picking apples or flying a kite.", "Add your family, your friends and maybe a little dog!", "Show your picture to your family."], "note": "There is no right or wrong. Just have fun!"}]}],
+"nina-1": [{"type": "thanks", "title": "Say thank you like Nina", "rows": [["Grazie", "Italian", "GRAHT-see-eh"], ["Arigato", "Japanese", "ah-ree-GAH-toh"], ["Shukran", "Arabic", "shoo-KRAN"], ["Gracias", "Spanish (Spain)", "GRAH-see-ass"], ["Gracias", "Spanish (Mexico)", "GRAH-see-ass"], ["Dhanyavaad", "Hindi", "DHUN-yuh-vaad"], ["E se", "Yoruba", "eh-SHAY"], ["Merci", "French", "mair-SEE"]]}, {"type": "recipes", "title": "Nina’s Tasty Trip Recipes", "intro": "Simple recipes with a grown-up to help. Always ask a grown-up to use the oven, the hob and anything sharp.", "outro": "Have fun cooking your way around the world, just like Nina!", "items": [{"title": "1. Mini Pizzas (Italy)", "need": "English muffins or pita bread, tomato sauce, grated mozzarella, toppings you like.", "steps": ["A grown-up heats the oven to 180°C (350°F).", "Spread sauce on the bread.", "Add cheese and toppings.", "A grown-up bakes them for 5 to 10 minutes, until the cheese bubbles.", "Cool a little, then enjoy."]}, {"title": "2. Easy Sushi Rolls (Japan)", "need": "cooked sushi rice, nori (seaweed sheets), sliced cucumber or avocado, a bamboo mat or cling film.", "steps": ["Lay the nori on the mat.", "Spread a thin layer of rice on top, leaving a gap at the far edge.", "Add cucumber or avocado in a line.", "Roll it up tightly.", "A grown-up slices it into pieces. Dip in soy sauce."]}, {"title": "3. Za’atar Mana’eesh (Palestine)", "need": "flatbread or pita bread, olive oil, za’atar (from the shop, or mix thyme, sesame seeds and sumac).", "steps": ["A grown-up heats the oven to 180°C (350°F).", "Mix the za’atar with olive oil.", "Spread it on the bread.", "A grown-up bakes it for 5 to 7 minutes, until warm and crispy."]}, {"title": "4. Tortilla Española (Spain)", "need": "1 potato and 1 onion (both thinly sliced by a grown-up), 3 eggs, olive oil, a pinch of salt.", "steps": ["A grown-up softens the potato and onion in a pan with oil.", "Whisk the eggs with salt, then stir in the potato and onion.", "A grown-up cooks it gently for 5 to 7 minutes, then flips it with a plate, just like Mateo’s grandpa.", "Cut it like a cake."]}, {"title": "5. Easy Tacos (Mexico)", "need": "soft corn or flour tortillas, cooked beans or mince, grated cheese, salsa, lettuce if you like.", "steps": ["A grown-up warms the tortillas.", "Fill them with beans or mince.", "Add cheese, salsa and lettuce.", "Fold and eat."]}, {"title": "6. Easy Chapatis (India)", "need": "2 cups of wholewheat flour, about 3/4 cup of warm water, a pinch of salt.", "steps": ["Mix the flour, salt and water into a soft dough.", "Knead for 5 minutes.", "Make small balls and roll them into circles (map shapes are allowed!).", "A grown-up cooks each one in a dry, hot pan for about a minute on each side, until it puffs."]}, {"title": "7. Jollof Rice (Nigeria)", "need": "1 cup of rice, 1 cup of tomato sauce, 1 chopped onion, 1 chopped red pepper, 1 teaspoon paprika, a little oil, 2 cups of water.", "steps": ["A grown-up softens the onion and pepper in oil.", "Add the tomato sauce, paprika and rice, and stir.", "Add the water.", "Simmer for 15 to 20 minutes, until the rice is soft."]}, {"title": "8. Maple Syrup Pancakes (Canada)", "need": "pancake batter (flour, milk, egg and baking powder, or a ready mix), butter, maple syrup.", "steps": ["A grown-up cooks the pancakes in a hot pan until golden on both sides.", "Stack them up and add a little butter.", "Pour on the maple syrup."]}]}]
+};
+
+const SLUGS = {"milo": "milo-and-the-starry-sand", "benny": "benny-the-bunnys-bold-leap", "benny-2": "benny-and-the-secret-meadow", "eri": "eri-and-the-magic-book", "bramble-1": "bramble-and-the-first-frost", "bramble-2": "bramble-braves-the-snow", "max-mia": "max-and-mias-autumn-week", "soa": "the-sounds-of-autumn", "brave": "team-brave-and-the-jungle-quest", "nina-1": "ninas-tasty-trip-the-magic-spoon", "knights": "the-number-knights-short-read", "knights-long": "the-number-knights-longer-read", "lion": "the-lion-who-was-afraid-of-the-dark"};
+const view = document.getElementById('view');
+const hero = document.getElementById('hero');
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad = n => String(n).padStart(2,'0');
+
+function card(s){
+  const tags = `<span class="tag">${s.occasion}</span><span class="tag">${s.theme}</span>${s.cardTime?`<span class="tag">${s.cardTime}</span>`:s.minutes?`<span class="tag">${s.minutes} min read</span>`:''}`;
+  const cover = s.cover
+    ? `<div class="cover has-img"><img src="${s.cover}" alt="${esc(s.coverAlt||'')}" width="800" height="600" loading="lazy"></div>`
+    : `<div class="cover" style="background:${s.colour}">${esc(s.title)}</div>`;
+  const inner = `${cover}
+    <div class="info"><h3>${esc(s.title)}</h3><div class="meta">${tags}</div>${s.ready?'':'<span class="soon">Coming soon</span>'}</div>`;
+  return s.ready ? `<a class="book" href="#story-${s.id}">${inner}</a>` : `<div class="book">${inner}</div>`;
+}
+function shelf(name){ return `<div class="shelf">${STORIES.filter(s=>s.shelf===name).map(card).join('')}</div>`; }
+
+const PAGES = {
+  home: () => `
+    <section class="section-head"><h2>New on the shelf</h2><p>Short stories, chapter books, and the Nina's Tasty Trip series in order.</p></section>
+    ${shelf('main')}
+    <section class="section-head"><h2>Faith Stories</h2><p>Gentle stories with a Bible verse or Christian message.</p></section>
+    ${shelf('faith')}
+    <section class="promise" aria-label="How the stories work">
+      <div><h3>Dyslexia-friendly, always</h3><p>One button switches any story to a clearer font, wider spacing and a calm cream page.</p></div>
+      <div><h3>Read aloud</h3><p>Listen to Tania read the stories on the <a href="https://www.youtube.com/@TansleyTales" target="_blank" rel="noopener">Tansley Tales YouTube channel</a>.</p></div>
+      <div><h3>No sign-ups</h3><p>Children can read without an account. We collect no personal details.</p></div>
+    </section>`,
+  library: () => `
+    <section class="section-head"><h2>All stories</h2><p>Pick a story. Every one has a dyslexia-friendly version.</p></section>
+    ${shelf('main')}
+    <section class="section-head"><h2>Faith Stories</h2></section>
+    ${shelf('faith')}`,
+  about: () => `
+    <section class="section-head"><h2>About Tansley Tales</h2></section>
+    <div class="prose">
+      <p>Hello, I'm Tania Jacobs. I'm a teacher, a children's author and a mum.</p>
+      <p>My daughter is dyslexic and has ADHD. Watching her work so hard to read and stay focused opened my eyes to how many children find books a struggle, and how few stories are made with them in mind.</p>
+      <p>So I made Tansley Tales. It's a cosy place for stories that every child can enjoy. Every story has a dyslexia-friendly version, one tap away, with a clearer font, wider spacing and a calm cream page.</p>
+      <p>You can also listen to me read the stories on the <a href="https://www.youtube.com/@TansleyTales" target="_blank" rel="noopener">Tansley Tales YouTube channel</a>.</p>
+      <p>Grab a cosy spot, and happy reading.</p>
+      <p>Tania</p>
+      <p><a href="#how">How our stories are made</a></p>
+    </div>`,
+  how: () => `
+    <section class="section-head"><h2>How our stories are made</h2></section>
+    <div class="prose">
+      <p>Hello, I'm Tania. I'm a teacher and a mum, and Tansley Tales is my home for stories that every child can enjoy.</p>
+      <p>I want to be open with you about how these stories are made.</p>
+      <p>The ideas are mine. Each story starts with something I care about, often something I have seen in my classroom or at home.</p>
+      <p>I use AI to help write the words. Then I read every line. I change what is not right, and I keep going until the story says what I want it to say.</p>
+      <p>The pictures are made with AI. I choose each one and check it.</p>
+      <p>A real person checks everything. That person is me. Facts about animals and nature are checked too, so children learn something true.</p>
+      <p>The voice on YouTube is my own voice. I read every story myself.</p>
+      <p>Why do I work this way? Because it lets one busy teacher make many more dyslexia-friendly stories than she could on her own. Every child deserves a story they can read.</p>
+      <p>If you have a question about any story, please write to me. I will always answer honestly.</p>
+      <p>Tania</p>
+    </div>`,
+  privacy: () => `
+    <section class="section-head"><h2>Privacy</h2><p>Last updated: 12 October 2026</p></section>
+    <div class="prose">
+      <p>Tansley Tales is a reading website for children. We keep things simple and safe.</p>
+      <p>We do not ask children for names, email addresses, photos or any other personal details. There are no accounts and no sign-ups.</p>
+      <p>The site remembers one thing on your device: whether you last chose the dyslexia-friendly version. This setting stays in your own browser and is never sent to us.</p>
+      <p>We do not show adverts, and we do not sell or share information.</p>
+      <p>Each story has its own page with Tania’s read-aloud video. The videos play through YouTube’s privacy-enhanced mode, and links to our YouTube channel take you to YouTube. YouTube has its own privacy rules.</p>
+      <p>We follow South Africa's Protection of Personal Information Act (POPIA). If you have a question, please email <a href="mailto:hello@tansleytales.com">hello@tansleytales.com</a>.</p>
+    </div>`
+};
+
+function readPref(){ try{ return localStorage.getItem('tt-dys')==='1'; }catch(e){ return false; } }
+function savePref(v){ try{ localStorage.setItem('tt-dys', v?'1':'0'); }catch(e){} }
+
+function lines(sp){
+  return sp.map(l=>{
+    if(l==='') return `<div class="brk" aria-hidden="true"></div>`;
+    if(l[0]==='@'){ const [a,b] = l.slice(1).split(': '); return `<h2 class="chapter"><span>${esc(a)}</span>${esc(b)}</h2>`; }
+    if(l[0]==='~') return `<p class="rhyme">${esc(l.slice(1))}</p>`;
+    if(l[0]==='?') return `<p class="prompt">${esc(l.slice(1))}</p>`;
+    if(l[0]==='^') return `<p class="shout">${esc(l.slice(1))}</p>`;
+    if(l[0]==='!') return `<p class="moral">${esc(l.slice(1))}</p>`;
+    if(l[0]==='#') return `<p class="end">${esc(l.slice(1))}</p>`;
+    return `<p>${esc(l)}</p>`;}).join('');
+}
+
+function extras(id){
+  return (EXTRAS[id]||[]).map(x => {
+    let body = '';
+    if(x.type==='lesson') body = x.lines.map(l=>`<p>${esc(l)}</p>`).join('');
+    if(x.type==='thanks') body = `<dl class="thanks">${x.rows.map(r=>`<div><dt>${esc(r[0])} <span>(${esc(r[1])})</span></dt><dd>say ${esc(r[2])}</dd></div>`).join('')}</dl>`;
+    if(x.type==='facts') body = x.sections.map(sc=>`<section class="recipe">${sc[0]?`<h3>${esc(sc[0])}</h3>`:''}${sc[1].map(l=>`<p>${esc(l)}</p>`).join('')}</section>`).join('');
+    if(x.type==='recipes') body = `<p class="lead-in">${esc(x.intro)}</p>` + x.items.map(r=>`<section class="recipe">
+        <h3>${esc(r.title)}</h3>
+        ${r.need?`<p><strong>You need:</strong> ${esc(r.need)}</p>`:''}
+        <p><strong>How:</strong></p>
+        <ol>${r.steps.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>${r.note?`<p><strong>${esc(r.note)}</strong></p>`:''}
+      </section>`).join('') + (x.outro?`<p class="moral">${esc(x.outro)}</p>`:'');
+    return `<div class="sheet"><div class="story extra"><h2>${esc(x.title)}</h2>${body}</div></div>`;
+  }).join('');
+}
+
+function readerHead(s){
+  const ded = s.dedication ? `<p class="dedication">${esc(s.dedication[0])}<span>${esc(s.dedication[1])}</span></p>` : '';
+  return `<div class="reader-head">
+      <a href="#library">← All stories</a>
+      <h1>${esc(s.title)}</h1>
+      <p class="credit"><strong>A Tansley Tales Story</strong><span>${s.label==='A' ? 'Written and read by Tania Jacobs' : 'Created and read by Tania Jacobs'}</span><small>${s.label==='A' ? 'Pictures made with AI' : 'Words and pictures made with AI, then edited and checked by Tania'}</small></p>
+      <div class="meta"><span class="tag">${s.readOccasion||s.occasion}</span><span class="tag">${s.theme}</span><span class="tag">${s.minutes} min read</span></div>
+      ${ded}
+    </div>
+    ${s.versions ? `<div class="controls read-way" role="group" aria-label="Read it your way">
+      <span class="label">Read it your way</span>
+      ${s.versions.map(v=>`<a class="btn ghost" href="#story-${v[0]}"${v[0]===s.id?' aria-current="true"':''}>${esc(v[1])}</a>`).join('')}
+    </div>` : ''}
+    ${s.yt ? `<div class="controls" role="group" aria-label="Listen to this story">
+      <span class="label">Listen</span>
+      <a class="btn ghost" href="${SLUGS[s.id]||('https://www.youtube.com/watch?v='+s.yt)}">Watch Tania read it</a>
+    </div>` : ''}
+    <div class="controls" role="group" aria-label="Reading options">
+      <span class="label">Reading style</span>
+      <button class="btn ghost" id="dys-toggle" type="button" aria-pressed="false">Dyslexia-friendly</button>
+    </div>`;
+}
+
+function storyPage(id){
+  const s = STORIES.find(x=>x.id===id);
+  if(!s || !TEXT[id]) return PAGES.library();
+  if(s.pics){
+    /* picture-book mode: the picture and words are filled in by showPage() */
+    return `<article class="reader">
+      ${readerHead(s)}
+      <div class="sheet pb${s.blend?' blend':''}" id="pb">
+        <figure><img id="pb-img" src="" alt="" width="1200" height="670"></figure>
+        <div class="story" id="pb-text" aria-live="polite"></div>
+        <div class="pager">
+          <button class="btn ghost back" id="pb-back" type="button">← Back</button>
+          <span class="count" id="pb-count"></span>
+          <button class="btn next" id="pb-next" type="button">Next →</button>
+        </div>
+        <div class="track" aria-hidden="true"><div id="pb-fill"></div></div>
+      </div>
+      ${extras(id)}
+      <p class="after"><a href="#library">Choose another story</a></p>
+    </article>`;
+  }
+  const body = TEXT[id].map(sp => `<section>${lines(sp)}</section>`).join('');
+  return `<article class="reader">
+    ${readerHead(s)}
+    <div class="sheet"><div class="story">${body}</div></div>
+    ${extras(id)}
+    <p class="after"><a href="#library">Choose another story</a></p>
+  </article>`;
+}
+
+/* picture-book state */
+let pbStory = null, pbPage = 0;
+function picFor(s, page){ return s.picMap ? s.picMap[page] : page+1; }   /* picture number for a page */
+function showPage(n, scroll){
+  const s = pbStory, pages = TEXT[s.id], total = pages.length;
+  pbPage = Math.max(0, Math.min(total-1, n));
+  const img = document.getElementById('pb-img'), pic = picFor(s, pbPage), src = `${s.pics}${pad(pic)}.webp`;
+  if(img.getAttribute('src') !== src) img.src = src;
+  img.alt = (ALT[s.id]||[])[pic-1] || '';
+  document.getElementById('pb-text').innerHTML = lines(pages[pbPage]);
+  document.getElementById('pb-count').textContent = `Page ${pbPage+1} of ${total}`;
+  document.getElementById('pb-fill').style.width = `${(pbPage+1)/total*100}%`;
+  document.getElementById('pb-back').disabled = pbPage===0;
+  document.getElementById('pb-next').textContent = pbPage===total-1 ? 'Read it again' : 'Next →';
+  if(pbPage < total-1){ const pre = new Image(); pre.src = `${s.pics}${pad(picFor(s, pbPage+1))}.webp`; }   /* fetch the next picture early */
+  if(scroll){
+    const box = document.getElementById('pb'), top = box.getBoundingClientRect().top;
+    if(top < 0 || top > window.innerHeight*0.5) box.scrollIntoView({block:'start'});
+  }
+}
+function turn(step){
+  if(!pbStory || !document.getElementById('pb')) return;
+  const total = TEXT[pbStory.id].length;
+  if(step>0 && pbPage===total-1) showPage(0, true); else showPage(pbPage+step, true);
+}
+document.addEventListener('keydown', e => {
+  if(e.altKey||e.ctrlKey||e.metaKey) return;
+  if(e.key==='ArrowRight') turn(1);
+  if(e.key==='ArrowLeft' && pbPage>0) turn(-1);
+});
+
+function applyDys(on){
+  document.body.classList.toggle('dys', on);
+  const b = document.getElementById('dys-toggle');
+  if(b){ b.setAttribute('aria-pressed', on?'true':'false'); b.textContent = on ? 'Dyslexia-friendly: on' : 'Dyslexia-friendly'; }
+}
+
+function route(){
+  const h = (location.hash || '#home').slice(1);
+  let html, nav = h;
+  pbStory = null;
+  if(h.startsWith('story-')){ html = storyPage(h.slice(6)); nav = 'library'; }
+  else html = (PAGES[h] || PAGES.home)();
+  view.innerHTML = html;
+  hero.hidden = !(h==='home' || !PAGES[h] && !h.startsWith('story-'));
+  document.querySelectorAll('[data-nav]').forEach(a => { if(a.dataset.nav===nav) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+  const b = document.getElementById('dys-toggle');
+  if(b) b.addEventListener('click', () => { const on = !document.body.classList.contains('dys'); applyDys(on); savePref(on); });
+  applyDys(readPref() && !!b);
+  if(document.getElementById('pb')){
+    pbStory = STORIES.find(x=>x.id===h.slice(6));
+    document.getElementById('pb-back').addEventListener('click', () => turn(-1));
+    document.getElementById('pb-next').addEventListener('click', () => turn(1));
+    showPage(0, false);
+  }
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange', route);
+route();
+
+/* quiet star field in the masthead */
+(function(){
+  const c = document.getElementById('stars'), x = c.getContext('2d');
+  function draw(){
+    const r = c.getBoundingClientRect(), d = window.devicePixelRatio||1;
+    c.width = r.width*d; c.height = r.height*d; x.scale(d,d);
+    let seed = 7; const rnd = () => (seed = (seed*9301+49297)%233280)/233280;
+    for(let i=0;i<Math.round(r.width/9);i++){
+      const px = rnd()*r.width, py = rnd()*r.height, sz = rnd()*1.6+.3;
+      x.fillStyle = `rgba(255,240,200,${.35+rnd()*.6})`;
+      x.beginPath(); x.arc(px,py,sz,0,Math.PI*2); x.fill();
+    }
+  }
+  draw(); window.addEventListener('resize', draw);
+})();
+</script>
+
+</body></html>
