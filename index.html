@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
-<style>[hidden]{display:none!important}img{max-width:100%}</style>
+<style>[hidden]{display:none!important}img{max-width:100%}.about-pic{display:block;width:100%;height:auto;border-radius:18px;margin:0 0 28px}@media(max-width:600px){.about-pic{max-width:340px;margin:0 auto 28px}}footer nav a{color:var(--ink);padding:6px 2px;font-size:inherit;text-decoration:underline;text-underline-offset:3px;line-height:2.2}.about-sign{margin-top:24px}</style>
 <title>Tansley Tales: Free Read-Aloud Stories for Kids, Dyslexia-Friendly</title>
 <meta name="description" content="Free children’s stories to read together or watch read aloud. Bedtime stories, picture books and chapter books, each with a dyslexia-friendly version.">
 <link rel="canonical" href="https://tansleytales.com/">
@@ -753,12 +753,14 @@ const PAGES = {
   about: () => `
     <section class="section-head"><h2>About Tansley Tales</h2></section>
     <div class="prose">
-      <p>Hello, I'm Tania Jacobs. I'm a teacher, a children's author and a mum.</p>
-      <p>My daughter is dyslexic and has ADHD. Watching her work so hard to read and stay focused opened my eyes to how many children find books a struggle, and how few stories are made with them in mind.</p>
-      <p>So I made Tansley Tales. It's a cosy place for stories that every child can enjoy. Every story has a dyslexia-friendly version, one tap away, with a clearer font, wider spacing and a calm cream page.</p>
-      <p>You can also listen to me read the stories on the <a href="https://www.youtube.com/@TansleyTales" target="_blank" rel="noopener">Tansley Tales YouTube channel</a>.</p>
-      <p>Grab a cosy spot, and happy reading.</p>
-      <p>Tania</p>
+      <picture><source media="(max-width:600px)" srcset="tania-about-phone.webp"><img class="about-pic" src="tania-about.webp" width="1200" height="675" alt="Tania Jacobs, teacher, children's author and mum, smiling in her glasses"></picture>
+      <h3>Hello, I'm Tania</h3>
+      <p>I'm a teacher, a children's author and a mum, and Tansley Tales is my free story library for children and the grown-ups who read with them.</p>
+      <p>I believe every child can become a confident reader with the right start. I've seen children light up when a story finally feels within their reach, and I've seen how quickly they give up when it doesn't. A child's chance to love reading shouldn't depend on what their family can afford, or on whether a book was made with them in mind.</p>
+      <p>That's why every story here is free, and every one has a dyslexia-friendly version, one tap away. You can read together, or <a href="https://www.youtube.com/@TansleyTales" target="_blank" rel="noopener">watch and listen as I read aloud</a>.</p>
+      <p>Every child has so much potential. We only get to see it when they have the stories and support to help it grow. Tansley Tales is my small part in making that happen.</p>
+      <p>Please enjoy the stories, use them at home or in your classroom, and share them with anyone who might need them. Come back as often as you like.</p>
+      <p class="about-sign"><strong>Tania Jacobs</strong><br>Teacher, children's author and mum</p>
       <p><a href="#how">How our stories are made</a></p>
     </div>`,
   how: () => `
